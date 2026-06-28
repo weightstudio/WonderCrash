@@ -608,7 +608,7 @@ function drawWeaponSlot(x, y, size, index) {
   ctx.stroke();
 
   if (weapon) {
-    const iconSize = size * 0.66;
+    const iconSize = size * 0.8;
     const iconX = x + (size - iconSize) / 2;
     const iconY = y + (size - iconSize) / 2;
     ctx.drawImage(images[weapon.projectile] || images.eraser, iconX, iconY, iconSize, iconSize);

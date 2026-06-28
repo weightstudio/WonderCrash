@@ -40,9 +40,9 @@ Use this style for all generated assets:
 | Exists | `enemy-fridge.png` | Enemy type 3 | 512x512 | silly animated refrigerator enemy, cute not scary, transparent background, same 2D mobile game style |
 | Exists | `enemy-wardrobe.png` | Enemy type 4 | 512x512 | silly animated wardrobe enemy, cute not scary, transparent background, same 2D mobile game style |
 | Exists | `enemy-surveillance.png` | Enemy type 5 | 512x512 | silly animated security camera enemy, cute not scary, transparent background, same 2D mobile game style |
-| Needed | `enemy-books.png` | Future enemy: book stack caster | 512x512 | silly animated stack of school books enemy, cute not scary, transparent background, same 2D mobile game style |
-| Needed | `enemy-clock.png` | Future enemy: time-slow clock | 512x512 | silly animated alarm clock enemy, cute not scary, transparent background, same 2D mobile game style |
-| Needed | `enemy-pencilbox.png` | Future enemy: splitting pencil box | 512x512 | silly animated pencil box enemy with pencils, cute not scary, transparent background, same 2D mobile game style |
+| Exists | `enemy-books.png` | Enemy type 6: zigzag caster | 512x512 | silly animated stack of school books enemy, cute not scary, transparent background, same 2D mobile game style |
+| Exists | `enemy-clock.png` | Enemy type 7: fast dasher | 512x512 | silly animated alarm clock enemy, cute not scary, transparent background, same 2D mobile game style |
+| Exists | `enemy-pencilbox.png` | Enemy type 8: strong breaker | 512x512 | silly animated pencil box enemy with pencils, cute not scary, transparent background, same 2D mobile game style |
 
 ## Next Image Requests
 

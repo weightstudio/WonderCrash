@@ -52,5 +52,8 @@ The main menu uses five bottom tabs:
 - Fridge: tank. Slow, high HP, first hit is reduced by armor. Good target for damage upgrades.
 - Wardrobe: breaker. Slow-ish, higher HP and high wall damage. Must be killed before reaching the wall.
 - Surveillance: dasher. Medium stats, occasionally surges downward. Creates pressure spikes.
+- Books: caster. Lower speed, higher HP, zigzags and pays more coins.
+- Clock: sprinter. Fast and lighter, creates late-game timing pressure.
+- Pencil box: bruiser. High HP and wall damage, introduced as a late-game priority target.
 
 Enemy waves still define baseline difficulty. Enemy type multipliers create different behavior inside that difficulty.
