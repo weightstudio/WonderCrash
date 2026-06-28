@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Wonder Crash Demo</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <canvas id="game" width="950" height="1688" aria-label="Wonder Crash game demo"></canvas>
+
+      <div id="battleHud" class="hud top-right hidden">
+        <div>&#38364;&#21345; <span id="levelText">1</span></div>
+        <div>Wave <span id="waveText">1/1</span></div>
+        <div class="coin-line"><img src="assets/coin.png" alt="" /> <span id="coinText">0</span></div>
+      </div>
+
+      <button id="settingsBtn" type="button" class="settings-btn hidden" aria-label="Settings">&#9881;</button>
+
+      <div id="overlay" class="overlay">
+        <h1 class="hidden">Wonder Crash</h1>
+        <div id="menuCoinLine" class="menu-coin-line"><img src="assets/coin.png" alt="" /> <span id="menuCoinText">0</span></div>
+        <p id="overlayText">&#20027;&#36984;&#21934;</p>
+        <div id="menuContent" class="menu-content">
+          <div id="profilePanel" class="profile-panel"></div>
+          <div id="levelGrid" class="level-grid"></div>
+        </div>
+        <div id="upgradeGrid" class="upgrade-grid hidden"></div>
+        <div id="pausePanel" class="pause-panel hidden">
+          <button id="resumeBtn" type="button">&#32380;&#32396;</button>
+          <button id="leaveBtn" type="button">&#38626;&#38283;&#25136;&#39717;</button>
+        </div>
+        <button id="startBtn" type="button" class="hidden">&#38283;&#22987;</button>
+        <nav id="menuTabs" class="menu-tabs">
+          <button type="button" data-menu-tab="character"><img src="assets/menu-character.png" alt="" /><span>&#35282;&#33394;</span></button>
+          <button type="button" data-menu-tab="equipment"><img src="assets/menu-equipment.png" alt="" /><span>&#35037;&#20633;</span></button>
+          <button type="button" data-menu-tab="battle"><img src="assets/menu-battle.png" alt="" /><span>&#25136;&#39717;</span></button>
+          <button type="button" data-menu-tab="wall"><img src="assets/menu-wall.png" alt="" /><span>&#22478;&#29254;</span></button>
+          <button type="button" data-menu-tab="settings"><img src="assets/menu-settings.png" alt="" /><span>&#35373;&#23450;</span></button>
+        </nav>
+      </div>
+    </main>
+
+    <script src="src/game-data.js"></script>
+    <script src="src/game.js"></script>
+  </body>
+</html>
