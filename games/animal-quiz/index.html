@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#67b66f" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Animal Quiz - WeightPlay</title>
+    <link rel="stylesheet" href="style.css?v=20260629-animal1" />
+  </head>
+  <body>
+    <main class="animal-game">
+      <header class="topbar">
+        <a class="home-link" href="../../index.html" aria-label="Back to lobby">⌂</a>
+        <div>
+          <p id="brandText">WeightPlay</p>
+          <h1 id="titleText">Animal Quiz</h1>
+        </div>
+        <label class="language-picker">
+          <span id="languageLabel">Language</span>
+          <select id="localeSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+          </select>
+        </label>
+      </header>
+
+      <section class="level-line" aria-label="Level progress">
+        <span id="levelText">Level 1 / 8</span>
+        <div><i id="levelFill"></i></div>
+      </section>
+
+      <section class="quiz-stage">
+        <div class="animal-card">
+          <img id="animalImage" src="" alt="" />
+          <strong id="promptText">Who is this animal?</strong>
+          <span id="clueText"></span>
+        </div>
+      </section>
+
+      <section id="choiceGrid" class="choice-grid" aria-label="Answer choices"></section>
+
+      <section class="feedback" aria-live="polite">
+        <strong id="feedbackText">Choose one</strong>
+      </section>
+
+      <div id="resultPanel" class="result-panel hidden">
+        <div class="result-card">
+          <strong id="resultTitle">Great job!</strong>
+          <span id="resultText"></span>
+          <button id="againBtn" type="button">Play Again</button>
+          <a id="homeText" href="../../index.html">Lobby</a>
+        </div>
+      </div>
+
+      <div id="loadingPanel" class="loading-panel">
+        <div class="loading-card">
+          <strong id="loadingTitle">Loading</strong>
+          <span id="loadingText">0%</span>
+          <div><i id="loadingFill"></i></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../src/site-config.js?v=20260629-animal1"></script>
+    <script src="../../src/analytics.js?v=20260629-animal1"></script>
+    <script>
+      window.WonderAnalytics?.track("game_view", { game_id: "animal-quiz" });
+    </script>
+    <script src="../../src/sound.js?v=20260629-animal1"></script>
+    <script src="../../src/i18n.js?v=20260629-animal1"></script>
+    <script src="game.js?v=20260629-animal1"></script>
+  </body>
+</html>

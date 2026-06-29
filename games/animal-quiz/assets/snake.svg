@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Snake">
+  <rect width="240" height="240" rx="28" fill="#e6ffd6"/>
+  <path d="M57 156c22 34 82 29 91 0 7-22-35-31-23-55 11-22 53-12 57 16" fill="none" stroke="#55a83f" stroke-width="28" stroke-linecap="round"/>
+  <path d="M151 104c12-16 37-16 50 1 7 9 5 21-5 28-20 14-47-6-45-29z" fill="#68c04f"/>
+  <circle cx="178" cy="113" r="5" fill="#142414"/>
+  <circle cx="199" cy="116" r="5" fill="#142414"/>
+  <path d="M207 128l17 8-17 6" fill="none" stroke="#e04545" stroke-width="4" stroke-linecap="round"/>
+  <path d="M94 137c19 10 35 10 49 0" fill="none" stroke="#32852f" stroke-width="8" stroke-linecap="round"/>
+</svg>

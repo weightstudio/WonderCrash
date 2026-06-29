@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Lion">
+  <rect width="240" height="240" rx="28" fill="#fff3c4"/>
+  <circle cx="120" cy="122" r="76" fill="#c8782b"/>
+  <circle cx="120" cy="122" r="54" fill="#f3b24a"/>
+  <circle cx="83" cy="78" r="24" fill="#c8782b"/>
+  <circle cx="157" cy="78" r="24" fill="#c8782b"/>
+  <circle cx="83" cy="78" r="12" fill="#f3b24a"/>
+  <circle cx="157" cy="78" r="12" fill="#f3b24a"/>
+  <circle cx="99" cy="112" r="8" fill="#2b241f"/>
+  <circle cx="141" cy="112" r="8" fill="#2b241f"/>
+  <path d="M111 136q9 9 18 0" fill="none" stroke="#2b241f" stroke-width="7" stroke-linecap="round"/>
+  <path d="M120 120l-12 14h24z" fill="#684127"/>
+  <path d="M88 146q32 27 64 0" fill="none" stroke="#684127" stroke-width="8" stroke-linecap="round"/>
+</svg>

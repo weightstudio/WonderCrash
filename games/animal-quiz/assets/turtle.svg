@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Turtle">
+  <rect width="240" height="240" rx="28" fill="#e0fff3"/>
+  <circle cx="120" cy="131" r="61" fill="#4a9f58"/>
+  <path d="M72 132c10-43 86-43 96 0-14 29-82 29-96 0z" fill="#7ac665"/>
+  <path d="M120 87v91M78 132h84M91 101q29 28 58 0M91 163q29-25 58 0" fill="none" stroke="#3a8647" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="120" cy="59" r="27" fill="#72bd63"/>
+  <circle cx="110" cy="56" r="5" fill="#132315"/>
+  <circle cx="130" cy="56" r="5" fill="#132315"/>
+  <path d="M111 71q9 7 18 0" fill="none" stroke="#132315" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="60" cy="137" r="16" fill="#72bd63"/>
+  <circle cx="180" cy="137" r="16" fill="#72bd63"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-label="Hippo">
+  <rect width="240" height="240" rx="28" fill="#dff4ff"/>
+  <ellipse cx="120" cy="122" rx="78" ry="63" fill="#8f9abb"/>
+  <circle cx="76" cy="76" r="23" fill="#8f9abb"/>
+  <circle cx="164" cy="76" r="23" fill="#8f9abb"/>
+  <ellipse cx="120" cy="142" rx="58" ry="36" fill="#b5bdd4"/>
+  <circle cx="98" cy="108" r="8" fill="#25283b"/>
+  <circle cx="142" cy="108" r="8" fill="#25283b"/>
+  <circle cx="103" cy="137" r="5" fill="#596078"/>
+  <circle cx="137" cy="137" r="5" fill="#596078"/>
+  <path d="M92 158q28 16 56 0" fill="none" stroke="#596078" stroke-width="8" stroke-linecap="round"/>
+</svg>
