@@ -1,8 +1,8 @@
 :root {
-  color-scheme: light;
+  color-scheme: dark;
   font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
-  background: #d9f2ff;
-  color: #172033;
+  background: #0f172a;
+  color: #f8fafc;
 }
 
 * {
@@ -23,7 +23,10 @@ body {
 body {
   display: grid;
   place-items: center;
-  background: linear-gradient(180deg, #8dd7ff 0%, #f7df87 58%, #56ba6e 100%);
+  background:
+    radial-gradient(circle at 20% 8%, rgba(34, 211, 238, 0.22), transparent 34%),
+    radial-gradient(circle at 80% 14%, rgba(249, 115, 22, 0.18), transparent 30%),
+    linear-gradient(180deg, #111827 0%, #0f172a 55%, #151923 100%);
 }
 
 button,
@@ -36,7 +39,7 @@ a {
   position: relative;
   display: grid;
   grid-template-rows: 62px 58px minmax(0, 1fr);
-  gap: 10px;
+  gap: 9px;
   width: min(100vw, 520px);
   height: min(100dvh, 920px);
   padding: max(10px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
@@ -56,17 +59,18 @@ a {
 .hud div,
 .panel,
 .loading-card {
-  border: 3px solid #15509a;
+  border: 1px solid rgba(148, 163, 184, 0.42);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 5px 0 rgba(21, 80, 154, 0.4);
+  background: rgba(15, 23, 42, 0.82);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(12px);
 }
 
 .home-link {
   display: grid;
   place-items: center;
   height: 50px;
-  color: #172033;
+  color: #f8fafc;
   font-size: 28px;
   font-weight: 1000;
   text-decoration: none;
@@ -80,7 +84,7 @@ a {
 .language-picker span,
 .hud span {
   margin: 0;
-  color: #315b81;
+  color: #93c5fd;
   font-size: 12px;
   font-weight: 1000;
 }
@@ -92,6 +96,7 @@ a {
   line-height: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #f8fafc;
 }
 
 .language-picker {
@@ -103,10 +108,10 @@ a {
 .language-picker select {
   width: 100%;
   min-height: 32px;
-  border: 2px solid #15509a;
+  border: 1px solid rgba(147, 197, 253, 0.55);
   border-radius: 8px;
-  background: #fff;
-  color: #172033;
+  background: rgba(15, 23, 42, 0.95);
+  color: #f8fafc;
   font-size: 13px;
   font-weight: 1000;
 }
@@ -122,20 +127,22 @@ a {
   place-items: center;
   min-width: 0;
   padding: 7px 4px;
+  border-color: rgba(34, 211, 238, 0.28);
 }
 
 .hud strong {
   font-size: clamp(18px, 5vw, 25px);
   line-height: 1;
+  color: #facc15;
 }
 
 .canvas-wrap {
   min-height: 0;
   overflow: hidden;
-  border: 4px solid #15509a;
+  border: 1px solid rgba(148, 163, 184, 0.42);
   border-radius: 8px;
-  background: #6bc5ff;
-  box-shadow: 0 8px 0 rgba(21, 80, 154, 0.38);
+  background: #0f172a;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.36);
 }
 
 canvas {
@@ -153,7 +160,7 @@ canvas {
   display: grid;
   place-items: center;
   padding: 20px;
-  background: rgba(217, 242, 255, 0.86);
+  background: rgba(8, 13, 24, 0.82);
 }
 
 .panel {
@@ -164,7 +171,7 @@ canvas {
   height: auto;
   min-height: 250px;
   margin: auto;
-  color: #172033;
+  color: #f8fafc;
   text-align: center;
 }
 
@@ -175,7 +182,7 @@ canvas {
 
 .panel p {
   margin: 0;
-  color: #315b81;
+  color: #cbd5e1;
   font-size: 16px;
   font-weight: 900;
   line-height: 1.35;
@@ -187,10 +194,10 @@ canvas {
   place-items: center;
   width: min(100%, 250px);
   min-height: 48px;
-  border: 3px solid #15509a;
+  border: 1px solid rgba(250, 204, 21, 0.7);
   border-radius: 8px;
-  background: #ffcf63;
-  color: #172033;
+  background: linear-gradient(135deg, #facc15, #fb923c);
+  color: #111827;
   font-size: 18px;
   font-weight: 1000;
   text-decoration: none;
@@ -213,7 +220,7 @@ canvas {
 }
 
 .loading-panel {
-  background: rgba(217, 242, 255, 0.95);
+  background: rgba(8, 13, 24, 0.96);
 }
 
 .loading-card {
@@ -231,9 +238,9 @@ canvas {
 .loading-card div {
   height: 18px;
   padding: 3px;
-  border: 3px solid #15509a;
+  border: 1px solid rgba(147, 197, 253, 0.55);
   border-radius: 999px;
-  background: #fff;
+  background: rgba(15, 23, 42, 0.95);
 }
 
 .loading-card i {
@@ -241,7 +248,7 @@ canvas {
   width: 0%;
   height: 100%;
   border-radius: 999px;
-  background: #ffcf63;
+  background: linear-gradient(90deg, #22d3ee, #facc15, #fb923c);
   transition: width 0.2s ease;
 }
 
