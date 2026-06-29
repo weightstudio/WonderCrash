@@ -62,8 +62,9 @@ window.WONDER_LOBBY = {
     {
       id: "star-memory",
       title: { en: "Star Memory", "zh-Hant": "星星翻翻牌" },
-      status: "planned",
-      statusText: { en: "Planned", "zh-Hant": "企劃中" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      href: "games/star-memory/index.html",
       type: { en: "Memory Puzzle", "zh-Hant": "記憶益智" },
       categories: ["Puzzle", "Family"],
       ages: ["5", "family"],

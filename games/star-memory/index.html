@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f172a" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Match cards, test your memory, and clear stages in Star Memory - a WeightPlay space-themed game." />
+    <title>Star Memory - WeightPlay</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="memory-game">
+      <!-- Top Navigation and Settings -->
+      <header class="topbar">
+        <a class="home-link" href="../../index.html" id="homeLink" aria-label="Back to lobby">⌂</a>
+        <div>
+          <p id="brandText">WeightPlay</p>
+          <h1 id="titleText">Star Memory</h1>
+        </div>
+        <div class="header-right">
+          <label class="language-picker">
+            <span id="languageLabel">Language</span>
+            <select id="localeSelect" aria-label="Language">
+              <option value="en">English</option>
+              <option value="zh-Hant">繁體中文</option>
+            </select>
+          </label>
+        </div>
+      </header>
+
+      <!-- Gameplay HUD -->
+      <section id="gameHud" class="game-hud hidden" aria-label="Game stats">
+        <div class="hud-item">
+          <span id="levelIndicator">Level 1 / 6</span>
+          <div><i id="levelFill"></i></div>
+        </div>
+        <div class="hud-item-score">
+          <span id="scoreLabel">Score</span>
+          <strong id="scoreText">0</strong>
+        </div>
+        <div class="hud-item-moves">
+          <span id="movesLabel">Moves</span>
+          <strong id="movesText">0 / 0</strong>
+        </div>
+      </section>
+
+      <!-- Stage Selection Screen -->
+      <section id="stageSelectPanel" class="stage-select">
+        <h2 id="stageSelectTitle">Choose Level</h2>
+        <div id="stageGrid" class="stage-grid"></div>
+      </section>
+
+      <!-- Main Game Board -->
+      <section id="gameBoardPanel" class="game-board-panel hidden">
+        <div id="cardGrid" class="card-grid"></div>
+      </section>
+
+      <!-- Gameplay Footer / Tips -->
+      <section id="gameFeedback" class="feedback hidden" aria-live="polite">
+        <strong id="feedbackText">Tap cards to find matching pairs!</strong>
+        <div id="comboContainer" class="combo-badge hidden">
+          Combo <span id="comboText">x2</span>
+        </div>
+      </section>
+
+      <!-- Overlay Panel (Victory / Failure / All Clear) -->
+      <div id="resultPanel" class="result-panel hidden">
+        <div class="result-card">
+          <h2 id="resultTitle">Level Clear!</h2>
+          
+          <div id="starContainer" class="star-rating">
+            <span class="star" data-index="1">⭐</span>
+            <span class="star" data-index="2">⭐</span>
+            <span class="star" data-index="3">⭐</span>
+          </div>
+
+          <p id="resultText">You cleared the level in 12 moves!</p>
+          
+          <div class="result-actions">
+            <button id="nextLevelBtn" type="button">Next Level</button>
+            <button id="againBtn" type="button">Play Again</button>
+            <button id="stageSelectBtn" type="button">Levels</button>
+            <a id="lobbyLink" href="../../index.html" class="lobby-btn">Lobby</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Loading Panel -->
+      <div id="loadingPanel" class="loading-panel">
+        <div class="loading-card">
+          <strong id="loadingTitle">Loading</strong>
+          <span id="loadingText">0%</span>
+          <div><i id="loadingFill"></i></div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Site Configuration & Framework Scripts -->
+    <script src="../../src/site-config.js"></script>
+    <script src="../../src/analytics.js"></script>
+    <script>
+      window.WonderAnalytics?.track("game_view", { game_id: "star-memory" });
+    </script>
+    <script src="../../src/sound.js"></script>
+    <script src="../../src/i18n.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
