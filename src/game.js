@@ -1514,13 +1514,12 @@ function renderProfilePanel(tab = activeMenuTab) {
       <div><strong>${t("settings_progress")}</strong><span>${t("settings_unlocked_stages", { count: Math.min(highestUnlocked, LEVELS.length) })}</span></div>
     </div>
     <div class="profile-row">
-      <label class="language-picker">
-        <span id="languageLabel">${t("language")}</span>
-        <select id="localeSelect" aria-label="Language">
-          <option value="en">English</option>
-          <option value="zh-Hant">繁體中文</option>
-        </select>
-      </label>
+      <img class="profile-row-icon" src="assets/menu-settings.png" alt="" style="filter: hue-rotate(140deg);" />
+      <div><strong>${t("language")}</strong><span>Select display language</span></div>
+      <select id="localeSelect" class="settings-select" aria-label="Language">
+        <option value="en">English</option>
+        <option value="zh-Hant">繁體中文</option>
+      </select>
     </div>
     <div class="profile-row full"><div><strong>Wonder Crash</strong><span>Demo build</span></div></div>
   `;

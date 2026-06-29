@@ -364,11 +364,23 @@ body.lobby-page {
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
 }
 
-.game-card-art > img:first-child {
-  width: 100%;
+.game-card-bg-blur {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  object-fit: cover;
+  filter: blur(12px) brightness(0.5);
+  z-index: 0;
+}
+
+.game-card-fg {
+  position: relative;
   height: 100%;
+  max-width: 100%;
   object-fit: contain;
-  background: #0f172a;
+  z-index: 1;
 }
 
 .game-card-art .game-card-hero {
@@ -1531,27 +1543,21 @@ canvas {
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
 }
 
-.language-picker {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-}
-
-.language-picker select {
-  flex: 1;
+.settings-select {
   background: #1e293b;
   border: 2px solid #475569;
   color: #f8fafc;
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   font-size: 14px;
   font-weight: 700;
   outline: none;
   cursor: pointer;
+  min-width: 120px;
+  text-align: center;
 }
 
-.language-picker select option {
+.settings-select option {
   background-color: #1e293b;
   color: #f8fafc;
 }

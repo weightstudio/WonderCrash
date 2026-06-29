@@ -67,7 +67,7 @@ function createGameCard(game) {
   const categoryBadges = (game.categories || []).map((item) => `<span>${categoryText(item)}</span>`).join("");
   const art =
     game.art.kind === "image"
-      ? `<div class="game-card-art"><img src="${game.art.background}" alt="" /><img class="game-card-hero" src="${game.art.hero}" alt="" /></div>`
+      ? `<div class="game-card-art"><img class="game-card-bg-blur" src="${game.art.background}" alt="" /><img class="game-card-fg" src="${game.art.background}" alt="" /><img class="game-card-hero" src="${game.art.hero}" alt="" /></div>`
       : `<div class="game-card-art ${game.art.className}"><span>${ageLabel}</span></div>`;
 
   card.innerHTML = `
