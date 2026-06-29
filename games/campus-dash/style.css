@@ -1,0 +1,271 @@
+:root {
+  color-scheme: light;
+  font-family: "Microsoft JhengHei", "Noto Sans TC", system-ui, sans-serif;
+  background: #d9f2ff;
+  color: #172033;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  margin: 0;
+  overflow: hidden;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #8dd7ff 0%, #f7df87 58%, #56ba6e 100%);
+}
+
+button,
+select,
+a {
+  font: inherit;
+}
+
+.dash-game {
+  position: relative;
+  display: grid;
+  grid-template-rows: 62px 58px minmax(0, 1fr);
+  gap: 10px;
+  width: min(100vw, 520px);
+  height: min(100dvh, 920px);
+  padding: max(10px, env(safe-area-inset-top)) 12px calc(12px + env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 50px 1fr 128px;
+  gap: 9px;
+  align-items: center;
+  min-width: 0;
+}
+
+.home-link,
+.language-picker,
+.hud div,
+.panel,
+.loading-card {
+  border: 3px solid #15509a;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 5px 0 rgba(21, 80, 154, 0.4);
+}
+
+.home-link {
+  display: grid;
+  place-items: center;
+  height: 50px;
+  color: #172033;
+  font-size: 28px;
+  font-weight: 1000;
+  text-decoration: none;
+}
+
+.topbar div {
+  min-width: 0;
+}
+
+.topbar p,
+.language-picker span,
+.hud span {
+  margin: 0;
+  color: #315b81;
+  font-size: 12px;
+  font-weight: 1000;
+}
+
+.topbar h1 {
+  overflow: hidden;
+  margin: 2px 0 0;
+  font-size: clamp(24px, 6vw, 34px);
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.language-picker {
+  display: grid;
+  gap: 4px;
+  padding: 7px;
+}
+
+.language-picker select {
+  width: 100%;
+  min-height: 32px;
+  border: 2px solid #15509a;
+  border-radius: 8px;
+  background: #fff;
+  color: #172033;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.hud {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.hud div {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  padding: 7px 4px;
+}
+
+.hud strong {
+  font-size: clamp(18px, 5vw, 25px);
+  line-height: 1;
+}
+
+.canvas-wrap {
+  min-height: 0;
+  overflow: hidden;
+  border: 4px solid #15509a;
+  border-radius: 8px;
+  background: #6bc5ff;
+  box-shadow: 0 8px 0 rgba(21, 80, 154, 0.38);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.panel,
+.loading-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(217, 242, 255, 0.86);
+}
+
+.panel {
+  align-content: center;
+  justify-items: center;
+  gap: 13px;
+  width: min(360px, calc(100% - 34px));
+  height: auto;
+  min-height: 250px;
+  margin: auto;
+  color: #172033;
+  text-align: center;
+}
+
+.panel strong {
+  font-size: clamp(28px, 8vw, 42px);
+  line-height: 1;
+}
+
+.panel p {
+  margin: 0;
+  color: #315b81;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.panel button,
+.panel a {
+  display: grid;
+  place-items: center;
+  width: min(100%, 250px);
+  min-height: 48px;
+  border: 3px solid #15509a;
+  border-radius: 8px;
+  background: #ffcf63;
+  color: #172033;
+  font-size: 18px;
+  font-weight: 1000;
+  text-decoration: none;
+}
+
+.leaderboard {
+  display: grid;
+  gap: 5px;
+  width: min(100%, 260px);
+}
+
+.leaderboard div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(21, 80, 154, 0.12);
+  font-weight: 1000;
+}
+
+.loading-panel {
+  background: rgba(217, 242, 255, 0.95);
+}
+
+.loading-card {
+  display: grid;
+  gap: 10px;
+  width: min(100%, 320px);
+  padding: 22px;
+  text-align: center;
+}
+
+.loading-card strong {
+  font-size: 32px;
+}
+
+.loading-card div {
+  height: 18px;
+  padding: 3px;
+  border: 3px solid #15509a;
+  border-radius: 999px;
+  background: #fff;
+}
+
+.loading-card i {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: #ffcf63;
+  transition: width 0.2s ease;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 420px) {
+  .dash-game {
+    grid-template-rows: 56px 52px minmax(0, 1fr);
+    gap: 8px;
+    padding-right: 9px;
+    padding-left: 9px;
+  }
+
+  .topbar {
+    grid-template-columns: 44px 1fr 112px;
+  }
+
+  .home-link {
+    height: 44px;
+  }
+
+  .language-picker span {
+    display: none;
+  }
+}

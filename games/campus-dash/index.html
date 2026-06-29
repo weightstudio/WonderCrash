@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#1f7ae0" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Swipe lanes, dodge obstacles, collect stars, and chase a local high score in Campus Dash." />
+    <title>Campus Dash - WeightPlay</title>
+    <link rel="stylesheet" href="style.css?v=20260629-campus1" />
+  </head>
+  <body>
+    <main class="dash-game">
+      <header class="topbar">
+        <a class="home-link" href="../../index.html" aria-label="Back to lobby">⌂</a>
+        <div>
+          <p>WeightPlay</p>
+          <h1 id="titleText">Campus Dash</h1>
+        </div>
+        <label class="language-picker">
+          <span id="languageLabel">Language</span>
+          <select id="localeSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+          </select>
+        </label>
+      </header>
+
+      <section id="hud" class="hud hidden">
+        <div><span id="scoreLabel">Score</span><strong id="scoreText">0</strong></div>
+        <div><span id="timeLabel">Time</span><strong id="timeText">60</strong></div>
+        <div><span id="comboLabel">Combo</span><strong id="comboText">x1</strong></div>
+      </section>
+
+      <section class="canvas-wrap">
+        <canvas id="gameCanvas" width="720" height="960" aria-label="Campus Dash game"></canvas>
+      </section>
+
+      <section id="startPanel" class="panel">
+        <strong id="startTitle">Swipe. Dodge. Score.</strong>
+        <p id="startText">Move left and right, collect stars, and survive 60 seconds.</p>
+        <button id="startBtn" type="button">Start</button>
+      </section>
+
+      <section id="resultPanel" class="panel hidden">
+        <strong id="resultTitle">Run Complete!</strong>
+        <p id="resultText"></p>
+        <div id="leaderboard" class="leaderboard"></div>
+        <button id="againBtn" type="button">Run Again</button>
+        <a id="lobbyLink" href="../../index.html">Lobby</a>
+      </section>
+
+      <div id="loadingPanel" class="loading-panel">
+        <div class="loading-card">
+          <strong id="loadingTitle">Loading</strong>
+          <span id="loadingText">0%</span>
+          <div><i id="loadingFill"></i></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../src/site-config.js?v=20260629-campus1"></script>
+    <script src="../../src/analytics.js?v=20260629-campus1"></script>
+    <script>
+      window.WonderAnalytics?.track("game_view", { game_id: "campus-dash" });
+    </script>
+    <script src="../../src/sound.js?v=20260629-campus1"></script>
+    <script src="../../src/i18n.js?v=20260629-campus1"></script>
+    <script src="game.js?v=20260629-campus1"></script>
+  </body>
+</html>

@@ -82,8 +82,9 @@ window.WONDER_LOBBY = {
     {
       id: "campus-dash",
       title: { en: "Campus Dash", "zh-Hant": "校園閃電跑" },
-      status: "planned",
-      statusText: { en: "Planned", "zh-Hant": "企劃中" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      href: "games/campus-dash/index.html",
       type: { en: "Reaction Runner", "zh-Hant": "反應跑酷" },
       categories: ["Arcade"],
       ages: ["13"],
@@ -93,10 +94,14 @@ window.WONDER_LOBBY = {
         "zh-Hant": "左右滑動閃避障礙，挑戰高分。",
       },
       meta: {
-        en: ["Leaderboard", "Reaction", "1 Min"],
-        "zh-Hant": ["排行榜", "反應", "1 分鐘"],
+        en: ["Score Attack", "Leaderboard", "60 Sec"],
+        "zh-Hant": ["高分挑戰", "排行榜", "60 秒"],
       },
-      art: { kind: "pattern", className: "reflex-run" },
+      art: {
+        kind: "image",
+        background: "assets/campus-dash-cover.svg",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
     },
     {
       id: "snack-blocks",
