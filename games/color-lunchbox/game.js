@@ -66,6 +66,7 @@ function startGame() {
   resultPanel.classList.add("hidden");
   scoreText.textContent = "0";
   feedbackText.textContent = "準備好了嗎？";
+  window.WonderAnalytics?.track("game_start", { game_id: "color-lunchbox" });
   loadFood();
 }
 
@@ -86,6 +87,15 @@ function submitColor(color, target) {
 
   if (color !== food.color) {
     feedbackText.textContent = "再找找看";
+    window.WonderSound?.play("wrong");
+    window.WonderAnalytics?.track("game_answer", {
+      game_id: "color-lunchbox",
+      result: "wrong",
+      food: food.name,
+      selected_color: color,
+      correct_color: food.color,
+      round: state.index + 1,
+    });
     foodCard.classList.remove("shake");
     foodCard.offsetWidth;
     foodCard.classList.add("shake");
@@ -97,6 +107,14 @@ function submitColor(color, target) {
   state.score += Math.max(5, 12 - Math.min(state.attempts - state.index - 1, 5));
   scoreText.textContent = state.score;
   feedbackText.textContent = "放對了！";
+  window.WonderSound?.play("success");
+  window.WonderAnalytics?.track("game_answer", {
+    game_id: "color-lunchbox",
+    result: "correct",
+    food: food.name,
+    selected_color: color,
+    round: state.index + 1,
+  });
   target?.classList.add("hit");
   foodCard.classList.remove("pop");
   foodCard.offsetWidth;
@@ -116,6 +134,13 @@ function submitColor(color, target) {
 function finishGame() {
   progressFill.style.width = "100%";
   resultText.textContent = `你拿到 ${state.score} 分`;
+  window.WonderSound?.play("win");
+  window.WonderAnalytics?.track("game_complete", {
+    game_id: "color-lunchbox",
+    score: state.score,
+    total_rounds: state.deck.length,
+    attempts: state.attempts,
+  });
   resultPanel.classList.remove("hidden");
 }
 
@@ -160,7 +185,11 @@ function endDrag(event) {
 foodCard.addEventListener("pointerdown", startDrag);
 window.addEventListener("pointermove", moveDrag);
 window.addEventListener("pointerup", endDrag);
-againBtn.addEventListener("click", startGame);
+againBtn.addEventListener("click", () => {
+  window.WonderSound?.play("click");
+  window.WonderAnalytics?.track("game_restart", { game_id: "color-lunchbox" });
+  startGame();
+});
 
 setupBoxes();
 startGame();

@@ -15,14 +15,22 @@ function createGameCard(game) {
 
   if (isPlayable) {
     card.href = game.href;
+    card.addEventListener("click", () => {
+      window.WonderSound?.play("click");
+      window.WonderAnalytics?.track("game_open", {
+        game_id: game.id,
+        game_title: game.title,
+        age_label: game.ageLabel,
+      });
+    });
   } else {
     card.tabIndex = 0;
     card.setAttribute("role", "button");
-    card.addEventListener("click", () => showToast(`${game.title} 還在準備中`));
+    card.addEventListener("click", () => showPlannedGame(game));
     card.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        showToast(`${game.title} 還在準備中`);
+        showPlannedGame(game);
       }
     });
   }
@@ -88,13 +96,29 @@ function showToast(message) {
   toastTimer = setTimeout(() => lobbyToast.classList.add("hidden"), 1500);
 }
 
+function showPlannedGame(game) {
+  window.WonderSound?.play("wrong");
+  window.WonderAnalytics?.track("planned_game_click", {
+    game_id: game.id,
+    game_title: game.title,
+    age_label: game.ageLabel,
+  });
+  showToast(`${game.title} 還在準備中`);
+}
+
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.ageFilter;
 
+    window.WonderSound?.play("click");
+    window.WonderAnalytics?.track("age_filter", { age_filter: activeFilter });
     filterButtons.forEach((item) => item.classList.toggle("active", item === button));
     applyFilter();
   });
 });
 
 renderLobby();
+window.WonderAnalytics?.track("lobby_ready", {
+  playable_games: lobby.games.filter((game) => game.status === "playable").length,
+  total_games: lobby.games.length,
+});
