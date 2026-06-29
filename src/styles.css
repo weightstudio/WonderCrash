@@ -350,6 +350,12 @@ body.lobby-page {
   background: #243242;
 }
 
+.game-card-art.image-art {
+  height: auto;
+  max-height: 360px;
+  aspect-ratio: 1 / 1;
+}
+
 .game-card-art > span {
   display: grid;
   place-items: center;
@@ -386,6 +392,19 @@ body.lobby-page {
   z-index: 1;
 }
 
+.game-card-art.image-art .game-card-fg {
+  width: 84%;
+  height: 84%;
+  max-width: none;
+  max-height: none;
+}
+
+.game-card-art.image-art .game-card-bg-blur {
+  padding: 0;
+  object-fit: cover;
+  transform: scale(1.06);
+}
+
 .game-card-art .game-card-hero {
   position: absolute;
   bottom: 4px;
@@ -395,6 +414,11 @@ body.lobby-page {
   object-fit: contain;
   transform: translateX(-50%);
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.42));
+}
+
+.game-card-art.image-art .game-card-hero {
+  width: 76px;
+  height: 76px;
 }
 
 .game-card-art.color-match {
@@ -625,6 +649,10 @@ body.lobby-page {
 
   .game-card {
     min-height: 332px;
+  }
+
+  .game-card-art.image-art {
+    max-height: 420px;
   }
 
   .hero-games {

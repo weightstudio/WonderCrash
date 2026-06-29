@@ -9,8 +9,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Wonder Crash - WeightPlay</title>
     <base href="../../" />
-    <link rel="manifest" href="manifest.webmanifest?v=20260629-lobby-art1" />
-    <link rel="stylesheet" href="src/styles.css?v=20260629-lobby-art1" />
+    <link rel="manifest" href="manifest.webmanifest?v=20260629-lobby-art2" />
+    <link rel="stylesheet" href="src/styles.css?v=20260629-lobby-art2" />
   </head>
   <body>
     <main class="game-shell">
@@ -19,7 +19,7 @@
       <!-- Battle HUD -->
       <div id="battleHud" class="hud top-right hidden">
         <div><span data-i18n="hud_stage">Stage</span> <span id="levelText">1</span></div>
-        <div>Wave <span id="waveText">1/1</span></div>
+        <div><span data-i18n="hud_wave">Wave</span> <span id="waveText">1/1</span></div>
         <div class="coin-line"><img src="assets/coin.png" alt="" /> <span id="coinText">0</span></div>
       </div>
 
@@ -67,14 +67,14 @@
     </main>
 
     <!-- Platform Modules and Script Loaders -->
-    <script src="src/site-config.js?v=20260629-lobby-art1"></script>
-    <script src="src/analytics.js?v=20260629-lobby-art1"></script>
+    <script src="src/site-config.js?v=20260629-lobby-art2"></script>
+    <script src="src/analytics.js?v=20260629-lobby-art2"></script>
     <script>
       window.WonderAnalytics?.track("game_view", { game_id: "wonder-crash" });
     </script>
-    <script src="src/sound.js?v=20260629-lobby-art1"></script>
-    <script src="src/i18n.js?v=20260629-lobby-art1"></script>
-    <script src="src/game-data.js?v=20260629-lobby-art1"></script>
-    <script src="src/game.js?v=20260629-lobby-art1"></script>
+    <script src="src/sound.js?v=20260629-lobby-art2"></script>
+    <script src="src/i18n.js?v=20260629-lobby-art2"></script>
+    <script src="src/game-data.js?v=20260629-lobby-art2"></script>
+    <script src="src/game.js?v=20260629-lobby-art2"></script>
   </body>
 </html>

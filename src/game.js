@@ -46,6 +46,8 @@ function translateStaticUI() {
 // Local Localization Dictionary
 const dictionary = {
   en: {
+    game_title: "Wonder Crash",
+    menu_title: "Main Menu",
     hud_stage: "Stage",
     hud_wave: "Wave",
     hud_coins: "Coins",
@@ -146,6 +148,8 @@ const dictionary = {
     crit_label: "CRIT"
   },
   "zh-Hant": {
+    game_title: "奇想守城",
+    menu_title: "主選單",
     hud_stage: "關卡",
     hud_wave: "波次",
     hud_coins: "金幣",
@@ -185,7 +189,7 @@ const dictionary = {
     language: "語言",
     language_desc: "選擇顯示語言",
     upgrade_panel_title: "選擇強化",
-    upgrade_wave_complete: "Wave {wave} 完成",
+    upgrade_wave_complete: "第 {wave} 波完成",
     settlement_title: "戰鬥結算",
     settlement_new_clear: "新關卡挑戰成功！",
     settlement_reclear: "已通關關卡完成！",
@@ -204,7 +208,7 @@ const dictionary = {
     weapon_stats_spd: "飛行 {val}",
     weapon_stats_size: "大小 {val}",
     weapon_max_tier: "已達目前最高合成階級",
-    weapon_next_tier_preview: "x{lvl} → x{next}：攻擊 {dmg} / 冷卻 {cd}s / 大小 {size}",
+    weapon_next_tier_preview: "x{lvl} → x{next}：攻擊 {dmg} / 冷卻 {cd}秒 / 大小 {size}",
     defeat_title: "城牆爆了",
     defeat_desc: "關卡 {lvl}  本場金幣 {coins}",
     victory_title: "勝利！",
@@ -1322,7 +1326,7 @@ function showMainMenu(tab = activeMenuTab) {
   settingsBtn.classList.add("hidden");
   battleHud.classList.add("hidden");
   menuCoinLine.classList.remove("hidden");
-  overlay.querySelector("h1").textContent = "Wonder Crash";
+  overlay.querySelector("h1").textContent = t("game_title");
   overlayText.textContent = getMenuTitle(tab);
   startBtn.classList.add("hidden");
   menuContent.classList.remove("hidden");
@@ -1525,7 +1529,7 @@ function renderProfilePanel(tab = activeMenuTab) {
         </select>
       </div>
     </div>
-    <div class="profile-row full"><div><strong>Wonder Crash</strong><span>Demo build</span></div></div>
+    <div class="profile-row full"><div><strong>${t("game_title")}</strong><span>WeightPlay</span></div></div>
   `;
 
   const select = profilePanel.querySelector("#localeSelect");
@@ -2276,7 +2280,7 @@ window.addEventListener("wonder:locale-change", () => {
       // To prevent complex drops state replication, we can keep the text updated
       overlayText.textContent = t("victory_stage_clear") + ` ` + t("hud_stage") + ` ${state.level.id}`;
     } else {
-      overlay.querySelector("h1").textContent = "Wonder Crash";
+    overlay.querySelector("h1").textContent = t("game_title");
       overlayText.textContent = getMenuTitle(activeMenuTab);
       renderMenuContent();
     }
