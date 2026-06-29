@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6fbf64" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="description" content="Guide cute animals home in Animal Rescue Trail, a gentle WeightPlay puzzle game for kids, families, and older players." />
+    <title>Animal Rescue Trail - WeightPlay</title>
+    <link rel="stylesheet" href="style.css?v=20260630-animal-rescue1" />
+  </head>
+  <body>
+    <main class="rescue-game">
+      <header class="topbar">
+        <a class="home-link" href="../../index.html" aria-label="Back to lobby">⌂</a>
+        <div>
+          <p>WeightPlay</p>
+          <h1 id="titleText">Animal Rescue Trail</h1>
+        </div>
+        <label class="language-picker">
+          <span id="languageLabel">Language</span>
+          <select id="localeSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+          </select>
+        </label>
+      </header>
+
+      <section id="hud" class="hud hidden">
+        <div><span id="stageLabel">Stage</span><strong id="stageText">1 / 12</strong></div>
+        <div><span id="moveLabel">Moves</span><strong id="moveText">0</strong></div>
+        <div><span id="fruitLabel">Fruit</span><strong id="fruitText">0 / 2</strong></div>
+      </section>
+
+      <section id="stageSelect" class="stage-select">
+        <strong id="stageSelectTitle">Choose Trail</strong>
+        <div id="stageGrid" class="stage-grid"></div>
+      </section>
+
+      <section id="playArea" class="play-area hidden">
+        <div class="animal-panel">
+          <div id="animalAvatar" class="animal-avatar"></div>
+          <div>
+            <strong id="animalName">Lion Cub</strong>
+            <span id="hintText">Tap the next tile to help the animal go home.</span>
+          </div>
+        </div>
+        <div id="board" class="board" aria-label="Animal rescue board"></div>
+        <div class="action-row">
+          <button id="undoBtn" type="button">Undo</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+      </section>
+
+      <section id="resultPanel" class="result-panel hidden">
+        <div class="result-card">
+          <strong id="resultTitle">Trail Clear!</strong>
+          <span id="resultText"></span>
+          <div id="starLine" class="star-line"></div>
+          <button id="nextBtn" type="button">Next Trail</button>
+          <button id="retryBtn" type="button">Play Again</button>
+          <button id="trailsBtn" type="button">Trails</button>
+          <a id="lobbyLink" href="../../index.html">Lobby</a>
+        </div>
+      </section>
+
+      <div id="loadingPanel" class="loading-panel">
+        <div class="loading-card">
+          <strong id="loadingTitle">Loading</strong>
+          <span id="loadingText">0%</span>
+          <div><i id="loadingFill"></i></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../src/site-config.js?v=20260630-animal-rescue1"></script>
+    <script src="../../src/analytics.js?v=20260630-animal-rescue1"></script>
+    <script>
+      window.WonderAnalytics?.track("game_view", { game_id: "animal-rescue" });
+    </script>
+    <script src="../../src/sound.js?v=20260630-animal-rescue1"></script>
+    <script src="../../src/i18n.js?v=20260630-animal-rescue1"></script>
+    <script src="game.js?v=20260630-animal-rescue1"></script>
+  </body>
+</html>

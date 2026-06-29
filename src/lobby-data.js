@@ -13,7 +13,7 @@ window.WONDER_LOBBY = {
     defaultLocale: "en",
   },
   featuredGameId: "wonder-crash",
-  heroGameIds: ["wonder-crash", "color-lunchbox", "animal-quiz"],
+  heroGameIds: ["wonder-crash", "animal-rescue", "animal-quiz"],
   games: [
     {
       id: "wonder-crash",
@@ -122,6 +122,30 @@ window.WONDER_LOBBY = {
         "zh-Hant": ["休閒", "短時間", "每日"],
       },
       art: { kind: "pattern", className: "snack-blocks" },
+    },
+    {
+      id: "animal-rescue",
+      title: { en: "Animal Rescue Trail", "zh-Hant": "動物回家路" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      type: { en: "Animal Puzzle", "zh-Hant": "動物益智" },
+      categories: ["Animal Games", "Puzzle", "Family"],
+      ages: ["3", "5", "family"],
+      ageLabel: { en: "Family", "zh-Hant": "親子" },
+      href: "games/animal-rescue/index.html",
+      description: {
+        en: "Tap gentle paths and guide cute animals back home.",
+        "zh-Hant": "點選小路，帶可愛動物一步一步回家。",
+      },
+      meta: {
+        en: ["Animal Games", "12 Trails", "No Pressure"],
+        "zh-Hant": ["動物遊戲", "12 關", "無壓力"],
+      },
+      art: {
+        kind: "image",
+        background: "assets/animal-rescue-cover.png",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
     },
     {
       id: "animal-quiz",
