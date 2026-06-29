@@ -1,11 +1,11 @@
 {
-  "name": "Wonder Crash",
-  "short_name": "WonderCrash",
+  "name": "Wonder Game Lobby",
+  "short_name": "WonderGames",
   "start_url": "./",
   "display": "fullscreen",
   "orientation": "portrait",
-  "background_color": "#12151d",
-  "theme_color": "#12151d",
+  "background_color": "#151923",
+  "theme_color": "#151923",
   "icons": [
     {
       "src": "assets/coin.png",

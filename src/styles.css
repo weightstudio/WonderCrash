@@ -28,6 +28,281 @@ body {
     linear-gradient(160deg, #141924 0%, #222333 52%, #171a21 100%);
 }
 
+body.lobby-page {
+  display: block;
+  min-height: 100dvh;
+  overflow: auto;
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+  background:
+    radial-gradient(circle at 18% 8%, rgba(117, 191, 255, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(255, 203, 98, 0.16), transparent 26%),
+    linear-gradient(165deg, #111821 0%, #202833 54%, #14171f 100%);
+}
+
+.lobby-shell {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: max(20px, env(safe-area-inset-top)) 18px calc(32px + env(safe-area-inset-bottom));
+}
+
+.lobby-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
+  gap: 18px;
+  align-items: end;
+  min-height: clamp(260px, 42dvh, 420px);
+  padding: 28px 0 18px;
+}
+
+.lobby-kicker {
+  margin: 0 0 8px;
+  color: #ffd36b;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.lobby-hero h1 {
+  max-width: 620px;
+  margin: 0;
+  font-size: clamp(42px, 8vw, 84px);
+  line-height: 0.95;
+}
+
+.lobby-subtitle {
+  max-width: 520px;
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.lobby-feature {
+  position: relative;
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 12px;
+  align-items: center;
+  min-height: 118px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.lobby-feature img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+}
+
+.lobby-feature span {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.lobby-feature strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.age-filter {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  gap: 8px;
+  padding: 10px 0 14px;
+  overflow-x: auto;
+  background: linear-gradient(180deg, rgba(17, 24, 33, 0.98), rgba(17, 24, 33, 0.72));
+  backdrop-filter: blur(10px);
+}
+
+.age-filter button {
+  min-width: 64px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.age-filter button.active {
+  border-color: rgba(255, 220, 122, 0.86);
+  background: #ffcf63;
+  color: #241a08;
+}
+
+.lobby-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  padding-top: 8px;
+}
+
+.game-card {
+  display: flex;
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  flex-direction: column;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.game-card.playable {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.game-card-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 172px;
+  overflow: hidden;
+  background: #243242;
+}
+
+.game-card-art > img:first-child {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.game-card-art .game-card-hero {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  width: 118px;
+  height: 118px;
+  object-fit: contain;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.42));
+}
+
+.game-card-art.color-match {
+  background:
+    linear-gradient(135deg, rgba(255, 99, 104, 0.9), transparent 48%),
+    linear-gradient(225deg, rgba(85, 196, 255, 0.9), transparent 48%),
+    #f5c65e;
+}
+
+.game-card-art.memory-flip {
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.12) 0 18px, transparent 18px 36px),
+    #6858b7;
+}
+
+.game-card-art.reflex-run {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(180deg, #38a777 0%, #2c6fb0 100%);
+  background-size: 38px 100%, auto;
+}
+
+.game-card-body {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  flex: 1;
+}
+
+.game-card-topline,
+.game-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.age-pill {
+  display: inline-grid;
+  place-items: center;
+  min-width: 42px;
+  min-height: 30px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #18202b;
+  font-weight: 1000;
+}
+
+.game-card h2 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.game-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.game-card-actions {
+  align-self: end;
+  color: #ffd36b;
+}
+
+.coming-soon {
+  opacity: 0.72;
+}
+
+@media (max-width: 920px) {
+  .lobby-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .lobby-shell {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .lobby-hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-top: 22px;
+  }
+
+  .lobby-feature {
+    grid-template-columns: 76px 1fr;
+    min-height: 96px;
+  }
+
+  .lobby-feature img {
+    width: 76px;
+    height: 76px;
+  }
+
+  .lobby-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card {
+    min-height: 332px;
+  }
+}
+
 .game-shell {
   position: relative;
   width: min(100vw, 56.28dvh);
