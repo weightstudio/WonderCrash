@@ -70,6 +70,13 @@ body.lobby-page {
   line-height: 0.95;
 }
 
+.brand-byline {
+  margin: 8px 0 0;
+  color: #ffcf63;
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 1000;
+}
+
 .lobby-subtitle {
   max-width: 520px;
   margin: 14px 0 0;
@@ -116,7 +123,7 @@ body.lobby-page {
 
 .lobby-stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -156,7 +163,15 @@ body.lobby-page {
   backdrop-filter: blur(10px);
 }
 
-.age-filter button {
+.topic-filter {
+  display: flex;
+  gap: 8px;
+  padding: 0 0 14px;
+  overflow-x: auto;
+}
+
+.age-filter button,
+.topic-filter button {
   min-width: 64px;
   height: 42px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -167,10 +182,78 @@ body.lobby-page {
   font-weight: 900;
 }
 
-.age-filter button.active {
+.topic-filter button {
+  min-width: max-content;
+  padding: 0 14px;
+}
+
+.age-filter button.active,
+.topic-filter button.active {
   border-color: rgba(255, 220, 122, 0.86);
   background: #ffcf63;
   color: #241a08;
+}
+
+.hero-games-section {
+  display: grid;
+  gap: 10px;
+  padding: 8px 0 14px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.section-heading span {
+  color: #ffcf63;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.hero-games {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.hero-game-card {
+  display: grid;
+  gap: 6px;
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.18);
+}
+
+.hero-game-card span {
+  color: #ffcf63;
+  font-size: 14px;
+  font-weight: 1000;
+}
+
+.hero-game-card strong {
+  font-size: 22px;
+  line-height: 1.1;
+}
+
+.hero-game-card small {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .lobby-grid {
@@ -323,6 +406,21 @@ body.lobby-page {
   align-content: start;
 }
 
+.game-card-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.game-card-categories span {
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: rgba(255, 207, 99, 0.16);
+  color: #ffdf8a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
 .game-card-meta span {
   padding: 5px 7px;
   border-radius: 8px;
@@ -428,7 +526,7 @@ body.lobby-page {
   }
 
   .lobby-stats {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 7px;
   }
 
@@ -447,6 +545,10 @@ body.lobby-page {
 
   .game-card {
     min-height: 332px;
+  }
+
+  .hero-games {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -8,8 +8,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="robots" content="index,follow,noarchive" />
-    <meta name="copyright" content="Copyright 2026 Wonder Game Lobby. All rights reserved." />
-    <title>Wonder Game Lobby</title>
+    <meta name="description" content="WeightPlay by WeightStudio is a mobile-first AI web game platform for kids, families, and casual players." />
+    <meta name="copyright" content="Copyright 2026 WeightStudio. All rights reserved." />
+    <title>WeightPlay by WeightStudio</title>
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="stylesheet" href="src/styles.css" />
   </head>
@@ -18,8 +19,9 @@
       <header class="lobby-hero">
         <div class="lobby-hero-copy">
           <p class="lobby-kicker">Kids & Family Web Games</p>
-          <h1>Wonder Game Lobby</h1>
-          <p class="lobby-subtitle">依照年齡挑遊戲，手機和電腦都能玩。</p>
+          <h1 id="platformTitle">WeightPlay</h1>
+          <p class="brand-byline">by WeightStudio</p>
+          <p id="platformSubtitle" class="lobby-subtitle">全球化 AI Web Game Platform，依照年齡與主題挑遊戲。</p>
         </div>
         <a id="featuredGame" class="lobby-feature" href="games/wonder-crash/index.html">
           <img src="assets/hero.png" alt="" />
@@ -35,10 +37,26 @@
       <section class="age-filter" aria-label="年齡分類">
         <button class="active" type="button" data-age-filter="all">全部</button>
         <button type="button" data-age-filter="3">3+</button>
-        <button type="button" data-age-filter="6">6+</button>
-        <button type="button" data-age-filter="9">9+</button>
-        <button type="button" data-age-filter="12">12+</button>
+        <button type="button" data-age-filter="5">5+</button>
+        <button type="button" data-age-filter="13">13+</button>
         <button type="button" data-age-filter="family">親子</button>
+      </section>
+
+      <section class="topic-filter" aria-label="主題分類">
+        <button class="active" type="button" data-topic-filter="all">全部主題</button>
+        <button type="button" data-topic-filter="Featured">Featured</button>
+        <button type="button" data-topic-filter="Animal Games">Animal Games</button>
+        <button type="button" data-topic-filter="Puzzle">Puzzle</button>
+        <button type="button" data-topic-filter="Arcade">Arcade</button>
+        <button type="button" data-topic-filter="Education">Education</button>
+      </section>
+
+      <section class="hero-games-section" aria-label="Hero Games">
+        <div class="section-heading">
+          <span>Top 3</span>
+          <h2>Hero Games</h2>
+        </div>
+        <div id="heroGames" class="hero-games"></div>
       </section>
 
       <section id="gameGrid" class="lobby-grid" aria-label="遊戲列表"></section>

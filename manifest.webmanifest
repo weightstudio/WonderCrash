@@ -1,6 +1,6 @@
 {
-  "name": "Wonder Game Lobby",
-  "short_name": "WonderGames",
+  "name": "WeightPlay",
+  "short_name": "WeightPlay",
   "start_url": "./",
   "display": "fullscreen",
   "orientation": "portrait",

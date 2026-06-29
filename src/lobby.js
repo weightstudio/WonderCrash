@@ -1,10 +1,15 @@
 const lobby = window.WONDER_LOBBY;
 const filterButtons = document.querySelectorAll("[data-age-filter]");
+const topicButtons = document.querySelectorAll("[data-topic-filter]");
 const gameGrid = document.querySelector("#gameGrid");
+const heroGames = document.querySelector("#heroGames");
 const lobbyStats = document.querySelector("#lobbyStats");
 const featuredGame = document.querySelector("#featuredGame");
 const lobbyToast = document.querySelector("#lobbyToast");
+const platformTitle = document.querySelector("#platformTitle");
+const platformSubtitle = document.querySelector("#platformSubtitle");
 let activeFilter = "all";
+let activeTopic = "all";
 let toastTimer = null;
 
 function createGameCard(game) {
@@ -12,6 +17,7 @@ function createGameCard(game) {
   const card = document.createElement(isPlayable ? "a" : "article");
   card.className = `game-card ${isPlayable ? "playable" : "coming-soon"}`;
   card.dataset.age = game.ages.join(" ");
+  card.dataset.topic = (game.categories || []).join("|");
 
   if (isPlayable) {
     card.href = game.href;
@@ -21,6 +27,7 @@ function createGameCard(game) {
         game_id: game.id,
         game_title: game.title,
         age_label: game.ageLabel,
+        categories: (game.categories || []).join(","),
       });
     });
   } else {
@@ -36,6 +43,7 @@ function createGameCard(game) {
   }
 
   const meta = game.meta.map((item) => `<span>${item}</span>`).join("");
+  const categoryBadges = (game.categories || []).map((item) => `<span>${item}</span>`).join("");
   const art =
     game.art.kind === "image"
       ? `<div class="game-card-art"><img src="${game.art.background}" alt="" /><img class="game-card-hero" src="${game.art.hero}" alt="" /></div>`
@@ -50,6 +58,7 @@ function createGameCard(game) {
       </div>
       <h2>${game.title}</h2>
       <p>${game.description}</p>
+      <div class="game-card-categories">${categoryBadges}</div>
       <div class="game-card-meta">${meta}</div>
       <div class="game-card-actions">
         <span>${isPlayable ? "開始玩" : "即將推出"}</span>
@@ -62,12 +71,17 @@ function createGameCard(game) {
 }
 
 function renderLobby() {
+  platformTitle.textContent = lobby.platform.name;
+  platformSubtitle.textContent = lobby.platform.subtitle;
+
   const playableCount = lobby.games.filter((game) => game.status === "playable").length;
-  const plannedCount = lobby.games.length - playableCount;
+  const heroCount = lobby.heroGameIds.length;
   const ageGroups = new Set(lobby.games.flatMap((game) => game.ages));
+  const animalCount = lobby.games.filter((game) => (game.categories || []).includes("Animal Games")).length;
   lobbyStats.innerHTML = `
     <div><strong>${playableCount}</strong><span>可玩遊戲</span></div>
-    <div><strong>${plannedCount}</strong><span>規劃中</span></div>
+    <div><strong>${heroCount}</strong><span>Hero Games</span></div>
+    <div><strong>${animalCount}</strong><span>Animal Games</span></div>
     <div><strong>${ageGroups.size}</strong><span>年齡分類</span></div>
   `;
 
@@ -78,14 +92,43 @@ function renderLobby() {
     featuredGame.querySelector("strong").textContent = featured.title;
   }
 
+  renderHeroGames();
   gameGrid.replaceChildren(...lobby.games.map(createGameCard));
   applyFilter();
+}
+
+function renderHeroGames() {
+  const cards = lobby.heroGameIds
+    .map((id) => lobby.games.find((game) => game.id === id))
+    .filter(Boolean)
+    .map((game, index) => {
+      const isPlayable = game.status === "playable";
+      const card = document.createElement(isPlayable ? "a" : "button");
+      card.className = `hero-game-card ${isPlayable ? "playable" : "planned"}`;
+      card.type = isPlayable ? undefined : "button";
+      if (isPlayable) {
+        card.href = game.href;
+      } else {
+        card.addEventListener("click", () => showPlannedGame(game));
+      }
+      card.innerHTML = `
+        <span>#${index + 1}</span>
+        <strong>${game.title}</strong>
+        <small>${game.type} · ${game.ageLabel}</small>
+      `;
+      return card;
+    });
+
+  heroGames.replaceChildren(...cards);
 }
 
 function applyFilter() {
   document.querySelectorAll("[data-age]").forEach((card) => {
     const ages = card.dataset.age.split(" ");
-    card.classList.toggle("hidden", activeFilter !== "all" && !ages.includes(activeFilter));
+    const topics = card.dataset.topic ? card.dataset.topic.split("|") : [];
+    const matchesAge = activeFilter === "all" || ages.includes(activeFilter);
+    const matchesTopic = activeTopic === "all" || topics.includes(activeTopic);
+    card.classList.toggle("hidden", !matchesAge || !matchesTopic);
   });
 }
 
@@ -102,6 +145,7 @@ function showPlannedGame(game) {
     game_id: game.id,
     game_title: game.title,
     age_label: game.ageLabel,
+    categories: (game.categories || []).join(","),
   });
   showToast(`${game.title} 還在準備中`);
 }
@@ -117,8 +161,20 @@ filterButtons.forEach((button) => {
   });
 });
 
+topicButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeTopic = button.dataset.topicFilter;
+
+    window.WonderSound?.play("click");
+    window.WonderAnalytics?.track("topic_filter", { topic_filter: activeTopic });
+    topicButtons.forEach((item) => item.classList.toggle("active", item === button));
+    applyFilter();
+  });
+});
+
 renderLobby();
 window.WonderAnalytics?.track("lobby_ready", {
   playable_games: lobby.games.filter((game) => game.status === "playable").length,
   total_games: lobby.games.length,
+  platform: lobby.platform.name,
 });
