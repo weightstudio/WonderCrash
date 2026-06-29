@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <title>Animal Quiz - WeightPlay</title>
-    <link rel="stylesheet" href="style.css?v=20260629-animal2" />
+    <link rel="stylesheet" href="style.css?v=20260629-animal3" />
   </head>
   <body>
     <main class="animal-game">
@@ -32,7 +32,12 @@
         <div><i id="levelFill"></i></div>
       </section>
 
-      <section class="quiz-stage">
+      <section id="stageSelectPanel" class="stage-select">
+        <strong id="stageSelectTitle">Choose Stage</strong>
+        <div id="stageGrid" class="stage-grid"></div>
+      </section>
+
+      <section class="quiz-stage hidden">
         <div class="animal-card">
           <img id="animalImage" src="" alt="" />
           <strong id="promptText">Who is this animal?</strong>
@@ -40,9 +45,9 @@
         </div>
       </section>
 
-      <section id="choiceGrid" class="choice-grid" aria-label="Answer choices"></section>
+      <section id="choiceGrid" class="choice-grid hidden" aria-label="Answer choices"></section>
 
-      <section class="feedback" aria-live="polite">
+      <section class="feedback hidden" aria-live="polite">
         <strong id="feedbackText">Choose one</strong>
       </section>
 
@@ -51,6 +56,8 @@
           <strong id="resultTitle">Great job!</strong>
           <span id="resultText"></span>
           <button id="againBtn" type="button">Play Again</button>
+          <button id="nextStageBtn" type="button">Next Stage</button>
+          <button id="stageSelectBtn" type="button">Stages</button>
           <a id="homeText" href="../../index.html">Lobby</a>
         </div>
       </div>
@@ -64,13 +71,13 @@
       </div>
     </main>
 
-    <script src="../../src/site-config.js?v=20260629-animal2"></script>
-    <script src="../../src/analytics.js?v=20260629-animal2"></script>
+    <script src="../../src/site-config.js?v=20260629-animal3"></script>
+    <script src="../../src/analytics.js?v=20260629-animal3"></script>
     <script>
       window.WonderAnalytics?.track("game_view", { game_id: "animal-quiz" });
     </script>
-    <script src="../../src/sound.js?v=20260629-animal2"></script>
-    <script src="../../src/i18n.js?v=20260629-animal2"></script>
-    <script src="game.js?v=20260629-animal2"></script>
+    <script src="../../src/sound.js?v=20260629-animal3"></script>
+    <script src="../../src/i18n.js?v=20260629-animal3"></script>
+    <script src="game.js?v=20260629-animal3"></script>
   </body>
 </html>

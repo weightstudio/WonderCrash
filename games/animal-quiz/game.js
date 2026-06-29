@@ -1,17 +1,25 @@
 const localeSelect = document.querySelector("#localeSelect");
 const languageLabel = document.querySelector("#languageLabel");
 const titleText = document.querySelector("#titleText");
+const stageSelectPanel = document.querySelector("#stageSelectPanel");
+const stageSelectTitle = document.querySelector("#stageSelectTitle");
+const stageGrid = document.querySelector("#stageGrid");
+const levelLine = document.querySelector(".level-line");
 const levelText = document.querySelector("#levelText");
 const levelFill = document.querySelector("#levelFill");
+const quizStage = document.querySelector(".quiz-stage");
 const animalImage = document.querySelector("#animalImage");
 const promptText = document.querySelector("#promptText");
 const clueText = document.querySelector("#clueText");
 const choiceGrid = document.querySelector("#choiceGrid");
+const feedback = document.querySelector(".feedback");
 const feedbackText = document.querySelector("#feedbackText");
 const resultPanel = document.querySelector("#resultPanel");
 const resultTitle = document.querySelector("#resultTitle");
 const resultText = document.querySelector("#resultText");
 const againBtn = document.querySelector("#againBtn");
+const nextStageBtn = document.querySelector("#nextStageBtn");
+const stageSelectBtn = document.querySelector("#stageSelectBtn");
 const homeText = document.querySelector("#homeText");
 const loadingPanel = document.querySelector("#loadingPanel");
 const loadingTitle = document.querySelector("#loadingTitle");
@@ -19,21 +27,36 @@ const loadingText = document.querySelector("#loadingText");
 const loadingFill = document.querySelector("#loadingFill");
 
 const GAME_ID = "animal-quiz";
+const UNLOCK_KEY = "animalQuizUnlockedStage";
 
 const dictionary = {
   en: {
     title: "Animal Quiz",
     language: "Language",
+    chooseStage: "Choose Stage",
+    start: "Start",
+    locked: "Locked",
+    complete: "Complete",
     prompt: "Who is this animal?",
     choose: "Choose one",
     correct: "Correct!",
     wrong: "Try again",
     loading: "Loading",
-    level: "Level {current} / {total}",
-    winTitle: "Great job!",
-    winText: "You finished {score} / {total} levels",
+    question: "{stage}  {current} / {total}",
+    winTitle: "Stage Clear!",
+    winText: "You answered {score} / {total}.",
+    allClearTitle: "All Clear!",
+    allClearText: "You cleared all 3 animal stages.",
     again: "Play Again",
+    nextStage: "Next Stage",
+    stages: "Stages",
     lobby: "Lobby",
+    stageAfrica: "Stage 1: African Animals",
+    stageAsia: "Stage 2: Asian Animals",
+    stageOceanHome: "Stage 3: Ocean & Home Animals",
+    stageAfricaDesc: "Meet animals from grasslands, rivers, and warm habitats.",
+    stageAsiaDesc: "Guess animals from forests, mountains, and nearby nature.",
+    stageOceanHomeDesc: "Find animals from the sea and animals kids see often.",
     lion: "Lion",
     hippo: "Hippo",
     snake: "Snake",
@@ -78,16 +101,30 @@ const dictionary = {
   "zh-Hant": {
     title: "動物小博士",
     language: "語言",
+    chooseStage: "選擇關卡",
+    start: "開始",
+    locked: "未解鎖",
+    complete: "已通關",
     prompt: "這是什麼動物？",
     choose: "選一個答案",
     correct: "答對了！",
     wrong: "再試試看",
     loading: "載入中",
-    level: "第 {current} / {total} 關",
-    winTitle: "太棒了！",
-    winText: "你完成了 {score} / {total} 關",
+    question: "{stage}  {current} / {total}",
+    winTitle: "關卡完成！",
+    winText: "答對 {score} / {total} 題。",
+    allClearTitle: "全部通關！",
+    allClearText: "你完成了 3 個動物關卡。",
     again: "再玩一次",
+    nextStage: "下一關",
+    stages: "關卡",
     lobby: "回大廳",
+    stageAfrica: "第 1 關：非洲動物",
+    stageAsia: "第 2 關：亞洲動物",
+    stageOceanHome: "第 3 關：海洋與身邊動物",
+    stageAfricaDesc: "認識草原、河邊和溫暖地區的動物。",
+    stageAsiaDesc: "猜猜森林、山區和附近自然裡的動物。",
+    stageOceanHomeDesc: "找出海裡的動物，以及孩子常見的動物。",
     lion: "獅子",
     hippo: "河馬",
     snake: "蛇",
@@ -154,12 +191,34 @@ const animals = [
   { id: "cow", image: "assets/cow.svg", clue: "clueCow" },
 ];
 
+const animalMap = new Map(animals.map((animal) => [animal.id, animal]));
+
+const stages = [
+  {
+    name: "stageAfrica",
+    description: "stageAfricaDesc",
+    questions: ["lion", "hippo", "elephant", "giraffe", "zebra", "monkey", "snake", "turtle", "frog", "owl"],
+  },
+  {
+    name: "stageAsia",
+    description: "stageAsiaDesc",
+    questions: ["panda", "elephant", "monkey", "snake", "turtle", "rabbit", "bear", "fox", "owl", "frog"],
+  },
+  {
+    name: "stageOceanHome",
+    description: "stageOceanHomeDesc",
+    questions: ["whale", "penguin", "frog", "turtle", "cow", "cat", "dog", "rabbit", "owl", "fox"],
+  },
+];
+
 const state = {
-  levelIndex: 0,
+  stageIndex: 0,
+  questionIndex: 0,
   score: 0,
   ready: false,
   answered: false,
   completed: false,
+  unlockedStage: 0,
 };
 
 function locale() {
@@ -187,6 +246,16 @@ function preloadImage(src) {
   });
 }
 
+function loadUnlockedStage() {
+  const saved = Number(localStorage.getItem(UNLOCK_KEY));
+  state.unlockedStage = Number.isFinite(saved) ? Math.min(saved, stages.length - 1) : 0;
+}
+
+function saveUnlockedStage(value) {
+  state.unlockedStage = Math.max(state.unlockedStage, Math.min(value, stages.length - 1));
+  localStorage.setItem(UNLOCK_KEY, String(state.unlockedStage));
+}
+
 async function preloadGame() {
   let loadedCount = 0;
   await Promise.all(
@@ -200,19 +269,10 @@ async function preloadGame() {
     ),
   );
   state.ready = true;
+  loadUnlockedStage();
   loadingPanel.classList.add("hidden");
   window.WonderAnalytics?.track("game_ready", { game_id: GAME_ID });
-  startGame();
-}
-
-function startGame() {
-  if (!state.ready) return;
-  state.levelIndex = 0;
-  state.score = 0;
-  state.completed = false;
-  resultPanel.classList.add("hidden");
-  window.WonderAnalytics?.track("game_start", { game_id: GAME_ID, locale: locale() });
-  renderLevel();
+  showStageSelect();
 }
 
 function renderStaticText() {
@@ -220,11 +280,74 @@ function renderStaticText() {
   localeSelect.value = locale();
   languageLabel.textContent = t("language");
   titleText.textContent = t("title");
+  stageSelectTitle.textContent = t("chooseStage");
   promptText.textContent = t("prompt");
   feedbackText.textContent = t("choose");
   loadingTitle.textContent = t("loading");
   againBtn.textContent = t("again");
+  nextStageBtn.textContent = t("nextStage");
+  stageSelectBtn.textContent = t("stages");
   homeText.textContent = t("lobby");
+}
+
+function setQuizVisible(isVisible) {
+  stageSelectPanel.classList.toggle("hidden", isVisible);
+  levelLine.classList.toggle("hidden", !isVisible);
+  quizStage.classList.toggle("hidden", !isVisible);
+  choiceGrid.classList.toggle("hidden", !isVisible);
+  feedback.classList.toggle("hidden", !isVisible);
+}
+
+function showStageSelect() {
+  renderStaticText();
+  state.completed = false;
+  resultPanel.classList.add("hidden");
+  setQuizVisible(false);
+  renderStageCards();
+}
+
+function renderStageCards() {
+  stageGrid.replaceChildren(
+    ...stages.map((stage, index) => {
+      const isUnlocked = index <= state.unlockedStage;
+      const isComplete = index < state.unlockedStage;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `stage-card ${isUnlocked ? "unlocked" : "locked"}`;
+      button.disabled = !isUnlocked;
+      button.innerHTML = `
+        <span>${isComplete ? t("complete") : isUnlocked ? t("start") : t("locked")}</span>
+        <strong>${t(stage.name)}</strong>
+        <small>${t(stage.description)}</small>
+      `;
+      button.addEventListener("click", () => startStage(index));
+      return button;
+    }),
+  );
+}
+
+function startStage(stageIndex) {
+  if (!state.ready || stageIndex > state.unlockedStage) return;
+  state.stageIndex = stageIndex;
+  state.questionIndex = 0;
+  state.score = 0;
+  state.completed = false;
+  resultPanel.classList.add("hidden");
+  setQuizVisible(true);
+  window.WonderAnalytics?.track("game_start", {
+    game_id: GAME_ID,
+    stage: stageIndex + 1,
+    locale: locale(),
+  });
+  renderQuestion();
+}
+
+function currentStage() {
+  return stages[state.stageIndex];
+}
+
+function currentAnimal() {
+  return animalMap.get(currentStage().questions[state.questionIndex]);
 }
 
 function buildChoices(answer) {
@@ -232,14 +355,19 @@ function buildChoices(answer) {
   return shuffle([answer, ...others]);
 }
 
-function renderLevel(options = {}) {
+function renderQuestion(options = {}) {
   const shouldTrack = options.track !== false;
   renderStaticText();
-  const animal = animals[state.levelIndex];
-  const total = animals.length;
+  const stage = currentStage();
+  const animal = currentAnimal();
+  const total = stage.questions.length;
   state.answered = false;
-  levelText.textContent = t("level", { current: state.levelIndex + 1, total });
-  levelFill.style.width = `${(state.levelIndex / total) * 100}%`;
+  levelText.textContent = t("question", {
+    stage: t(stage.name),
+    current: state.questionIndex + 1,
+    total,
+  });
+  levelFill.style.width = `${(state.questionIndex / total) * 100}%`;
   animalImage.src = animal.image;
   animalImage.alt = t(animal.id);
   clueText.textContent = t(animal.clue);
@@ -258,7 +386,8 @@ function renderLevel(options = {}) {
   if (shouldTrack) {
     window.WonderAnalytics?.track("level_start", {
       game_id: GAME_ID,
-      level: state.levelIndex + 1,
+      stage: state.stageIndex + 1,
+      question: state.questionIndex + 1,
       animal: animal.id,
       locale: locale(),
     });
@@ -276,7 +405,8 @@ function chooseAnswer(choiceId, answerId, button) {
     window.WonderAnalytics?.track("level_answer", {
       game_id: GAME_ID,
       result: "wrong",
-      level: state.levelIndex + 1,
+      stage: state.stageIndex + 1,
+      question: state.questionIndex + 1,
       answer: answerId,
       choice: choiceId,
       locale: locale(),
@@ -291,75 +421,104 @@ function chooseAnswer(choiceId, answerId, button) {
   button.classList.add("correct");
   window.WonderAnalytics?.track("level_complete", {
     game_id: GAME_ID,
-    level: state.levelIndex + 1,
+    stage: state.stageIndex + 1,
+    question: state.questionIndex + 1,
     animal: answerId,
     locale: locale(),
   });
 
   setTimeout(() => {
-    state.levelIndex += 1;
-    if (state.levelIndex >= animals.length) {
-      finishGame();
+    state.questionIndex += 1;
+    if (state.questionIndex >= currentStage().questions.length) {
+      finishStage();
     } else {
-      renderLevel();
+      renderQuestion();
     }
   }, 620);
 }
 
-function finishGame() {
+function finishStage() {
+  const isFinalStage = state.stageIndex >= stages.length - 1;
   state.completed = true;
   levelFill.style.width = "100%";
+  saveUnlockedStage(state.stageIndex + 1);
   renderResultText();
+  nextStageBtn.classList.toggle("hidden", isFinalStage);
   resultPanel.classList.remove("hidden");
   window.WonderSound?.play("win");
   window.WonderAnalytics?.track("game_complete", {
     game_id: GAME_ID,
+    stage: state.stageIndex + 1,
     score: state.score,
-    total_levels: animals.length,
+    total_questions: currentStage().questions.length,
     locale: locale(),
   });
 }
 
 function renderResultText() {
-  resultTitle.textContent = t("winTitle");
-  resultText.textContent = t("winText", { score: state.score, total: animals.length });
+  const isFinalStage = state.stageIndex >= stages.length - 1;
+  resultTitle.textContent = isFinalStage ? t("allClearTitle") : t("winTitle");
+  resultText.textContent = isFinalStage
+    ? t("allClearText")
+    : t("winText", { score: state.score, total: currentStage().questions.length });
 }
 
 function applyLocaleChange() {
   window.WonderI18n?.setLocale(localeSelect.value);
+  if (!state.ready) {
+    renderStaticText();
+    return;
+  }
   if (state.completed) {
     renderStaticText();
     renderResultText();
     return;
   }
-  if (state.ready) {
-    renderLevel({ track: false });
+  if (stageSelectPanel.classList.contains("hidden")) {
+    renderQuestion({ track: false });
   } else {
-    renderStaticText();
+    showStageSelect();
   }
 }
 
 localeSelect.addEventListener("change", applyLocaleChange);
-
 localeSelect.addEventListener("input", applyLocaleChange);
 
 window.addEventListener("wonder:locale-change", () => {
+  if (!state.ready) {
+    renderStaticText();
+    return;
+  }
   if (state.completed) {
     renderStaticText();
     renderResultText();
     return;
   }
-  if (state.ready) {
-    renderLevel({ track: false });
+  if (stageSelectPanel.classList.contains("hidden")) {
+    renderQuestion({ track: false });
   } else {
-    renderStaticText();
+    showStageSelect();
   }
 });
 
 againBtn.addEventListener("click", () => {
   window.WonderSound?.play("click");
-  window.WonderAnalytics?.track("game_restart", { game_id: GAME_ID, locale: locale() });
-  startGame();
+  window.WonderAnalytics?.track("game_restart", {
+    game_id: GAME_ID,
+    stage: state.stageIndex + 1,
+    locale: locale(),
+  });
+  startStage(state.stageIndex);
+});
+
+nextStageBtn.addEventListener("click", () => {
+  window.WonderSound?.play("click");
+  startStage(Math.min(state.stageIndex + 1, stages.length - 1));
+});
+
+stageSelectBtn.addEventListener("click", () => {
+  window.WonderSound?.play("click");
+  showStageSelect();
 });
 
 renderStaticText();
