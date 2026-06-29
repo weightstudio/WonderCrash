@@ -57,3 +57,10 @@ Each game should define:
 ## PM Notes
 
 Keep new games small. Every first version should have one core mechanic, one game screen, one result screen, mobile controls, and a fast restart.
+
+Every playable game also needs a retention structure:
+
+- Use level/progression mode by default.
+- Use score-attack only when the game is designed around comparing scores.
+- Score-attack games need a leaderboard plan. Local leaderboard is acceptable for MVP; online leaderboard can come later.
+- Games with neither levels nor leaderboard-ready scoring should stay in prototype/planned status.

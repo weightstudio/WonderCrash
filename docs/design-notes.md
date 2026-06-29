@@ -55,6 +55,15 @@ The main menu uses five bottom tabs:
 - Do not allow gameplay input until required assets are ready.
 - Each game should fire `game_ready` through `WonderAnalytics` after its required assets are loaded.
 
+## Progression And Leaderboard Rule
+
+- Every playable game should have a level/progression mode unless the core design is explicitly score-attack.
+- Level/progression games need clear stages, unlock progression, completion feedback, and a reason to continue to the next stage.
+- Score-attack games must include a leaderboard plan before release. The first version can use a local leaderboard, but the design should be ready for an online leaderboard later.
+- If a game supports both level mode and score mode, level mode is the default for younger players and score mode is the replay/challenge layer.
+- A game is not considered production-ready if it has neither progression nor a leaderboard-supported score goal.
+- Analytics should track level start, level complete, score submit, and restart where applicable.
+
 ## Enemy Roles
 
 - Toilet: runner. Low HP and low wall damage, but fast. Tests player early weapon coverage.
