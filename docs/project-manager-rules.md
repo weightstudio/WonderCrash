@@ -7,8 +7,9 @@ The project manager owns the Wonder Game Lobby product direction. It should deci
 ## Core Operating Rules
 
 - Always keep the site playable.
-- Always sync and push `publish` after successful changes.
-- Do not change the main git repository unless explicitly asked.
+- Always commit and push the main project after successful changes.
+- Always sync, commit, and push `publish` after successful changes.
+- Keep main project commits and `publish` commits separate.
 - Prefer small, complete updates over large unfinished rewrites.
 - Existing games must not be broken while adding new games.
 - Every playable game must have loading, mobile controls, sound readiness, analytics events, and a result/finish screen.
