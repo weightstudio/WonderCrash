@@ -184,10 +184,12 @@ function createGameCard(game) {
     game.art.kind === "image"
       ? `<div class="game-card-art image-art"><img class="game-card-bg-blur" src="${game.art.background}" alt="" /><img class="game-card-fg" src="${game.art.background}" alt="" />${showHero ? `<img class="game-card-hero" src="${game.art.hero}" alt="" />` : ""}</div>`
       : `<div class="game-card-art ${game.art.className}"><span>${ageLabel}</span></div>`;
+  const favoriteAction = i18n.t(favorite ? "action.remove_favorite" : "action.add_favorite");
+  const favoriteLabel = i18n.t(favorite ? "action.remove_favorite_title" : "action.add_favorite_title", { title });
 
   card.innerHTML = `
     ${art}
-    <button class="favorite-toggle ${favorite ? "active" : ""}" type="button" aria-label="${i18n.t(favorite ? "action.remove_favorite" : "action.add_favorite")}" title="${i18n.t(favorite ? "action.remove_favorite" : "action.add_favorite")}">${favorite ? "♥" : "♡"}</button>
+    <button class="favorite-toggle ${favorite ? "active" : ""}" type="button" aria-label="${favoriteLabel}" title="${favoriteAction}">${favorite ? "♥" : "♡"}</button>
     <div class="game-card-body">
       <div class="game-card-topline">
         <span class="age-pill">${ageLabel}</span>
