@@ -16,6 +16,10 @@
   touch-action: manipulation;
 }
 
+.wonder-tutorial-hidden .wp-tutorial-button {
+  display: none;
+}
+
 .wp-tutorial-backdrop {
   position: fixed;
   inset: 0;

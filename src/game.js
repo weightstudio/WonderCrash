@@ -81,7 +81,7 @@ const dictionary = {
     wallHp_title: "Wall HP Lv {lvl}",
     wallHp_desc: "Max HP {val}",
     wallGuard_title: "Wall Fortify Lv {lvl}",
-    wallGuard_desc: "Damage Taken -{pct}%",
+    wallGuard_desc: "Wall Damage -{val}",
     wallRegen_title: "Auto Repair Lv {lvl}",
     wallRegen_desc: "Every {sec}s recover {val} HP",
     settings_progress: "Progress",
@@ -112,6 +112,8 @@ const dictionary = {
     weapon_stats_size: "Size {val}",
     weapon_max_tier: "Already reached maximum level",
     weapon_next_tier_preview: "x{lvl} → x{next}：Damage {dmg} / Cooldown {cd}s / Size {size}",
+    upgrade_preview: "{current} -> {next}",
+    upgrade_none: "Not upgraded",
     defeat_title: "Wall Destroyed",
     defeat_desc: "Stage {lvl}  Coins earned: {coins}",
     victory_title: "Victory!",
@@ -193,7 +195,7 @@ const dictionary = {
     wallHp_title: "城牆血量 Lv {lvl}",
     wallHp_desc: "最大血量 {val}",
     wallGuard_title: "牆面加固 Lv {lvl}",
-    wallGuard_desc: "受到傷害 -{pct}%",
+    wallGuard_desc: "城牆受傷 -{val}",
     wallRegen_title: "自動修補 Lv {lvl}",
     wallRegen_desc: "每 {sec} 秒回復 {val} 血量",
     settings_progress: "進度",
@@ -224,6 +226,8 @@ const dictionary = {
     weapon_stats_size: "大小 {val}",
     weapon_max_tier: "已達目前最高合成階級",
     weapon_next_tier_preview: "x{lvl} → x{next}：攻擊 {dmg} / 冷卻 {cd}秒 / 大小 {size}",
+    upgrade_preview: "{current} → {next}",
+    upgrade_none: "尚未強化",
     defeat_title: "城牆爆了",
     defeat_desc: "關卡 {lvl}  本場金幣 {coins}",
     victory_title: "勝利！",
@@ -424,6 +428,7 @@ function startLevel(levelIndex) {
   }
   state = makeState(levelIndex);
   state.running = true;
+  document.body.classList.add("wonder-tutorial-hidden");
   settingsBtn.classList.remove("hidden");
   battleHud.classList.remove("hidden");
   menuCoinLine.classList.add("hidden");
@@ -1101,12 +1106,13 @@ function resolveBossProjectiles() {
     if (projectile.y + projectile.size * 0.45 >= wallY) {
       projectile.used = true;
       projectile.x = clamp(projectile.x, 32, W - 32);
-      state.wallHp = Math.max(0, state.wallHp - Math.ceil(projectile.damage * (1 - getWallDamageReduction())));
+      const damage = getGuardedWallDamage(projectile.damage);
+      state.wallHp = Math.max(0, state.wallHp - damage);
       state.hits.push({ x: projectile.x, y: wallY, radius: projectile.size * 0.9, life: 0.3 });
       state.damageTexts.push({
         x: projectile.x,
         y: wallY - 44,
-        value: `-${Math.ceil(projectile.damage * (1 - getWallDamageReduction()))}`,
+        value: `-${damage}`,
         crit: false,
         life: 0.7,
         maxLife: 0.7,
@@ -1121,7 +1127,7 @@ function damageWall() {
     if (enemy.y + enemy.size * 0.38 >= wallY && !enemy.hitWall) {
       enemy.hitWall = true;
       enemy.hp = 0;
-      state.wallHp = Math.max(0, state.wallHp - Math.ceil(enemy.damage * (1 - getWallDamageReduction())));
+      state.wallHp = Math.max(0, state.wallHp - getGuardedWallDamage(enemy.damage));
       state.hits.push({ x: enemy.x, y: wallY, radius: enemy.type.ability === "breaker" ? 54 : 36, life: 0.28 });
       window.WonderSound?.play("wallHit");
     }
@@ -1425,6 +1431,7 @@ function updateHud() {
 function showMainMenu(tab = activeMenuTab) {
   activeMenuTab = tab;
   state.running = false;
+  document.body.classList.remove("wonder-tutorial-hidden");
   settingsBtn.classList.add("hidden");
   battleHud.classList.add("hidden");
   menuCoinLine.classList.remove("hidden");
@@ -1498,6 +1505,7 @@ function showFloatingMessage(text) {
 function showUpgradeChoices() {
   overlay.classList.remove("equipment-screen");
   state.running = false;
+  document.body.classList.add("wonder-tutorial-hidden");
   settingsBtn.classList.add("hidden");
   battleHud.classList.add("hidden");
   menuCoinLine.classList.add("hidden");
@@ -1535,6 +1543,7 @@ function chooseUpgrade(id) {
   upgradeGrid.classList.add("hidden");
   overlay.classList.add("hidden");
   state.running = true;
+  document.body.classList.add("wonder-tutorial-hidden");
   settingsBtn.classList.remove("hidden");
   battleHud.classList.remove("hidden");
   menuCoinLine.classList.add("hidden");
@@ -1545,6 +1554,7 @@ function showPauseMenu() {
   if (!state.running) return;
   overlay.classList.remove("equipment-screen");
   state.running = false;
+  document.body.classList.add("wonder-tutorial-hidden");
   settingsBtn.classList.add("hidden");
   battleHud.classList.add("hidden");
   menuCoinLine.classList.add("hidden");
@@ -1563,6 +1573,7 @@ function showPauseMenu() {
 function resumeBattle() {
   pausePanel.classList.add("hidden");
   overlay.classList.add("hidden");
+  document.body.classList.add("wonder-tutorial-hidden");
   settingsBtn.classList.remove("hidden");
   battleHud.classList.remove("hidden");
   menuCoinLine.classList.add("hidden");
@@ -1585,12 +1596,12 @@ function renderProfilePanel(tab = activeMenuTab) {
           <img src="assets/upgrade-character.png" alt="" />
           <div><strong>${t("hero_title", { lvl: getHeroTotalLevel() })}</strong><span>${t("hero_subtitle")}</span></div>
         </div>
-        ${renderUpgradeRow("heroCoin", "assets/coin.png", t("heroCoin_title", { lvl: profile.heroCoinLevel }), t("heroCoin_desc", { pct: Math.round(getHeroCoinBonus() * 100) }))}
-        ${renderUpgradeRow("heroAttack", "assets/upgrade-damage.png", t("heroAttack_title", { lvl: profile.heroAttackLevel }), t("heroAttack_desc", { bonus: getHeroAttackBonus() }))}
-        ${renderUpgradeRow("heroCrit", "assets/upgrade-character.png", t("heroCrit_title", { lvl: profile.heroCritLevel }), t("heroCrit_desc", { pct: Math.round(getCritChance() * 100) }))}
-        ${renderUpgradeRow("heroCritDamage", "assets/upgrade-size.png", t("heroCritDamage_title", { lvl: profile.heroCritDamageLevel }), t("heroCritDamage_desc", { mul: getCritMultiplier().toFixed(2) }))}
-        ${renderUpgradeRow("heroSpeed", "assets/upgrade-cooldown.png", t("heroSpeed_title", { lvl: profile.heroSpeedLevel }), t("heroSpeed_desc", { bonus: getProjectileSpeedBonus() }))}
-        ${renderUpgradeRow("diamondPower", "assets/upgrade-damage.png", t("diamondPower_title", { lvl: profile.diamondPowerLevel }), t("diamondPower_desc", { bonus: getDiamondAttackBonus() }), "diamond")}
+        ${renderUpgradeRow("heroCoin", "assets/coin.png", t("heroCoin_title", { lvl: profile.heroCoinLevel }), getUpgradePreview("heroCoin"))}
+        ${renderUpgradeRow("heroAttack", "assets/upgrade-damage.png", t("heroAttack_title", { lvl: profile.heroAttackLevel }), getUpgradePreview("heroAttack"))}
+        ${renderUpgradeRow("heroCrit", "assets/upgrade-character.png", t("heroCrit_title", { lvl: profile.heroCritLevel }), getUpgradePreview("heroCrit"))}
+        ${renderUpgradeRow("heroCritDamage", "assets/upgrade-size.png", t("heroCritDamage_title", { lvl: profile.heroCritDamageLevel }), getUpgradePreview("heroCritDamage"))}
+        ${renderUpgradeRow("heroSpeed", "assets/upgrade-cooldown.png", t("heroSpeed_title", { lvl: profile.heroSpeedLevel }), getUpgradePreview("heroSpeed"))}
+        ${renderUpgradeRow("diamondPower", "assets/upgrade-damage.png", t("diamondPower_title", { lvl: profile.diamondPowerLevel }), getUpgradePreview("diamondPower"), "diamond")}
       </div>
     `;
     return;
@@ -1610,9 +1621,9 @@ function renderProfilePanel(tab = activeMenuTab) {
 
   if (tab === "wall") {
     profilePanel.innerHTML = `
-      ${renderUpgradeRow("wallHp", "assets/upgrade-wall.png", t("wallHp_title", { lvl: profile.wallHpLevel }), t("wallHp_desc", { val: getMaxWallHp() }))}
-      ${renderUpgradeRow("wallGuard", "assets/upgrade-repair.png", t("wallGuard_title", { lvl: profile.wallGuardLevel }), t("wallGuard_desc", { pct: Math.round(getWallDamageReduction() * 100) }))}
-      ${renderUpgradeRow("wallRegen", "assets/upgrade-cooldown.png", t("wallRegen_title", { lvl: profile.wallRegenLevel }), t("wallRegen_desc", { sec: getWallRegenInterval(), val: getWallRegenAmount() }))}
+      ${renderUpgradeRow("wallHp", "assets/upgrade-wall.png", t("wallHp_title", { lvl: profile.wallHpLevel }), getUpgradePreview("wallHp"))}
+      ${renderUpgradeRow("wallGuard", "assets/upgrade-repair.png", t("wallGuard_title", { lvl: profile.wallGuardLevel }), getUpgradePreview("wallGuard"))}
+      ${renderUpgradeRow("wallRegen", "assets/upgrade-cooldown.png", t("wallRegen_title", { lvl: profile.wallRegenLevel }), getUpgradePreview("wallRegen"))}
     `;
     return;
   }
@@ -1673,6 +1684,60 @@ function renderUpgradeRow(type, icon, title, desc, currency = "coin") {
       <button type="button" data-profile-upgrade="${type}" ${canBuy ? "" : "disabled"}>${costIcon}<span>${cost}</span></button>
     </div>
   `;
+}
+
+function getUpgradePreview(type) {
+  const current = getUpgradeDescription(type);
+  const next = withNextUpgradeLevel(type, () => getUpgradeDescription(type));
+  return t("upgrade_preview", { current, next });
+}
+
+function getUpgradeDescription(type) {
+  if (type === "heroCoin") {
+    const pct = Math.round(getHeroCoinBonus() * 100);
+    return pct > 0 ? t("heroCoin_desc", { pct }) : t("upgrade_none");
+  }
+  if (type === "heroAttack") {
+    const bonus = getHeroAttackBonus();
+    return bonus > 0 ? t("heroAttack_desc", { bonus }) : t("upgrade_none");
+  }
+  if (type === "heroCrit") return t("heroCrit_desc", { pct: Math.round(getCritChance() * 100) });
+  if (type === "heroCritDamage") return t("heroCritDamage_desc", { mul: getCritMultiplier().toFixed(2) });
+  if (type === "heroSpeed") {
+    const bonus = getProjectileSpeedBonus();
+    return bonus > 0 ? t("heroSpeed_desc", { bonus }) : t("upgrade_none");
+  }
+  if (type === "diamondPower") {
+    const bonus = getDiamondAttackBonus();
+    return bonus > 0 ? t("diamondPower_desc", { bonus }) : t("upgrade_none");
+  }
+  if (type === "wallHp") return t("wallHp_desc", { val: getMaxWallHp() });
+  if (type === "wallGuard") {
+    const val = getWallDamageBlock();
+    return val > 0 ? t("wallGuard_desc", { val }) : t("upgrade_none");
+  }
+  if (type === "wallRegen") return t("wallRegen_desc", { sec: getWallRegenInterval(), val: getWallRegenAmount() });
+  return "";
+}
+
+function withNextUpgradeLevel(type, readValue) {
+  const property = {
+    heroCoin: "heroCoinLevel",
+    heroAttack: "heroAttackLevel",
+    heroCrit: "heroCritLevel",
+    heroCritDamage: "heroCritDamageLevel",
+    heroSpeed: "heroSpeedLevel",
+    diamondPower: "diamondPowerLevel",
+    wallHp: "wallHpLevel",
+    wallGuard: "wallGuardLevel",
+    wallRegen: "wallRegenLevel",
+  }[type];
+  if (!property) return readValue();
+  const previous = profile[property];
+  profile[property] = previous + 1;
+  const value = readValue();
+  profile[property] = previous;
+  return value;
 }
 
 function renderEquipmentSlots() {
@@ -1872,7 +1937,7 @@ function getHeroCoinBonus() {
 }
 
 function getHeroAttackBonus() {
-  return Math.floor((profile.heroAttackLevel - 1) * 0.7) + getDiamondAttackBonus();
+  return profile.heroAttackLevel - 1 + getDiamondAttackBonus();
 }
 
 function getDiamondAttackBonus() {
@@ -1907,8 +1972,12 @@ function getWallRegenAmount() {
   return 2 + (profile.wallRegenLevel - 1) * 3;
 }
 
-function getWallDamageReduction() {
-  return Math.min(0.36, (profile.wallGuardLevel - 1) * 0.025);
+function getWallDamageBlock() {
+  return (profile.wallGuardLevel - 1) * 2;
+}
+
+function getGuardedWallDamage(damage) {
+  return Math.max(1, Math.ceil(damage) - getWallDamageBlock());
 }
 
 function getWeaponUpgradeCost() {

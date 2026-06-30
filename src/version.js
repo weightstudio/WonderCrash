@@ -27,6 +27,17 @@
         opacity: 0.72;
       }
     }
+    body:not(.lobby-page) .weightplay-version-badge {
+      top: max(8px, env(safe-area-inset-top));
+      bottom: auto;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      min-width: 0;
+      padding: 3px 7px;
+      opacity: 0.58;
+      font-size: 10px;
+    }
   `;
   document.head.append(style);
 
