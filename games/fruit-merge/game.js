@@ -180,7 +180,9 @@
   function updateHud() {
     scoreText.textContent = score;
     bestText.textContent = bestScore;
-    nextFruitText.textContent = t(`fruit${nextLevel}`);
+    nextFruitText.innerHTML = fruitSvg(nextLevel);
+    nextFruitText.setAttribute("aria-label", t(`fruit${nextLevel}`));
+    nextFruitText.title = t(`fruit${nextLevel}`);
   }
 
   function dropFruit() {
@@ -246,6 +248,10 @@
         const dist = Math.hypot(dx, dy) || 0.001;
         const minDist = a.radius + b.radius;
         if (dist >= minDist) continue;
+        if (a.level === b.level && a.level < fruits.length - 1) {
+          a.mergeWith = b.id;
+          b.mergeWith = a.id;
+        }
 
         const nx = dx / dist;
         const ny = dy / dist;
@@ -279,7 +285,8 @@
         const b = fruitsOnBoard[j];
         if (removeIds.has(a.id) || removeIds.has(b.id) || a.level !== b.level || a.level >= fruits.length - 1) continue;
         const dist = Math.hypot(b.x - a.x, b.y - a.y);
-        if (dist > (a.radius + b.radius) * 0.84) continue;
+        const touching = a.mergeWith === b.id || b.mergeWith === a.id || dist <= (a.radius + b.radius) * 1.02;
+        if (!touching) continue;
         const next = fruits[a.level + 1];
         const merged = {
           id: fruitId++,
@@ -299,6 +306,9 @@
         window.WonderSound?.play?.("success");
         break;
       }
+    }
+    for (const fruit of fruitsOnBoard) {
+      fruit.mergeWith = null;
     }
     if (!removeIds.size) return;
     fruitsOnBoard = fruitsOnBoard.filter((fruit) => !removeIds.has(fruit.id)).concat(additions);
@@ -444,6 +454,35 @@
     }
 
     ctx.restore();
+  }
+
+  function fruitSvg(level) {
+    const spec = fruits[level];
+    const stripes = level >= 8
+      ? `<g stroke="${level === 10 ? "#174f32" : "#b97a2c"}" stroke-width="7" stroke-linecap="round" opacity="0.78">
+          <path d="M40 24 L48 104" />
+          <path d="M64 18 L68 110" />
+          <path d="M88 24 L82 104" />
+        </g>`
+      : "";
+    const seeds = level === 2
+      ? `<g fill="#fff7b0"><circle cx="44" cy="48" r="3"/><circle cx="76" cy="48" r="3"/><circle cx="54" cy="76" r="3"/><circle cx="88" cy="74" r="3"/></g>`
+      : "";
+    const stem = level >= 1 && level !== 3
+      ? `<path d="M64 28 C72 8 86 8 96 16" fill="none" stroke="#28764a" stroke-width="7" stroke-linecap="round"/>`
+      : "";
+    return `
+      <svg viewBox="0 0 128 128" role="img" aria-hidden="true">
+        <circle cx="64" cy="70" r="46" fill="${spec.color}" />
+        <circle cx="50" cy="50" r="14" fill="${spec.accent}" opacity="0.62" />
+        ${stripes}
+        ${seeds}
+        <circle cx="53" cy="67" r="4" fill="rgba(27, 38, 54, 0.72)" />
+        <circle cx="75" cy="67" r="4" fill="rgba(27, 38, 54, 0.72)" />
+        <path d="M55 80 Q64 88 73 80" fill="none" stroke="rgba(27, 38, 54, 0.68)" stroke-width="4" stroke-linecap="round" />
+        ${stem}
+      </svg>
+    `;
   }
 
   function roundRect(context, x, y, width, height, radius) {

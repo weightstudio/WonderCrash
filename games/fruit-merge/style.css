@@ -117,13 +117,13 @@ select {
 
 .scorebar {
   display: grid;
-  grid-template-columns: 1fr 1fr 1.25fr;
+  grid-template-columns: 1fr 1fr 1.15fr;
   gap: 8px;
 }
 
 .scorebar div {
   min-width: 0;
-  min-height: 62px;
+  min-height: 72px;
   padding: 9px 10px;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
@@ -149,8 +149,20 @@ select {
 }
 
 #nextFruitText {
+  width: 54px;
+  height: 54px;
+  margin-top: -2px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
   color: #9eeaff;
-  font-size: clamp(15px, 4vw, 22px);
+}
+
+#nextFruitText svg {
+  width: 54px;
+  height: 54px;
+  display: block;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.24));
 }
 
 .board-shell {
@@ -322,8 +334,14 @@ select {
   }
 
   .scorebar div {
-    min-height: 56px;
+    min-height: 66px;
     padding: 8px;
+  }
+
+  #nextFruitText,
+  #nextFruitText svg {
+    width: 48px;
+    height: 48px;
   }
 
   #gameCanvas {
