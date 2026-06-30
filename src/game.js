@@ -147,6 +147,12 @@ const dictionary = {
     upgrade_wallHp_desc: "Restore 12 Wall HP",
     upgrade_coinMultiplier_name: "Salary Bonus",
     upgrade_coinMultiplier_desc: "Gold Coins Earned +35%",
+    upgrade_pierce_name: "Piercing Throw",
+    upgrade_pierce_desc: "Weapons pass through 1 more enemy",
+    upgrade_explode_name: "Bursting Stationary",
+    upgrade_explode_desc: "Hits splash nearby enemies",
+    upgrade_lifeSteal_name: "Guard Spirit",
+    upgrade_lifeSteal_desc: "Defeats restore 3 Wall HP",
     crit_label: "CRIT"
   },
   "zh-Hant": {
@@ -251,6 +257,12 @@ const dictionary = {
     upgrade_wallHp_desc: "回復 12 點牆血量",
     upgrade_coinMultiplier_name: "零用錢加倍",
     upgrade_coinMultiplier_desc: "金幣收益提升 35%",
+    upgrade_pierce_name: "穿透投擲",
+    upgrade_pierce_desc: "武器可多穿透 1 隻敵人",
+    upgrade_explode_name: "爆裂文具",
+    upgrade_explode_desc: "命中時對附近敵人造成濺射傷害",
+    upgrade_lifeSteal_name: "守城回復",
+    upgrade_lifeSteal_desc: "擊敗敵人時回復 3 點牆血量",
     crit_label: "暴"
   }
 };
@@ -340,6 +352,10 @@ function makeState(levelIndex) {
     sideShots: 0,
     burstCount: 1,
     projectileSizeMultiplier: 1,
+    pierceCount: 0,
+    splashDamage: 0,
+    splashRadius: 0,
+    killHeal: 0,
     coinMultiplier: 1,
     hero: {
       x: W / 2,
@@ -598,7 +614,8 @@ function buildInitialWeaponTimers() {
     if (!entry.weapon) return 0;
     const copyIndex = seen[slot.id] || 0;
     seen[slot.id] = copyIndex + 1;
-    return getWeaponCooldown(entry) * 0.22 * copyIndex;
+    const equippedCopies = profile.equippedWeapons.filter((item) => item?.id === slot.id).length || 1;
+    return getWeaponCooldown(entry) * (copyIndex / equippedCopies);
   });
 }
 
@@ -663,6 +680,8 @@ function fireProjectile(entry, xOffset, yOffset, vx) {
     speed: getWeaponSpeed(entry),
     damage: damageRoll.damage,
     crit: damageRoll.crit,
+    pierceLeft: state.pierceCount,
+    hitEnemies: [],
     rotation: 0,
     spin: 9,
     image: images[weapon.projectile] || images.eraser,
@@ -987,31 +1006,75 @@ function resolveHits() {
       const dx = projectile.x - enemy.x;
       const dy = projectile.y - enemy.y;
       const reach = projectile.size * 0.38 + enemy.size * 0.38;
+      if (projectile.hitEnemies.includes(enemy)) continue;
       if (dx * dx + dy * dy <= reach * reach) {
-        projectile.used = true;
+        projectile.hitEnemies.push(enemy);
         const damage = getDamageToEnemy(enemy, projectile.damage);
-        enemy.hp -= damage;
-        state.hits.push({ x: enemy.x, y: enemy.y, radius: 18, life: 0.18 });
-        state.damageTexts.push({
-          x: enemy.x + random(-14, 14),
-          y: enemy.y - enemy.size * 0.28,
-          value: damage,
-          crit: projectile.crit,
-          life: 0.62,
-          maxLife: 0.62,
-        });
-        if (enemy.hp <= 0) {
-          state.score += 10;
-          state.coins += Math.ceil(enemy.coinReward * state.coinMultiplier * (1 + getHeroCoinBonus()));
-          window.WonderSound?.play("enemyDown");
+        damageEnemy(enemy, damage, projectile.crit, projectile.x, projectile.y);
+        if (state.splashDamage > 0) splashDamage(projectile, enemy);
+        if (projectile.pierceLeft > 0) {
+          projectile.pierceLeft -= 1;
+          projectile.damage = Math.max(1, Math.ceil(projectile.damage * 0.72));
         } else {
-          window.WonderSound?.play("hit");
+          projectile.used = true;
         }
         break;
       }
     }
   }
   state.projectiles = state.projectiles.filter((projectile) => !projectile.used);
+}
+
+function damageEnemy(enemy, damage, crit, hitX = enemy.x, hitY = enemy.y) {
+  enemy.hp -= damage;
+  state.hits.push({ x: hitX, y: hitY, radius: crit ? 26 : 18, life: 0.18 });
+  state.damageTexts.push({
+    x: enemy.x + random(-14, 14),
+    y: enemy.y - enemy.size * 0.28,
+    value: damage,
+    crit,
+    life: 0.62,
+    maxLife: 0.62,
+  });
+  if (enemy.hp <= 0) {
+    defeatEnemy(enemy);
+    return;
+  }
+  window.WonderSound?.play("hit");
+}
+
+function defeatEnemy(enemy) {
+  if (enemy.rewarded) return;
+  enemy.rewarded = true;
+  state.score += 10;
+  state.coins += Math.ceil(enemy.coinReward * state.coinMultiplier * (1 + getHeroCoinBonus()));
+  if (state.killHeal > 0 && state.wallHp < state.maxWallHp) {
+    const heal = Math.min(state.killHeal, state.maxWallHp - state.wallHp);
+    state.wallHp += heal;
+    state.damageTexts.push({
+      x: W - 100 + random(-18, 18),
+      y: wallY - 38,
+      value: `+${heal}`,
+      heal: true,
+      life: 0.72,
+      maxLife: 0.72,
+    });
+  }
+  state.hits.push({ x: enemy.x, y: enemy.y, radius: enemy.size * 0.34, life: 0.24 });
+  window.WonderSound?.play("enemyDown");
+}
+
+function splashDamage(projectile, primaryEnemy) {
+  const radius = state.splashRadius || projectile.size * 1.4;
+  const splash = Math.max(1, Math.ceil(projectile.damage * state.splashDamage));
+  state.hits.push({ x: primaryEnemy.x, y: primaryEnemy.y, radius, life: 0.24 });
+  for (const enemy of state.enemies) {
+    if (enemy === primaryEnemy || enemy.hp <= 0) continue;
+    const dx = enemy.x - primaryEnemy.x;
+    const dy = enemy.y - primaryEnemy.y;
+    if (dx * dx + dy * dy > radius * radius) continue;
+    damageEnemy(enemy, getDamageToEnemy(enemy, splash), false, enemy.x, enemy.y);
+  }
 }
 
 function getDamageToEnemy(enemy, damage) {
@@ -1228,9 +1291,9 @@ function drawDamageTexts() {
     const scale = text.crit ? 1.18 : 1;
     ctx.globalAlpha = Math.min(1, progress * 1.4);
     ctx.font = `${text.crit ? "900" : "800"} ${Math.round((text.crit ? 34 : 28) * scale)}px 'Microsoft JhengHei', system-ui, sans-serif`;
-    ctx.lineWidth = text.crit ? 8 : 6;
+    ctx.lineWidth = text.crit || text.heal ? 8 : 6;
     ctx.strokeStyle = "rgba(0, 0, 0, 0.72)";
-    ctx.fillStyle = text.crit ? "#ffdf57" : "#fff";
+    ctx.fillStyle = text.heal ? "#7dff8a" : text.crit ? "#ffdf57" : "#fff";
     const label = text.crit ? `${t("crit_label")} ${text.value}` : String(text.value);
     ctx.strokeText(label, text.x, text.y);
     ctx.fillText(label, text.x, text.y);
@@ -1747,6 +1810,12 @@ function applyUpgrade(upgrade) {
   }
   if (effect.wallHp) state.wallHp = Math.min(state.maxWallHp, state.wallHp + effect.wallHp);
   if (effect.coinMultiplier) state.coinMultiplier += effect.coinMultiplier;
+  if (effect.pierceCount) state.pierceCount += effect.pierceCount;
+  if (effect.splashDamage) {
+    state.splashDamage = Math.min(0.85, state.splashDamage + effect.splashDamage);
+    state.splashRadius = Math.max(state.splashRadius, effect.splashRadius || 0);
+  }
+  if (effect.killHeal) state.killHeal += effect.killHeal;
   window.WonderSound?.play("upgrade");
 }
 

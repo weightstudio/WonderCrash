@@ -207,7 +207,7 @@ window.WONDER_DATA = {
       }
     },
 {
-      id: "repair",
+      id: "wallHp",
       name: "修補城牆",
       desc: "立即回復 25 點城牆血量",
       icon: "assets/upgrade-repair.png",
@@ -217,12 +217,40 @@ window.WONDER_DATA = {
       }
     },
 {
-      id: "coin",
+      id: "coinMultiplier",
       name: "金幣磁鐵",
       desc: "之後擊敗怪物金幣 +30%",
       icon: "assets/upgrade-coin.png",
       effect: {
         coinMultiplier: 0.3
+      }
+    },
+{
+      id: "pierce",
+      name: "穿透投擲",
+      desc: "武器可多穿透 1 隻敵人",
+      icon: "assets/upgrade-double.png",
+      effect: {
+        pierceCount: 1
+      }
+    },
+{
+      id: "explode",
+      name: "爆裂文具",
+      desc: "命中時對附近敵人造成濺射傷害",
+      icon: "assets/upgrade-size.png",
+      effect: {
+        splashDamage: 0.35,
+        splashRadius: 145
+      }
+    },
+{
+      id: "lifeSteal",
+      name: "守城回復",
+      desc: "擊敗敵人時回復 3 點牆血量",
+      icon: "assets/upgrade-repair.png",
+      effect: {
+        killHeal: 3
       }
     }
   ],
