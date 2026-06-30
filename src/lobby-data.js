@@ -51,12 +51,12 @@ window.WONDER_LOBBY = {
       ageLabel: "3+",
       href: "games/color-lunchbox/index.html",
       description: {
-        en: "Clear 6 gentle levels by dragging each food into the matching color lunchbox.",
-        "zh-Hant": "挑戰 6 個輕鬆關卡，把食物拖到相同顏色的便當盒裡。",
+        en: "Clear 10 gentle levels by dragging each food into the matching color lunchbox.",
+        "zh-Hant": "挑戰 10 個輕鬆關卡，把食物拖到相同顏色的便當盒裡。",
       },
       meta: {
-        en: ["6 Levels", "Drag Match", "Family"],
-        "zh-Hant": ["6 關", "拖曳配對", "親子"],
+        en: ["10 Levels", "Drag Match", "Family"],
+        "zh-Hant": ["10 關", "拖曳配對", "親子"],
       },
       art: {
         kind: "image",
