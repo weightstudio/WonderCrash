@@ -396,6 +396,13 @@ function undoMove() {
 }
 
 function resetLevel() {
+  window.WonderAnalytics?.track("game_restart", {
+    game_id: GAME_ID,
+    stage: state?.level?.id || activeIndex + 1,
+    moves: state?.moves || 0,
+    source: "reset",
+    locale: locale(),
+  });
   startLevel(activeIndex);
 }
 
@@ -464,7 +471,16 @@ board.addEventListener("click", (event) => {
 undoBtn.addEventListener("click", undoMove);
 resetBtn.addEventListener("click", resetLevel);
 nextBtn.addEventListener("click", () => startLevel(Math.min(levels.length - 1, activeIndex + 1)));
-retryBtn.addEventListener("click", () => startLevel(activeIndex));
+retryBtn.addEventListener("click", () => {
+  window.WonderAnalytics?.track("game_restart", {
+    game_id: GAME_ID,
+    stage: levels[activeIndex]?.id || activeIndex + 1,
+    moves: state?.moves || 0,
+    source: "result",
+    locale: locale(),
+  });
+  startLevel(activeIndex);
+});
 trailsBtn.addEventListener("click", showStageSelect);
 
 renderStaticText();
