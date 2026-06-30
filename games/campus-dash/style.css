@@ -136,6 +136,10 @@ a {
   color: #facc15;
 }
 
+.score-pop {
+  animation: dash-score-pop 0.26s ease;
+}
+
 .canvas-wrap {
   min-height: 0;
   overflow: hidden;
@@ -173,6 +177,7 @@ canvas {
   margin: auto;
   color: #f8fafc;
   text-align: center;
+  animation: dash-panel-pop 0.42s cubic-bezier(0.17, 0.9, 0.28, 1.2);
 }
 
 .panel strong {
@@ -201,6 +206,15 @@ canvas {
   font-size: 18px;
   font-weight: 1000;
   text-decoration: none;
+  box-shadow: 0 5px 0 rgba(124, 45, 18, 0.58);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.panel button:active,
+.panel a:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 2px 0 rgba(124, 45, 18, 0.58);
+  filter: brightness(1.07);
 }
 
 .leaderboard {
@@ -217,6 +231,7 @@ canvas {
   border-radius: 8px;
   background: rgba(21, 80, 154, 0.12);
   font-weight: 1000;
+  animation: dash-row-pop 0.3s ease both;
 }
 
 .loading-panel {
@@ -229,6 +244,7 @@ canvas {
   width: min(100%, 320px);
   padding: 22px;
   text-align: center;
+  animation: dash-panel-pop 0.36s ease;
 }
 
 .loading-card strong {
@@ -254,6 +270,51 @@ canvas {
 
 .hidden {
   display: none !important;
+}
+
+@keyframes dash-panel-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dash-row-pop {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dash-score-pop {
+  0% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.24);
+    color: #facc15;
+    text-shadow: 0 0 14px rgba(250, 204, 21, 0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .loading-card,
+  .leaderboard div,
+  .score-pop {
+    animation: none;
+  }
 }
 
 @media (max-width: 420px) {

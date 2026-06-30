@@ -188,9 +188,19 @@
   }
 
   function updateHud() {
+    const oldScore = nodes.scoreText.textContent;
+    const oldCombo = nodes.comboText.textContent;
     nodes.scoreText.textContent = String(state.score);
     nodes.timeText.textContent = String(state.time);
     nodes.comboText.textContent = `x${state.combo}`;
+    if (oldScore !== nodes.scoreText.textContent) bump(nodes.scoreText);
+    if (oldCombo !== nodes.comboText.textContent) bump(nodes.comboText);
+  }
+
+  function bump(node) {
+    node.classList.remove("score-pop");
+    void node.offsetWidth;
+    node.classList.add("score-pop");
   }
 
   function isNeighbor(a, b) {

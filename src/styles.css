@@ -919,6 +919,7 @@ canvas {
   padding: max(12px, env(safe-area-inset-top)) 24px calc(96px + env(safe-area-inset-bottom));
   text-align: center;
   background: rgba(8, 11, 18, 0.58);
+  animation: wonder-fade-in 0.22s ease;
 }
 
 .overlay.equipment-screen {
@@ -965,6 +966,15 @@ canvas {
   color: #202020;
   font-size: 19px;
   font-weight: 900;
+  box-shadow: 0 4px 0 rgba(105, 68, 10, 0.72);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.overlay button:active,
+.settlement-actions button:active {
+  transform: translateY(3px) scale(0.98);
+  box-shadow: 0 1px 0 rgba(105, 68, 10, 0.72);
+  filter: brightness(1.06);
 }
 
 .menu-content {
@@ -976,6 +986,7 @@ canvas {
   max-height: min(760px, calc(100dvh - 245px));
   overflow-y: auto;
   padding: 2px;
+  animation: wonder-panel-pop 0.34s cubic-bezier(0.17, 0.9, 0.28, 1.2);
 }
 
 .menu-content.equipment-mode {
@@ -1364,6 +1375,7 @@ canvas {
   border-radius: 8px;
   background: rgba(12, 15, 20, 0.66);
   text-align: left;
+  animation: wonder-row-slide 0.28s ease both;
 }
 
 .settlement-row strong {
@@ -1391,6 +1403,7 @@ canvas {
   border-radius: 8px;
   background: rgba(105, 111, 124, 0.32);
   text-align: center;
+  animation: wonder-reward-pop 0.36s cubic-bezier(0.17, 0.9, 0.28, 1.2) both;
 }
 
 .reward-item img {
@@ -1458,6 +1471,8 @@ canvas {
   color: #202020;
   font-size: 16px;
   font-weight: 900;
+  box-shadow: 0 4px 0 rgba(105, 68, 10, 0.72);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
 }
 
 .settlement-actions button:only-child {
@@ -1466,6 +1481,62 @@ canvas {
 
 .settlement-actions button:last-child {
   background: rgba(255, 255, 255, 0.88);
+}
+
+@keyframes wonder-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wonder-panel-pop {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wonder-row-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes wonder-reward-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.76);
+    filter: brightness(1.35);
+  }
+  70% {
+    transform: scale(1.08);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .menu-content,
+  .settlement-row,
+  .reward-item,
+  .reward-empty {
+    animation: none;
+  }
 }
 
 .character-card {

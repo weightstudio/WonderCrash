@@ -142,6 +142,7 @@ button {
   flex-direction: column;
   justify-content: center;
   gap: 12px;
+  animation: snack-panel-pop 0.4s cubic-bezier(0.17, 0.9, 0.28, 1.2);
 }
 
 .menu-panel img {
@@ -216,6 +217,7 @@ button:active {
   box-shadow: inset 0 -5px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.16);
   transform: translateZ(0);
   transition: transform 120ms ease, filter 120ms ease, opacity 160ms ease;
+  animation: snack-tile-drop 0.24s ease both;
 }
 
 .tile.selected {
@@ -227,6 +229,10 @@ button:active {
   filter: brightness(1.45);
   opacity: 0.35;
   transform: scale(0.72);
+}
+
+.score-pop {
+  animation: snack-score-pop 0.28s ease;
 }
 
 .tile-0 {
@@ -274,6 +280,7 @@ button:active {
   border-radius: 8px;
   background: rgba(18, 21, 31, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.34);
 }
 
 .result-card a {
@@ -302,6 +309,7 @@ button:active {
   display: grid;
   gap: 12px;
   text-align: center;
+  animation: snack-panel-pop 0.35s ease;
 }
 
 .loading-card strong {
@@ -324,6 +332,54 @@ button:active {
 
 .hidden {
   display: none !important;
+}
+
+@keyframes snack-panel-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes snack-tile-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.84);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes snack-score-pop {
+  0% {
+    transform: scale(1);
+    color: #fff8e8;
+  }
+  55% {
+    transform: scale(1.26);
+    color: #ffe36f;
+    text-shadow: 0 0 14px rgba(255, 227, 111, 0.85);
+  }
+  100% {
+    transform: scale(1);
+    color: #fff8e8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-panel,
+  .result-card,
+  .loading-card,
+  .tile,
+  .score-pop {
+    animation: none;
+  }
 }
 
 @media (max-height: 720px) {

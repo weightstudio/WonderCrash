@@ -407,6 +407,7 @@ a {
   padding: 20px;
   background: rgba(85, 55, 20, 0.34);
   backdrop-filter: blur(8px);
+  animation: lunch-fade-in 0.24s ease;
 }
 
 .result-card {
@@ -420,6 +421,7 @@ a {
   color: #382611;
   text-align: center;
   box-shadow: 0 12px 0 #c99b44;
+  animation: lunch-panel-pop 0.42s cubic-bezier(0.17, 0.9, 0.28, 1.2);
 }
 
 .result-card h2 {
@@ -594,6 +596,35 @@ a {
   }
   75% {
     transform: translateX(7px) rotate(3deg);
+  }
+}
+
+@keyframes lunch-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lunch-panel-pop {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .result-panel,
+  .result-card,
+  .food-card.pop,
+  .food-card.shake {
+    animation: none;
   }
 }
 

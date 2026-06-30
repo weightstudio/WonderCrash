@@ -274,9 +274,19 @@
   }
 
   function updateHud() {
+    const oldScore = scoreText.textContent;
+    const oldCombo = comboText.textContent;
     scoreText.textContent = String(state.score);
     timeText.textContent = String(Math.ceil(state.timeLeft));
     comboText.textContent = `x${state.combo}`;
+    if (oldScore !== scoreText.textContent) bump(scoreText);
+    if (oldCombo !== comboText.textContent) bump(comboText);
+  }
+
+  function bump(node) {
+    node.classList.remove("score-pop");
+    void node.offsetWidth;
+    node.classList.add("score-pop");
   }
 
   function draw() {
