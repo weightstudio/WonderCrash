@@ -247,8 +247,8 @@ window.WONDER_LOBBY = {
         "zh-Hant": "點選或拖曳正確救援道具，幫助遇到天氣麻煩的小動物。",
       },
       meta: {
-        en: ["6 Stages", "Tap or Drag", "Animal Games"],
-        "zh-Hant": ["6 關", "點選拖曳", "動物遊戲"],
+        en: ["6 Stages", "Varied Tools", "Animal Games"],
+        "zh-Hant": ["6 關", "道具變化", "動物遊戲"],
       },
       art: {
         kind: "image",

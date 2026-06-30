@@ -293,6 +293,24 @@ select {
     linear-gradient(180deg, #ffd17c 0%, #fbf0b5 62%, #89c56a 100%);
 }
 
+.weather-scene.cold .rescue-scene {
+  background:
+    radial-gradient(circle at 70% 18%, rgba(255, 255, 255, 0.9), transparent 4rem),
+    linear-gradient(180deg, #bde9ff 0%, #e8f9ff 62%, #a7d3db 100%);
+}
+
+.weather-scene.muddy .rescue-scene {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.48), rgba(255, 247, 218, 0.66)),
+    linear-gradient(180deg, #bbe4ff 0%, #b5dc9b 58%, #9c7045 100%);
+}
+
+.weather-scene.windy .rescue-scene {
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.72) 0 8%, transparent 8% 18%, rgba(255, 255, 255, 0.45) 18% 26%, transparent 26%),
+    linear-gradient(180deg, #abd8ff 0%, #d9f0dd 64%, #75bd6d 100%);
+}
+
 .weather-effects {
   position: absolute;
   inset: 0;
@@ -427,6 +445,14 @@ select {
   background: rgba(87, 185, 232, 0.16);
   font-style: normal;
   font-size: 2.75rem;
+}
+
+.tool-btn.towel i {
+  color: #ffffff;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.28), transparent 34% 66%, rgba(255, 255, 255, 0.22)),
+    linear-gradient(180deg, #72c9ff, #3b8fd8);
+  text-shadow: 0 2px 0 rgba(13, 67, 112, 0.24);
 }
 
 .tool-btn span {

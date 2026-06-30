@@ -6,29 +6,34 @@
 
   const tools = {
     umbrella: { icon: "\u{2602}\u{FE0F}", className: "umbrella" },
-    sponge: { icon: "\u{1F9FD}", className: "sponge" },
+    towel: { icon: "\u25B0", className: "towel" },
     fan: { icon: "\u{1FAAD}", className: "fan" },
     lantern: { icon: "\u{1F3EE}", className: "lantern" },
     house: { icon: "\u{1F3E0}", className: "house" },
     apple: { icon: "\u{1F34E}", className: "apple" },
+    boots: { icon: "\u{1F97E}", className: "boots" },
+    blanket: { icon: "\u{1F9E3}", className: "blanket" },
   };
 
   const problems = {
     rain: { icon: "\u{1F327}\u{FE0F}", tool: "umbrella", scene: "rain" },
-    puddle: { icon: "\u{1F4A7}", tool: "sponge", scene: "puddle" },
+    puddle: { icon: "\u{1F4A7}", tool: "towel", scene: "puddle" },
     heat: { icon: "\u{2600}\u{FE0F}", tool: "fan", scene: "heat" },
     dark: { icon: "\u{1F311}", tool: "lantern", scene: "dark" },
     thunder: { icon: "\u{26A1}", tool: "house", scene: "thunder" },
     hungry: { icon: "\u{1F924}", tool: "apple", scene: "hungry" },
+    muddy: { icon: "\u{1F43E}", tool: "boots", scene: "muddy" },
+    cold: { icon: "\u{2744}\u{FE0F}", tool: "blanket", scene: "cold" },
+    windy: { icon: "\u{1F32C}\u{FE0F}", tool: "house", scene: "windy" },
   };
 
   const stages = [
-    { animal: "\u{1F430}", theme: "garden", rounds: ["rain", "puddle", "hungry", "heat"], target: 3 },
-    { animal: "\u{1F98A}", theme: "forest", rounds: ["dark", "rain", "thunder", "hungry", "puddle"], target: 4 },
-    { animal: "\u{1F43C}", theme: "bamboo", rounds: ["heat", "hungry", "rain", "dark", "puddle"], target: 4 },
-    { animal: "\u{1F427}", theme: "ice", rounds: ["dark", "puddle", "thunder", "rain", "hungry", "heat"], target: 5 },
-    { animal: "\u{1F981}", theme: "savanna", rounds: ["heat", "thunder", "hungry", "rain", "dark", "puddle"], target: 5 },
-    { animal: "\u{1F428}", theme: "tree", rounds: ["rain", "dark", "heat", "puddle", "thunder", "hungry"], target: 5 },
+    { animal: "\u{1F430}", theme: "garden", rounds: ["rain", "puddle", "hungry", "heat"], choices: ["umbrella", "towel", "apple", "fan"], target: 3 },
+    { animal: "\u{1F98A}", theme: "forest", rounds: ["dark", "thunder", "rain", "cold"], choices: ["lantern", "house", "umbrella", "blanket"], target: 3 },
+    { animal: "\u{1F43C}", theme: "bamboo", rounds: ["muddy", "puddle", "heat", "hungry", "rain"], choices: ["boots", "towel", "fan", "apple", "umbrella"], target: 4 },
+    { animal: "\u{1F427}", theme: "ice", rounds: ["cold", "dark", "windy", "thunder", "puddle"], choices: ["blanket", "lantern", "house", "towel", "umbrella"], target: 4 },
+    { animal: "\u{1F981}", theme: "savanna", rounds: ["heat", "hungry", "muddy", "thunder", "rain", "cold"], choices: ["fan", "apple", "boots", "house", "umbrella", "blanket"], target: 5 },
+    { animal: "\u{1F428}", theme: "tree", rounds: ["rain", "dark", "windy", "puddle", "hungry", "cold"], choices: ["umbrella", "lantern", "house", "towel", "apple", "blanket", "fan"], target: 5 },
   ].map((stage, index) => ({ ...stage, id: index + 1 }));
 
   const text = {
@@ -55,17 +60,22 @@
       wrong: "That made the animal sad.",
       goal: "Goal {target}",
       rain: "It is raining.",
-      puddle: "The ground is wet.",
+      puddle: "The animal is wet.",
       heat: "It is too hot.",
       dark: "It is too dark.",
       thunder: "Thunder is nearby.",
       hungry: "The animal is hungry.",
+      muddy: "The path is muddy.",
+      cold: "It is too cold.",
+      windy: "The wind is too strong.",
       umbrella: "Umbrella",
-      sponge: "Sponge",
+      towel: "Towel",
       fan: "Fan",
       lantern: "Lamp",
       house: "House",
       apple: "Apple",
+      boots: "Boots",
+      blanket: "Blanket",
     },
     "zh-Hant": {
       gameTitle: "\u5c0f\u5c0f\u5929\u6c23\u6551\u63f4",
@@ -90,17 +100,22 @@
       wrong: "\u5c0f\u52d5\u7269\u96e3\u904e\u4e86\u3002",
       goal: "\u76ee\u6a19 {target}",
       rain: "\u5916\u9762\u5728\u4e0b\u96e8\u3002",
-      puddle: "\u5730\u4e0a\u6fd5\u6fd5\u7684\u3002",
+      puddle: "\u5c0f\u52d5\u7269\u6fd5\u6fd5\u7684\u3002",
       heat: "\u592a\u967d\u592a\u71b1\u4e86\u3002",
       dark: "\u5929\u8272\u592a\u6697\u4e86\u3002",
       thunder: "\u96f7\u8072\u9760\u8fd1\u4e86\u3002",
       hungry: "\u5c0f\u52d5\u7269\u809a\u5b50\u9913\u4e86\u3002",
+      muddy: "\u8def\u4e0a\u90fd\u662f\u6ce5\u5df4\u3002",
+      cold: "\u5929\u6c23\u592a\u51b7\u4e86\u3002",
+      windy: "\u98a8\u592a\u5927\u4e86\u3002",
       umbrella: "\u96e8\u5098",
-      sponge: "\u6d77\u7dbf",
+      towel: "\u6bdb\u5dfe",
       fan: "\u98a8\u6247",
       lantern: "\u5c0f\u71c8",
       house: "\u5c0f\u5c4b",
       apple: "\u860b\u679c",
+      boots: "\u96e8\u9774",
+      blanket: "\u6bef\u5b50",
     },
   };
 
@@ -227,6 +242,7 @@
     const problemKey = stage.rounds[roundIndex];
     const problem = problems[problemKey];
     const percent = progressPercent(stage);
+    const choices = toolChoices(stage);
     nodes.stageText.textContent = t("stage", { n: stage.id });
     nodes.movesText.innerHTML = `<b>${t("progress", { done: roundIndex + 1, total: stage.rounds.length })}</b><i style="width:${percent}%"></i>`;
     nodes.starsText.textContent = t("calm", { score });
@@ -242,17 +258,26 @@
           <div class="need-line">${t(problemKey)}</div>
         </div>
         <div class="tool-grid">
-          ${Object.entries(tools).map(([key, tool]) => `
+          ${choices.map((key) => {
+            const tool = tools[key];
+            return `
             <button class="tool-btn ${tool.className}" type="button" data-tool="${key}" aria-label="${t(key)}">
               <i>${tool.icon}</i>
               <span>${t(key)}</span>
             </button>
-          `).join("")}
+          `;
+          }).join("")}
         </div>
         ${feedback ? `<div class="event-pop">${feedback}</div>` : ""}
       </div>
     `;
     nodes.board.querySelectorAll("[data-tool]").forEach((button) => installToolControl(button));
+  }
+
+  function toolChoices(stage) {
+    const choices = stage.choices || Object.keys(tools);
+    const offset = roundIndex % choices.length;
+    return [...choices.slice(offset), ...choices.slice(0, offset)];
   }
 
   function weatherEffects(problemKey) {
@@ -261,11 +286,17 @@
     if (problemKey === "heat") return "<span>☀️</span><span>〰</span>";
     if (problemKey === "dark") return "<span>🌙</span><span>✨</span>";
     if (problemKey === "thunder") return "<span>⚡</span><span>☁️</span>";
+    if (problemKey === "muddy") return "<span>🐾</span><span>🟤</span>";
+    if (problemKey === "cold") return "<span>❄️</span><span>🥶</span>";
+    if (problemKey === "windy") return "<span>🌬️</span><span>🍃</span>";
     return "<span>💭</span><span>🍽️</span>";
   }
 
   function installToolControl(button) {
-    button.addEventListener("click", () => chooseTool(button.dataset.tool, button));
+    button.addEventListener("click", () => {
+      if (button.dataset.skipClick === "1") return;
+      chooseTool(button.dataset.tool, button);
+    });
     button.addEventListener("pointerdown", (event) => {
       if (!running || busy) return;
       dragState = {
@@ -289,6 +320,12 @@
     });
     button.addEventListener("pointerup", (event) => {
       if (!dragState || dragState.tool !== button.dataset.tool) return;
+      if (dragState.moved) {
+        button.dataset.skipClick = "1";
+        window.setTimeout(() => {
+          delete button.dataset.skipClick;
+        }, 0);
+      }
       const shouldDrop = dragState.moved && isOverAnimal(event.clientX, event.clientY);
       cleanupDrag();
       if (shouldDrop) chooseTool(button.dataset.tool, button);
