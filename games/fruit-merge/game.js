@@ -242,8 +242,9 @@
     }
 
     resolveMerges();
-    for (let iteration = 0; iteration < 4; iteration += 1) {
+    for (let iteration = 0; iteration < 10; iteration += 1) {
       resolveCollisions();
+      constrainFruits();
     }
     constrainFruits();
     sleepStillFruits();
@@ -266,12 +267,17 @@
 
         const nx = dx / dist;
         const ny = dy / dist;
-        const overlap = minDist - dist;
-        const invMassA = 1 / (a.mass || fruitMass(a.radius));
-        const invMassB = 1 / (b.mass || fruitMass(b.radius));
-        const invMassTotal = invMassA + invMassB;
-        const pushA = invMassA / invMassTotal;
-        const pushB = invMassB / invMassTotal;
+        const overlap = minDist - dist + 0.5;
+        const baseInvMassA = 1 / (a.mass || fruitMass(a.radius));
+        const baseInvMassB = 1 / (b.mass || fruitMass(b.radius));
+        const canMoveA = canApplyCorrection(a, -nx, -ny);
+        const canMoveB = canApplyCorrection(b, nx, ny);
+        const invMassA = canMoveA ? baseInvMassA : 0;
+        const invMassB = canMoveB ? baseInvMassB : 0;
+        const activeInvMassTotal = invMassA + invMassB;
+        const invMassTotal = activeInvMassTotal || baseInvMassA + baseInvMassB;
+        const pushA = activeInvMassTotal ? invMassA / activeInvMassTotal : baseInvMassA / invMassTotal;
+        const pushB = activeInvMassTotal ? invMassB / activeInvMassTotal : baseInvMassB / invMassTotal;
         a.x -= nx * overlap * pushA;
         a.y -= ny * overlap * pushA;
         b.x += nx * overlap * pushB;
@@ -368,10 +374,25 @@
     for (const fruit of fruitsOnBoard) {
       const grounded = fruit.y + fruit.radius >= floorY - 0.8;
       const slow = Math.hypot(fruit.vx, fruit.vy) < sleepSpeed;
-      if (!slow) continue;
+      if (!slow || hasFruitOverlap(fruit)) continue;
       fruit.vx = 0;
       if (grounded || Math.abs(fruit.vy) < sleepSpeed) fruit.vy = 0;
     }
+  }
+
+  function canApplyCorrection(fruit, dx, dy) {
+    const atLeft = fruit.x - fruit.radius <= wallLeft + 0.8;
+    const atRight = fruit.x + fruit.radius >= wallRight - 0.8;
+    const atFloor = fruit.y + fruit.radius >= floorY - 0.8;
+    return !(atLeft && dx < 0) && !(atRight && dx > 0) && !(atFloor && dy > 0);
+  }
+
+  function hasFruitOverlap(target) {
+    return fruitsOnBoard.some((fruit) => {
+      if (fruit === target || fruit.merging || target.merging) return false;
+      const minDist = fruit.radius + target.radius - 0.8;
+      return Math.hypot(fruit.x - target.x, fruit.y - target.y) < minDist;
+    });
   }
 
   function constrainFruits() {
