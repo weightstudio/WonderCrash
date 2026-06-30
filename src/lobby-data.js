@@ -161,6 +161,30 @@ window.WONDER_LOBBY = {
       },
     },
     {
+      id: "garden-tiles",
+      title: { en: "Garden Tile Match", "zh-Hant": "花園配對" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      href: "games/garden-tiles/index.html",
+      type: { en: "Relaxing Match", "zh-Hant": "輕鬆配對" },
+      categories: ["Puzzle", "Family"],
+      ages: ["family"],
+      ageLabel: { en: "Relax", "zh-Hant": "休閒" },
+      description: {
+        en: "A large-print, no-timer garden matching game made for calm daily play.",
+        "zh-Hant": "大圖塊、無倒數的花園配對遊戲，適合每天放鬆玩一局。",
+      },
+      meta: {
+        en: ["10 Levels", "Large Tiles", "No Timer"],
+        "zh-Hant": ["10 關", "大圖塊", "無倒數"],
+      },
+      art: {
+        kind: "image",
+        background: "assets/garden-tiles-cover.svg",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
+    },
+    {
       id: "animal-rescue",
       title: { en: "Animal Rescue Trail", "zh-Hant": "動物回家路" },
       status: "playable",

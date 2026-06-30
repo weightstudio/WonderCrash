@@ -51,6 +51,14 @@
         { icon: "3", en: ["Merge", "Two matching fruits merge into the next fruit. Do not pass the red line."], "zh-Hant": ["合成", "兩顆相同水果會合成下一級，別讓水果超過紅線。"] },
       ],
     },
+    "garden-tiles": {
+      title: { en: "Relax and match.", "zh-Hant": "放鬆配對" },
+      steps: [
+        { icon: "1", en: ["Look", "All tiles are open. Take your time and find two matching pictures."], "zh-Hant": ["觀察", "所有圖塊都會打開，慢慢找兩張一樣的圖。"] },
+        { icon: "2", en: ["Match", "Tap two matching garden tiles to remove them."], "zh-Hant": ["配對", "點兩張相同的花園圖塊，就能把它們消除。"] },
+        { icon: "3", en: ["Clear", "Clear every pair to finish the level. There is no timer."], "zh-Hant": ["完成", "消完全部配對就過關，沒有倒數壓力。"] },
+      ],
+    },
     "campus-dash": {
       title: { en: "Dodge in three lanes.", "zh-Hant": "三條路閃避" },
       steps: [
