@@ -67,13 +67,17 @@ function hasRealStats() {
   return gameStats.source === "ga4" && Number(gameStats.totals?.plays7d || 0) > 0;
 }
 
+function hasStatsFeed() {
+  return gameStats.source === "ga4";
+}
+
 function formatCount(value) {
   return new Intl.NumberFormat(i18n.locale(), { notation: "compact", maximumFractionDigits: 1 }).format(Number(value) || 0);
 }
 
 function playCountText(game) {
   const stats = statFor(game);
-  if (!hasRealStats()) return i18n.t("stats.collecting");
+  if (!hasStatsFeed()) return i18n.t("stats.collecting");
   return i18n.t("stats.plays_7d", { count: formatCount(stats.plays7d || 0), days: gameStats.windowDays || 7 });
 }
 
@@ -222,7 +226,7 @@ function renderLobby() {
   const animalCount = lobby.games.filter((game) => (game.categories || []).includes("Animal Games")).length;
   lobbyStats.innerHTML = `
     <div><strong>${playableCount}</strong><span>${i18n.t("stats.playable")}</span></div>
-    <div><strong>${hasRealStats() ? formatCount(topPlayCount) : "..."}</strong><span>${i18n.t("stats.plays_7d_short")}</span></div>
+    <div><strong>${hasStatsFeed() ? formatCount(topPlayCount) : "..."}</strong><span>${i18n.t("stats.plays_7d_short")}</span></div>
     <div><strong>${animalCount}</strong><span>${i18n.t("stats.animal_games")}</span></div>
     <div><strong>${ageGroups.size}</strong><span>${i18n.t("stats.age_groups")}</span></div>
   `;
