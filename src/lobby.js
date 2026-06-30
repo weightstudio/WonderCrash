@@ -17,8 +17,11 @@ const languageLabel = document.querySelector("#languageLabel");
 const localeSelect = document.querySelector("#localeSelect");
 const heroRankLabel = document.querySelector("#heroRankLabel");
 const heroGamesTitle = document.querySelector("#heroGamesTitle");
+const dailyReward = document.querySelector("#dailyReward");
 const i18n = window.WonderI18n;
 const favoritesKey = "weightplayFavoriteGames";
+const dailyRewardKey = "weightplayDailyReward";
+const wonderProfileKey = "wonderCrashProfile";
 let activeFilter = "all";
 let activeTopic = "all";
 let activeLibrary = "all";
@@ -170,6 +173,8 @@ function renderLobby() {
     <div><strong>${ageGroups.size}</strong><span>${i18n.t("stats.age_groups")}</span></div>
   `;
 
+  renderDailyReward();
+
   const featured = lobby.games.find((game) => game.id === lobby.featuredGameId);
   if (featured) {
     featuredGame.href = featured.href;
@@ -180,6 +185,96 @@ function renderLobby() {
   renderHeroGames();
   gameGrid.replaceChildren(...lobby.games.map(createGameCard));
   applyFilter();
+}
+
+function getLocalDateKey(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function dayNumber(dateKey) {
+  if (!dateKey) return 0;
+  const [year, month, day] = dateKey.split("-").map(Number);
+  return Math.floor(Date.UTC(year, month - 1, day) / 86400000);
+}
+
+function readDailyReward() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(dailyRewardKey) || "{}");
+    return {
+      lastClaimDate: typeof saved.lastClaimDate === "string" ? saved.lastClaimDate : "",
+      streak: Math.max(0, Number(saved.streak) || 0),
+      totalClaims: Math.max(0, Number(saved.totalClaims) || 0),
+    };
+  } catch {
+    return { lastClaimDate: "", streak: 0, totalClaims: 0 };
+  }
+}
+
+function getDailyRewardState() {
+  const saved = readDailyReward();
+  const today = getLocalDateKey();
+  const yesterdayNumber = dayNumber(today) - 1;
+  const lastNumber = dayNumber(saved.lastClaimDate);
+  const claimedToday = saved.lastClaimDate === today;
+  const streak = claimedToday ? saved.streak : lastNumber === yesterdayNumber ? saved.streak + 1 : 1;
+  const reward = 30 + Math.min(6, Math.max(0, streak - 1)) * 10;
+  return { ...saved, today, claimedToday, streak, reward };
+}
+
+function renderDailyReward() {
+  if (!dailyReward) return;
+  const reward = getDailyRewardState();
+  dailyReward.innerHTML = `
+    <div class="daily-reward-copy">
+      <span>${i18n.t("daily.kicker")}</span>
+      <strong>${i18n.t("daily.title")}</strong>
+      <small>${i18n.t("daily.desc", { count: reward.streak, coins: reward.reward })}</small>
+    </div>
+    <button type="button" ${reward.claimedToday ? "disabled" : ""}>
+      <span>${reward.claimedToday ? i18n.t("daily.claimed") : i18n.t("daily.claim")}</span>
+      <b>+${reward.reward}</b>
+    </button>
+  `;
+  dailyReward.querySelector("button")?.addEventListener("click", claimDailyReward);
+}
+
+function claimDailyReward() {
+  const reward = getDailyRewardState();
+  if (reward.claimedToday) {
+    showToast(i18n.t("daily.toast_claimed"));
+    return;
+  }
+  grantWonderCrashCoins(reward.reward);
+  localStorage.setItem(
+    dailyRewardKey,
+    JSON.stringify({
+      lastClaimDate: reward.today,
+      streak: reward.streak,
+      totalClaims: reward.totalClaims + 1,
+    }),
+  );
+  window.WonderSound?.play("success");
+  window.WonderAnalytics?.track("daily_reward_claim", {
+    reward_type: "wonder_crash_coins",
+    reward_amount: reward.reward,
+    streak: reward.streak,
+    locale: i18n.locale(),
+  });
+  renderDailyReward();
+  showToast(i18n.t("daily.toast", { coins: reward.reward, count: reward.streak }));
+}
+
+function grantWonderCrashCoins(amount) {
+  try {
+    const profile = JSON.parse(localStorage.getItem(wonderProfileKey) || "{}");
+    profile.coins = Math.max(0, Number(profile.coins) || 0) + amount;
+    localStorage.setItem(wonderProfileKey, JSON.stringify(profile));
+  } catch {
+    localStorage.setItem(wonderProfileKey, JSON.stringify({ coins: amount }));
+  }
 }
 
 function renderHeroGames() {

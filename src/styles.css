@@ -188,6 +188,74 @@ body.lobby-page {
   font-weight: 900;
 }
 
+.daily-reward {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, auto);
+  gap: 12px;
+  align-items: center;
+  min-height: 94px;
+  margin: 0 0 12px;
+  padding: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 211, 107, 0.42);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(255, 207, 99, 0.22), rgba(126, 202, 255, 0.13)),
+    rgba(255, 255, 255, 0.08);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.daily-reward-copy {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.daily-reward-copy span {
+  color: #ffcf63;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.daily-reward-copy strong {
+  overflow-wrap: anywhere;
+  font-size: clamp(22px, 4vw, 34px);
+  line-height: 1.05;
+}
+
+.daily-reward-copy small {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.daily-reward button {
+  display: grid;
+  place-items: center;
+  min-width: 132px;
+  min-height: 62px;
+  padding: 9px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffcf63;
+  color: #241a08;
+  font: inherit;
+  font-weight: 1000;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
+}
+
+.daily-reward button b {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.daily-reward button:disabled {
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.62);
+  box-shadow: none;
+}
+
 .age-filter {
   position: sticky;
   top: 0;
@@ -923,6 +991,14 @@ body.lobby-page {
 
   .lobby-stats span {
     font-size: 12px;
+  }
+
+  .daily-reward {
+    grid-template-columns: 1fr;
+  }
+
+  .daily-reward button {
+    width: 100%;
   }
 
   .game-card {
