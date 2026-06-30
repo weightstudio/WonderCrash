@@ -32,10 +32,11 @@
   const wallRight = W - 44;
   const floorY = H - 42;
   const dangerY = 164;
-  const dropY = 106;
-  const gravity = 2200;
-  const airFriction = 0.998;
-  const groundFriction = 0.82;
+  const dropY = 122;
+  const gravity = 2450;
+  const airFriction = 0.997;
+  const groundFriction = 0.86;
+  const angularFriction = 0.992;
 
   const dictionary = {
     en: {
@@ -97,22 +98,24 @@
   };
 
   const fruits = [
-    { radius: 22, color: "#4854d9", accent: "#91a3ff", score: 2 },
-    { radius: 28, color: "#d93652", accent: "#ff94a7", score: 4 },
-    { radius: 34, color: "#ff4d63", accent: "#ffd35d", score: 8 },
-    { radius: 42, color: "#7a4ce0", accent: "#c5a5ff", score: 14 },
-    { radius: 50, color: "#ff9438", accent: "#ffd28a", score: 22 },
-    { radius: 60, color: "#e83f4b", accent: "#ffac8a", score: 34 },
-    { radius: 70, color: "#a8d957", accent: "#f4ff9e", score: 52 },
-    { radius: 82, color: "#ffb182", accent: "#ffe0c8", score: 78 },
-    { radius: 96, color: "#f5b43b", accent: "#75c95b", score: 118 },
-    { radius: 112, color: "#8fd94f", accent: "#fff28a", score: 176 },
-    { radius: 132, color: "#2fbd65", accent: "#1d8b45", score: 300 },
+    { radius: 28, color: "#4854d9", accent: "#91a3ff", score: 2 },
+    { radius: 34, color: "#d93652", accent: "#ff94a7", score: 4 },
+    { radius: 42, color: "#ff4d63", accent: "#ffd35d", score: 8 },
+    { radius: 52, color: "#7a4ce0", accent: "#c5a5ff", score: 14 },
+    { radius: 64, color: "#ff9438", accent: "#ffd28a", score: 22 },
+    { radius: 76, color: "#e83f4b", accent: "#ffac8a", score: 34 },
+    { radius: 90, color: "#a8d957", accent: "#f4ff9e", score: 52 },
+    { radius: 106, color: "#ffb182", accent: "#ffe0c8", score: 78 },
+    { radius: 122, color: "#f5b43b", accent: "#75c95b", score: 118 },
+    { radius: 142, color: "#8fd94f", accent: "#fff28a", score: 176 },
+    { radius: 166, color: "#2fbd65", accent: "#1d8b45", score: 300 },
   ];
 
   let fruitId = 1;
   let fruitsOnBoard = [];
+  let currentLevel = 0;
   let nextLevel = 0;
+  let mergeBursts = [];
   let aimX = W / 2;
   let score = 0;
   let bestScore = Number(localStorage.getItem(BEST_KEY) || 0);
@@ -165,7 +168,9 @@
 
   function resetGame(showMenu = false) {
     fruitsOnBoard = [];
+    currentLevel = randomNextLevel();
     nextLevel = randomNextLevel();
+    mergeBursts = [];
     aimX = W / 2;
     score = 0;
     fruitId = 1;
@@ -187,19 +192,22 @@
 
   function dropFruit() {
     if (!running || gameOver || performance.now() < canDropAt) return;
-    const spec = fruits[nextLevel];
+    const spec = fruits[currentLevel];
     const x = clamp(aimX, wallLeft + spec.radius, wallRight - spec.radius);
     fruitsOnBoard.push({
       id: fruitId++,
-      level: nextLevel,
+      level: currentLevel,
       x,
       y: dropY,
       vx: 0,
       vy: 0,
       radius: spec.radius,
+      angle: random(-0.18, 0.18),
+      angularVelocity: random(-1.2, 1.2),
       merging: false,
       bornAt: performance.now(),
     });
+    currentLevel = nextLevel;
     nextLevel = randomNextLevel();
     canDropAt = performance.now() + 520;
     window.WonderSound?.play?.("click");
@@ -211,21 +219,26 @@
       fruit.vy += gravity * dt;
       fruit.vx *= airFriction;
       fruit.vy *= airFriction;
+      fruit.angularVelocity *= angularFriction;
+      fruit.angle += fruit.angularVelocity * dt;
       fruit.x += fruit.vx * dt;
       fruit.y += fruit.vy * dt;
 
       if (fruit.x - fruit.radius < wallLeft) {
         fruit.x = wallLeft + fruit.radius;
         fruit.vx = Math.abs(fruit.vx) * 0.42;
+        fruit.angularVelocity += fruit.vy * 0.004;
       }
       if (fruit.x + fruit.radius > wallRight) {
         fruit.x = wallRight - fruit.radius;
         fruit.vx = -Math.abs(fruit.vx) * 0.42;
+        fruit.angularVelocity -= fruit.vy * 0.004;
       }
       if (fruit.y + fruit.radius > floorY) {
         fruit.y = floorY - fruit.radius;
         fruit.vy = -Math.abs(fruit.vy) * 0.18;
         fruit.vx *= groundFriction;
+        fruit.angularVelocity += fruit.vx * 0.009;
         if (Math.abs(fruit.vy) < 28) fruit.vy = 0;
       }
     }
@@ -235,6 +248,7 @@
       resolveCollisions();
     }
     resolveMerges();
+    updateMergeBursts(dt);
     checkGameOver(dt);
   }
 
@@ -269,6 +283,8 @@
         a.vy -= iy;
         b.vx += ix;
         b.vy += iy;
+        a.angularVelocity -= iy * 0.004 + ix * 0.002;
+        b.angularVelocity += iy * 0.004 + ix * 0.002;
       }
     }
   }
@@ -283,19 +299,33 @@
         if (removeIds.has(a.id) || removeIds.has(b.id) || a.level !== b.level || a.level >= fruits.length - 1) continue;
         if (!shouldMerge(a, b)) continue;
         const next = fruits[a.level + 1];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const relativeVx = b.vx - a.vx;
+        const relativeVy = b.vy - a.vy;
+        const impact = Math.min(420, Math.max(90, Math.abs(relativeVx * nx + relativeVy * ny) + Math.hypot(relativeVx, relativeVy) * 0.28));
+        const mergedVx = (a.vx + b.vx) * 0.48 + nx * impact * 0.22;
+        const mergedVy = Math.min((a.vy + b.vy) * 0.42 + ny * impact * 0.12, 260);
         const merged = {
           id: fruitId++,
           level: a.level + 1,
           x: clamp((a.x + b.x) / 2, wallLeft + next.radius, wallRight - next.radius),
           y: Math.min((a.y + b.y) / 2, floorY - next.radius),
-          vx: (a.vx + b.vx) * 0.18,
-          vy: Math.min((a.vy + b.vy) * 0.18, 90),
+          vx: mergedVx,
+          vy: mergedVy,
           radius: next.radius,
+          angle: (a.angle + b.angle) / 2,
+          angularVelocity: (a.angularVelocity + b.angularVelocity) * 0.45 + (relativeVx * ny - relativeVy * nx) * 0.012,
+          pop: 0.24,
           bornAt: performance.now(),
         };
         removeIds.add(a.id);
         removeIds.add(b.id);
         additions.push(merged);
+        spawnMergeBurst(merged.x, merged.y, next.color, impact);
         score += next.score;
         if (merged.level === fruits.length - 1) showToast(t("fruit10"));
         window.WonderSound?.play?.("success");
@@ -312,6 +342,19 @@
     const dist = Math.hypot(b.x - a.x, b.y - a.y);
     const mergeDistance = a.radius + b.radius + Math.max(12, Math.min(a.radius, b.radius) * 0.45);
     return dist <= mergeDistance;
+  }
+
+  function spawnMergeBurst(x, y, color, impact) {
+    mergeBursts.push({ x, y, color, life: 0.34, maxLife: 0.34, impact });
+  }
+
+  function updateMergeBursts(dt) {
+    for (const fruit of fruitsOnBoard) {
+      if (fruit.pop > 0) fruit.pop = Math.max(0, fruit.pop - dt);
+    }
+    mergeBursts = mergeBursts
+      .map((burst) => ({ ...burst, life: burst.life - dt }))
+      .filter((burst) => burst.life > 0);
   }
 
   function checkGameOver(dt) {
@@ -346,6 +389,7 @@
     ctx.clearRect(0, 0, W, H);
     drawBoard();
     for (const fruit of fruitsOnBoard) drawFruit(fruit);
+    drawMergeBursts();
     if (running && !gameOver) drawDropPreview();
   }
 
@@ -380,7 +424,7 @@
   }
 
   function drawDropPreview() {
-    const spec = fruits[nextLevel];
+    const spec = fruits[currentLevel];
     const x = clamp(aimX, wallLeft + spec.radius, wallRight - spec.radius);
     ctx.strokeStyle = "rgba(41, 54, 77, 0.24)";
     ctx.lineWidth = 4;
@@ -390,7 +434,7 @@
     ctx.lineTo(x, floorY);
     ctx.stroke();
     ctx.setLineDash([]);
-    drawFruit({ level: nextLevel, x, y: dropY, radius: spec.radius, preview: true });
+    drawFruit({ level: currentLevel, x, y: dropY, radius: spec.radius, angle: 0, preview: true });
   }
 
   function drawFruit(fruit) {
@@ -398,6 +442,9 @@
     ctx.save();
     ctx.globalAlpha = fruit.preview ? 0.72 : 1;
     ctx.translate(fruit.x, fruit.y);
+    const popScale = fruit.pop ? 1 + Math.sin((fruit.pop / 0.24) * Math.PI) * 0.12 : 1;
+    ctx.scale(popScale, popScale);
+    ctx.rotate(fruit.angle || 0);
 
     ctx.beginPath();
     ctx.arc(0, 0, fruit.radius, 0, Math.PI * 2);
@@ -453,6 +500,31 @@
     }
 
     ctx.restore();
+  }
+
+  function drawMergeBursts() {
+    for (const burst of mergeBursts) {
+      const progress = 1 - burst.life / burst.maxLife;
+      const radius = 28 + progress * (70 + burst.impact * 0.05);
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, 1 - progress);
+      ctx.strokeStyle = burst.color;
+      ctx.lineWidth = 8 * (1 - progress) + 2;
+      ctx.beginPath();
+      ctx.arc(burst.x, burst.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha *= 0.65;
+      ctx.fillStyle = burst.color;
+      for (let i = 0; i < 8; i += 1) {
+        const angle = (i / 8) * Math.PI * 2;
+        const px = burst.x + Math.cos(angle) * radius * 0.9;
+        const py = burst.y + Math.sin(angle) * radius * 0.9;
+        ctx.beginPath();
+        ctx.arc(px, py, 5 * (1 - progress) + 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
   }
 
   function fruitSvg(level) {
@@ -511,6 +583,10 @@
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
+  }
+
+  function random(min, max) {
+    return min + Math.random() * (max - min);
   }
 
   function loop(now) {
