@@ -142,18 +142,18 @@ const animalIcons = {
 const fruitIcons = ["🍓", "🍇", "🍎", "🍌", "🥕"];
 
 const levels = [
-  { animal: "lion", biome: "forest", start: [0, 4], home: [4, 0], blocks: [[1, 3], [2, 3], [3, 1]], fruits: [[0, 2], [3, 2]], par: 8 },
-  { animal: "panda", biome: "bamboo", start: [4, 4], home: [0, 0], blocks: [[1, 1], [2, 1], [3, 3]], fruits: [[4, 2], [1, 4]], par: 8 },
-  { animal: "elephant", biome: "river", start: [0, 0], home: [4, 4], blocks: [[2, 0], [2, 1], [2, 3]], fruits: [[1, 2], [3, 2]], par: 8, water: [[2, 2]] },
-  { animal: "turtle", biome: "meadow", start: [2, 4], home: [2, 0], blocks: [[1, 2], [2, 2], [3, 2]], fruits: [[0, 1], [4, 1]], par: 8 },
-  { animal: "rabbit", biome: "meadow", start: [0, 2], home: [4, 2], blocks: [[1, 1], [1, 3], [3, 1], [3, 3]], fruits: [[2, 0], [2, 4]], par: 8 },
-  { animal: "penguin", biome: "ice", start: [4, 0], home: [0, 4], blocks: [[1, 0], [1, 1], [3, 3]], fruits: [[4, 3], [2, 2]], par: 9, water: [[2, 1]] },
-  { animal: "fox", biome: "forest", start: [0, 1], home: [4, 3], blocks: [[1, 2], [2, 2], [3, 0], [3, 1]], fruits: [[0, 4], [4, 1]], par: 9 },
-  { animal: "monkey", biome: "bamboo", start: [2, 0], home: [2, 4], blocks: [[0, 2], [1, 2], [3, 2], [4, 2]], fruits: [[0, 0], [4, 4]], par: 10 },
-  { animal: "koala", biome: "forest", start: [4, 2], home: [0, 2], blocks: [[2, 1], [2, 2], [2, 3]], fruits: [[1, 0], [3, 4]], par: 9 },
-  { animal: "giraffe", biome: "meadow", start: [0, 4], home: [4, 0], blocks: [[0, 2], [2, 2], [4, 2], [3, 1]], fruits: [[1, 1], [4, 4]], par: 10 },
-  { animal: "dolphin", biome: "river", start: [0, 0], home: [4, 4], blocks: [[1, 0], [1, 3], [3, 1], [3, 4]], fruits: [[0, 3], [2, 2]], par: 10, water: [[2, 1], [2, 3]] },
-  { animal: "cow", biome: "farm", start: [4, 4], home: [0, 0], blocks: [[1, 2], [2, 1], [2, 3], [3, 2]], fruits: [[4, 0], [0, 4]], par: 10 },
+  { animal: "lion", biome: "forest", start: [0, 4], home: [4, 0], blocks: [[1, 3], [2, 3], [3, 1]], fruits: [[0, 2], [3, 2]], par: 9 },
+  { animal: "panda", biome: "bamboo", start: [4, 4], home: [0, 0], blocks: [[1, 1], [2, 1], [3, 3]], fruits: [[4, 2], [1, 4]], par: 13 },
+  { animal: "elephant", biome: "river", start: [0, 0], home: [4, 4], blocks: [[2, 0], [2, 1], [2, 3]], fruits: [[1, 2], [3, 2]], par: 9, water: [[2, 2]] },
+  { animal: "turtle", biome: "meadow", start: [2, 4], home: [2, 0], blocks: [[1, 2], [2, 2], [3, 2]], fruits: [[0, 1], [4, 1]], par: 13 },
+  { animal: "rabbit", biome: "meadow", start: [0, 2], home: [4, 2], blocks: [[1, 1], [1, 3], [3, 1], [3, 3]], fruits: [[2, 0], [2, 4]], par: 13 },
+  { animal: "penguin", biome: "ice", start: [4, 0], home: [0, 4], blocks: [[1, 0], [1, 1], [3, 3]], fruits: [[4, 3], [2, 2]], par: 11, water: [[2, 1]] },
+  { animal: "fox", biome: "forest", start: [0, 1], home: [4, 3], blocks: [[1, 2], [2, 2], [3, 0], [3, 1]], fruits: [[0, 4], [4, 1]], par: 13 },
+  { animal: "monkey", biome: "bamboo", start: [2, 0], home: [2, 4], blocks: [[0, 2], [1, 2], [3, 2], [4, 2]], fruits: [[0, 0], [4, 4]], par: 13 },
+  { animal: "koala", biome: "forest", start: [4, 2], home: [0, 2], blocks: [[2, 1], [2, 2], [2, 3]], fruits: [[1, 0], [3, 4]], par: 13 },
+  { animal: "giraffe", biome: "meadow", start: [0, 4], home: [4, 0], blocks: [[0, 2], [2, 2], [4, 2], [3, 1]], fruits: [[1, 1], [4, 4]], par: 15 },
+  { animal: "dolphin", biome: "river", start: [0, 0], home: [4, 4], blocks: [[1, 0], [1, 3], [3, 1], [3, 4]], fruits: [[0, 3], [2, 2]], par: 11, water: [[2, 1], [2, 3]] },
+  { animal: "cow", biome: "farm", start: [4, 4], home: [0, 0], blocks: [[1, 2], [2, 1], [2, 3], [3, 2]], fruits: [[4, 0], [0, 4]], par: 17 },
 ].map((level, index) => ({ ...level, id: index + 1 }));
 
 let unlocked = loadNumber(UNLOCK_KEY, 1);
