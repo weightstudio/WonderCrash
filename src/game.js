@@ -289,7 +289,6 @@ const WEAPONS = DATA.weapons;
 const ENEMY_TYPES = DATA.enemyTypes;
 const SAVE_KEY = "wonderCrashHighestUnlocked";
 const PROFILE_KEY = "wonderCrashProfile";
-const WALLET_KEY = "weightplayWallet";
 const WEAPON_COOLDOWN = 1.35;
 const WEAPON_DROP_RATE = 0.5;
 const DIFFICULTY = {
@@ -2269,16 +2268,11 @@ function saveProfile() {
 }
 
 function readWallet() {
-  try {
-    const wallet = JSON.parse(localStorage.getItem(WALLET_KEY) || "{}");
-    return { diamonds: Math.max(0, Number(wallet.diamonds) || 0) };
-  } catch {
-    return { diamonds: 0 };
-  }
+  return window.WeightPlayWallet?.read?.() || { diamonds: 0 };
 }
 
 function saveWallet(wallet) {
-  localStorage.setItem(WALLET_KEY, JSON.stringify({ diamonds: Math.max(0, Number(wallet.diamonds) || 0) }));
+  window.WeightPlayWallet?.save?.(wallet);
 }
 
 function createDefaultProfile() {

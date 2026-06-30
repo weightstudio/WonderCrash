@@ -21,7 +21,6 @@ const dailyReward = document.querySelector("#dailyReward");
 const i18n = window.WonderI18n;
 const favoritesKey = "weightplayFavoriteGames";
 const dailyRewardKey = "weightplayDailyReward";
-const walletKey = "weightplayWallet";
 const walletBar = document.querySelector("#walletBar");
 const dailyRewardTrack = [5, 6, 8, 10, 12, 15, 25];
 let activeFilter = "all";
@@ -269,7 +268,7 @@ function claimDailyReward() {
     showToast(i18n.t("daily.toast_claimed"));
     return;
   }
-  addDiamonds(reward.reward);
+  window.WeightPlayWallet?.addDiamonds(reward.reward);
   localStorage.setItem(
     dailyRewardKey,
     JSON.stringify({
@@ -290,31 +289,12 @@ function claimDailyReward() {
   showToast(i18n.t("daily.toast", { diamonds: reward.reward, count: reward.streak }));
 }
 
-function readWallet() {
-  try {
-    const wallet = JSON.parse(localStorage.getItem(walletKey) || "{}");
-    return { diamonds: Math.max(0, Number(wallet.diamonds) || 0) };
-  } catch {
-    return { diamonds: 0 };
-  }
-}
-
-function saveWallet(wallet) {
-  localStorage.setItem(walletKey, JSON.stringify({ diamonds: Math.max(0, Number(wallet.diamonds) || 0) }));
-}
-
-function addDiamonds(amount) {
-  const wallet = readWallet();
-  wallet.diamonds += amount;
-  saveWallet(wallet);
-}
-
 function renderWallet() {
   if (!walletBar) return;
-  const wallet = readWallet();
+  const wallet = window.WeightPlayWallet?.read?.() || { diamonds: 0 };
   walletBar.innerHTML = `
     <span>${i18n.t("wallet.diamonds")}</span>
-    <strong><i aria-hidden="true">◆</i>${wallet.diamonds}</strong>
+    <strong><i aria-hidden="true">&#9670;</i>${wallet.diamonds}</strong>
   `;
 }
 
