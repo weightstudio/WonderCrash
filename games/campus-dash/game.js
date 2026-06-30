@@ -753,7 +753,10 @@
   });
   window.addEventListener("wonder:locale-change", renderStaticText);
   startBtn.addEventListener("click", startRun);
-  againBtn.addEventListener("click", startRun);
+  againBtn.addEventListener("click", () => {
+    window.WonderAnalytics?.track("game_restart", { game_id: GAME_ID, score: state.score, locale: locale() });
+    startRun();
+  });
   window.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft") moveLane(-1);
     if (event.key === "ArrowRight") moveLane(1);
