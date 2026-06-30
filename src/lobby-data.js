@@ -123,12 +123,12 @@ window.WONDER_LOBBY = {
       ages: ["13", "family"],
       ageLabel: "13+",
       description: {
-        en: "Clear snack matching stages, beat move goals, and unlock new levels.",
-        "zh-Hant": "交換零食方塊達成目標分數，闖關解鎖新關卡。",
+        en: "Use every move, clear score and collection goals, and chase your best snack score.",
+        "zh-Hant": "用完每一步，完成分數與收集目標，挑戰零食高分。",
       },
       meta: {
-        en: ["8 Stages", "Move Goals", "Match Puzzle"],
-        "zh-Hant": ["8 關", "步數目標", "配對益智"],
+        en: ["20 Stages", "Score & Collect", "Match Puzzle"],
+        "zh-Hant": ["20 關", "分數與收集", "配對益智"],
       },
       art: {
         kind: "image",

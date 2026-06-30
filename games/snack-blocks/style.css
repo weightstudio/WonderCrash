@@ -251,6 +251,7 @@ button:active {
 }
 
 .board {
+  position: relative;
   width: min(94vw, 620px, 72svh);
   aspect-ratio: 1;
   margin: 0 auto;
@@ -263,9 +264,12 @@ button:active {
   gap: 6px;
   touch-action: none;
   overflow: hidden;
+  contain: layout paint size;
 }
 
 .tile {
+  position: relative;
+  z-index: 1;
   min-width: 0;
   aspect-ratio: 1;
   border: 0;
@@ -277,11 +281,12 @@ button:active {
   text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 -5px rgba(0, 0, 0, 0.18), 0 4px 8px rgba(0, 0, 0, 0.16);
   transform: translateZ(0);
-  transition: transform 120ms ease, filter 120ms ease, opacity 160ms ease;
+  will-change: transform, opacity, filter;
+  transition: transform 150ms ease, filter 150ms ease, opacity 180ms ease;
 }
 
 .tile.dropping {
-  animation: snack-drop-move 0.28s cubic-bezier(0.2, 0.86, 0.25, 1.08) both;
+  animation: snack-drop-move 0.34s cubic-bezier(0.2, 0.86, 0.25, 1.08) both;
 }
 
 .tile.selected {
@@ -291,8 +296,26 @@ button:active {
 
 .tile.matching {
   filter: brightness(1.45);
-  opacity: 0.35;
-  transform: scale(0.72);
+  opacity: 0.18;
+  transform: scale(0.58) rotate(5deg);
+}
+
+.match-spark {
+  position: absolute;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.96), rgba(255, 227, 111, 0.84) 46%, rgba(255, 116, 90, 0) 72%);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 1000;
+  text-shadow: 0 1px 4px rgba(118, 62, 12, 0.55);
+  pointer-events: none;
+  animation: snack-spark-pop 0.48s ease-out both;
 }
 
 .score-pop {
@@ -415,7 +438,7 @@ button:active {
 
 @keyframes snack-drop-move {
   from {
-    opacity: 0.9;
+    opacity: 0.98;
     transform: translateY(var(--drop)) scale(0.98);
   }
   78% {
@@ -424,6 +447,21 @@ button:active {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes snack-spark-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.45);
+  }
+  38% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-26px) scale(0.72);
   }
 }
 
@@ -448,6 +486,7 @@ button:active {
   .result-card,
   .loading-card,
   .tile,
+  .match-spark,
   .score-pop {
     animation: none;
   }
