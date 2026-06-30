@@ -7,15 +7,14 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="description" content="Drag food items to the matching color lunchbox in Color Lunchbox - a WeightPlay game." />
+    <meta name="description" content="Clear color matching stages in Color Lunchbox, a gentle WeightPlay game for kids and families." />
     <title>Color Lunchbox - WeightPlay</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=20260630-lunchbox-levels1" />
   </head>
   <body>
     <main class="lunch-game">
-      <!-- Top Navigation Header -->
       <header class="topbar">
-        <a class="home-link" href="../../index.html" id="homeLink" aria-label="Back to lobby">⌂</a>
+        <a class="home-link" href="../../index.html" id="homeLink" aria-label="Back to lobby">&larr;</a>
         <div>
           <p id="brandText">WeightPlay</p>
           <h1 id="titleText">Color Lunchbox</h1>
@@ -31,10 +30,9 @@
         </div>
       </header>
 
-      <!-- Gameplay Stats HUD -->
       <section id="gameHud" class="game-hud hidden" aria-label="Game stats">
         <div class="hud-item">
-          <span id="levelIndicator">Level 1 / 3</span>
+          <span id="levelIndicator">Level 1 / 6</span>
           <div><i id="progressFill"></i></div>
         </div>
         <div class="hud-item-score">
@@ -47,13 +45,11 @@
         </div>
       </section>
 
-      <!-- Level Selection Screen -->
       <section id="stageSelectPanel" class="stage-select">
         <h2 id="stageSelectTitle">Choose Level</h2>
         <div id="stageGrid" class="stage-grid"></div>
       </section>
 
-      <!-- Main Game Board Content -->
       <div id="gamePlayContent" class="game-play-content hidden">
         <section id="dropZone" class="lunchboxes" aria-label="Lunchbox drop zones"></section>
 
@@ -69,12 +65,11 @@
         </section>
       </div>
 
-      <!-- Result Screen Overlay -->
       <div id="resultPanel" class="result-panel hidden">
         <div class="result-card">
           <h2 id="resultTitle">Complete!</h2>
           <p id="resultText"></p>
-          
+
           <div class="result-actions">
             <button id="nextStageBtn" type="button">Next Level</button>
             <button id="againBtn" type="button">Play Again</button>
@@ -84,7 +79,6 @@
         </div>
       </div>
 
-      <!-- Loading Panel -->
       <div id="loadingPanel" class="loading-panel">
         <div class="loading-card">
           <strong id="loadingTitle">Loading</strong>
@@ -94,14 +88,13 @@
       </div>
     </main>
 
-    <!-- Shared Platform Libraries -->
-    <script src="../../src/site-config.js"></script>
-    <script src="../../src/analytics.js"></script>
+    <script src="../../src/site-config.js?v=20260630-lunchbox-levels1"></script>
+    <script src="../../src/analytics.js?v=20260630-lunchbox-levels1"></script>
     <script>
       window.WonderAnalytics?.track("game_view", { game_id: "color-lunchbox" });
     </script>
-    <script src="../../src/sound.js"></script>
-    <script src="../../src/i18n.js"></script>
-    <script src="game.js"></script>
+    <script src="../../src/sound.js?v=20260630-lunchbox-levels1"></script>
+    <script src="../../src/i18n.js?v=20260630-lunchbox-levels1"></script>
+    <script src="game.js?v=20260630-lunchbox-levels1"></script>
   </body>
 </html>

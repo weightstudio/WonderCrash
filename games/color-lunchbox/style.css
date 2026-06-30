@@ -201,7 +201,7 @@ a {
 .stage-select h2 {
   font-size: 24px;
   font-weight: 1000;
-  margin-bottom: 20px;
+  margin: 0 0 14px;
   color: #5e421b;
 }
 
@@ -217,7 +217,7 @@ a {
   background: #fffdf0;
   border: 4px solid #7f5a23;
   border-radius: 12px;
-  padding: 16px;
+  padding: 14px;
   color: #2d2513;
   text-align: left;
   display: flex;
@@ -264,6 +264,10 @@ a {
   color: #704f1f;
   font-weight: 500;
   line-height: 1.4;
+}
+
+.stage-card:disabled {
+  color: #2d2513;
 }
 
 .stage-card.locked small {
