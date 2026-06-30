@@ -329,6 +329,39 @@ a {
   background: #78d66c;
 }
 
+.lunchbox.orange {
+  background: #ff9a3d;
+}
+
+.lunchbox.purple {
+  background: #a78bfa;
+}
+
+.lunchbox.white {
+  background: #fffdf2;
+}
+
+.lunchbox.brown {
+  background: #b77948;
+}
+
+.lunchbox.gray {
+  background: #cbd5e1;
+}
+
+.lunchbox.pink {
+  background: #ff9ac7;
+}
+
+.lunchbox.black {
+  background: #2f2b35;
+  color: #fff7dc;
+}
+
+.lunchbox.cyan {
+  background: #67e8f9;
+}
+
 .lunchbox.hit {
   animation: box-hit 0.42s ease;
 }
