@@ -36,6 +36,7 @@
   const gravity = 2450;
   const airFriction = 0.997;
   const groundFriction = 0.86;
+  const sleepSpeed = 9;
 
   const dictionary = {
     en: {
@@ -201,6 +202,7 @@
       vx: 0,
       vy: 0,
       radius: spec.radius,
+      mass: fruitMass(spec.radius),
       angle: 0,
       merging: false,
       bornAt: performance.now(),
@@ -235,13 +237,16 @@
         fruit.vx *= groundFriction;
         if (Math.abs(fruit.vy) < 28) fruit.vy = 0;
       }
-      fruit.angle += (fruit.x - previousX) / fruit.radius;
+      const rolled = fruit.x - previousX;
+      if (Math.abs(rolled) > 0.06) fruit.angle += rolled / fruit.radius;
     }
 
     resolveMerges();
     for (let iteration = 0; iteration < 4; iteration += 1) {
       resolveCollisions();
     }
+    constrainFruits();
+    sleepStillFruits();
     resolveMerges();
     updateMergeBursts(dt);
     checkGameOver(dt);
@@ -262,22 +267,27 @@
         const nx = dx / dist;
         const ny = dy / dist;
         const overlap = minDist - dist;
-        a.x -= nx * overlap * 0.5;
-        a.y -= ny * overlap * 0.5;
-        b.x += nx * overlap * 0.5;
-        b.y += ny * overlap * 0.5;
+        const invMassA = 1 / (a.mass || fruitMass(a.radius));
+        const invMassB = 1 / (b.mass || fruitMass(b.radius));
+        const invMassTotal = invMassA + invMassB;
+        const pushA = invMassA / invMassTotal;
+        const pushB = invMassB / invMassTotal;
+        a.x -= nx * overlap * pushA;
+        a.y -= ny * overlap * pushA;
+        b.x += nx * overlap * pushB;
+        b.y += ny * overlap * pushB;
 
         const rvx = b.vx - a.vx;
         const rvy = b.vy - a.vy;
         const velocityAlongNormal = rvx * nx + rvy * ny;
         if (velocityAlongNormal > 0) continue;
-        const impulse = -(1.12 * velocityAlongNormal) / 2;
+        const impulse = -(0.82 * velocityAlongNormal) / invMassTotal;
         const ix = impulse * nx;
         const iy = impulse * ny;
-        a.vx -= ix;
-        a.vy -= iy;
-        b.vx += ix;
-        b.vy += iy;
+        a.vx -= ix * invMassA;
+        a.vy -= iy * invMassA;
+        b.vx += ix * invMassB;
+        b.vy += iy * invMassB;
       }
     }
   }
@@ -310,6 +320,7 @@
           vx: mergedVx,
           vy: mergedVy,
           radius: next.radius,
+          mass: fruitMass(next.radius),
           angle: (a.angle + b.angle) / 2,
           pop: 0.24,
           bornAt: performance.now(),
@@ -349,15 +360,49 @@
       .filter((burst) => burst.life > 0);
   }
 
+  function fruitMass(radius) {
+    return Math.max(1, (radius / 28) ** 2);
+  }
+
+  function sleepStillFruits() {
+    for (const fruit of fruitsOnBoard) {
+      const grounded = fruit.y + fruit.radius >= floorY - 0.8;
+      const slow = Math.hypot(fruit.vx, fruit.vy) < sleepSpeed;
+      if (!slow) continue;
+      fruit.vx = 0;
+      if (grounded || Math.abs(fruit.vy) < sleepSpeed) fruit.vy = 0;
+    }
+  }
+
+  function constrainFruits() {
+    for (const fruit of fruitsOnBoard) {
+      if (fruit.x - fruit.radius < wallLeft) {
+        fruit.x = wallLeft + fruit.radius;
+        fruit.vx = Math.max(0, fruit.vx) * 0.35;
+      }
+      if (fruit.x + fruit.radius > wallRight) {
+        fruit.x = wallRight - fruit.radius;
+        fruit.vx = Math.min(0, fruit.vx) * 0.35;
+      }
+      if (fruit.y + fruit.radius > floorY) {
+        fruit.y = floorY - fruit.radius;
+        fruit.vy = Math.min(0, fruit.vy) * 0.18;
+      }
+    }
+  }
+
   function checkGameOver(dt) {
     let dangerTime = 0;
     for (const fruit of fruitsOnBoard) {
       const old = fruit.dangerTime || 0;
-      const settled = Math.abs(fruit.vx) + Math.abs(fruit.vy) < 42 && performance.now() - fruit.bornAt > 1000;
-      fruit.dangerTime = fruit.y - fruit.radius < dangerY && settled ? old + dt : 0;
+      const age = performance.now() - fruit.bornAt;
+      const topAboveLine = fruit.y - fruit.radius < dangerY;
+      const notFreshDrop = age > 1800;
+      const stableEnough = Math.hypot(fruit.vx, fruit.vy) < 135 || fruit.vy < 70;
+      fruit.dangerTime = topAboveLine && notFreshDrop && stableEnough ? old + dt : 0;
       dangerTime = Math.max(dangerTime, fruit.dangerTime);
     }
-    if (dangerTime > 2.1) endGame();
+    if (dangerTime > 0.9) endGame();
   }
 
   function endGame() {
