@@ -6,7 +6,7 @@
 
   const tools = {
     umbrella: { icon: "\u{2602}\u{FE0F}", className: "umbrella" },
-    towel: { icon: "\u{1F9FA}", className: "towel" },
+    towel: { icon: "\u{1F9FD}", className: "towel" },
     fan: { icon: "\u{1FAAD}", className: "fan" },
     lantern: { icon: "\u{1F3EE}", className: "lantern" },
     shelter: { icon: "\u{1F3E0}", className: "shelter" },
@@ -23,9 +23,9 @@
   };
 
   const stages = [
-    { animal: "\u{1F430}", theme: "garden", rounds: ["rain", "puddle", "hungry", "heat"], target: 3, hint: true },
-    { animal: "\u{1F98A}", theme: "forest", rounds: ["dark", "rain", "thunder", "hungry", "puddle"], target: 4, hint: true },
-    { animal: "\u{1F43C}", theme: "bamboo", rounds: ["heat", "hungry", "rain", "dark", "puddle"], target: 4, hint: true },
+    { animal: "\u{1F430}", theme: "garden", rounds: ["rain", "puddle", "hungry", "heat"], target: 3 },
+    { animal: "\u{1F98A}", theme: "forest", rounds: ["dark", "rain", "thunder", "hungry", "puddle"], target: 4 },
+    { animal: "\u{1F43C}", theme: "bamboo", rounds: ["heat", "hungry", "rain", "dark", "puddle"], target: 4 },
     { animal: "\u{1F427}", theme: "ice", rounds: ["dark", "puddle", "thunder", "rain", "hungry", "heat"], target: 5 },
     { animal: "\u{1F981}", theme: "savanna", rounds: ["heat", "thunder", "hungry", "rain", "dark", "puddle"], target: 5 },
     { animal: "\u{1F428}", theme: "tree", rounds: ["rain", "dark", "heat", "puddle", "thunder", "hungry"], target: 5 },
@@ -96,7 +96,7 @@
       thunder: "\u96f7\u96fb",
       hungry: "\u809a\u5b50\u9913",
       umbrella: "\u96e8\u5098",
-      towel: "\u6bdb\u5dfe",
+      towel: "\u6d77\u7dbf",
       fan: "\u98a8\u6247",
       lantern: "\u5c0f\u71c8",
       shelter: "\u5c0f\u5c4b",
@@ -186,7 +186,7 @@
       const best = records[stageNo] || 0;
       const firstProblem = problems[stage.rounds[0]];
       button.innerHTML = `
-        <b>${stage.animal} ${firstProblem.icon} ${tools[firstProblem.tool].icon}</b>
+        <b>${stage.animal} ${firstProblem.icon} ?</b>
         <strong>${t("stage", { n: stageNo })}</strong>
         <span>${t("goal", { target: stage.target })} · ${"\u2605".repeat(best)}${"\u2606".repeat(3 - best)}</span>
       `;
@@ -223,7 +223,6 @@
     const stage = stages[currentStage];
     const problemKey = stage.rounds[roundIndex];
     const problem = problems[problemKey];
-    const answer = tools[problem.tool];
     const percent = progressPercent(stage);
     nodes.stageText.textContent = t("stage", { n: stage.id });
     nodes.movesText.innerHTML = `<b>${t("progress", { done: roundIndex + 1, total: stage.rounds.length })}</b><i style="width:${percent}%"></i>`;
@@ -234,7 +233,7 @@
         <div class="picture-prompt" aria-label="${t(problemKey)}">
           <div class="weather-icon">${problem.icon}</div>
           <div class="match-arrow">→</div>
-          <div class="tool-shadow ${stage.hint ? "" : "hidden-hint"}">${answer.icon}</div>
+          <div class="tool-shadow">?</div>
         </div>
         <div class="tool-grid">
           ${Object.entries(tools).map(([key, tool]) => `

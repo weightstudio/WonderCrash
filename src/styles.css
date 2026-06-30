@@ -723,6 +723,96 @@ body.lobby-page {
   color: #ffd36b;
 }
 
+.lobby-feature,
+.hero-game-card,
+.game-card {
+  transform: translateZ(0);
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.lobby-feature img,
+.hero-game-art img,
+.game-card-bg-blur,
+.game-card-fg,
+.game-card-art .game-card-hero {
+  transition: transform 0.24s ease, filter 0.24s ease;
+}
+
+.game-card-art::after {
+  content: "▶";
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  z-index: 3;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 207, 99, 0.94);
+  color: #241a08;
+  font-size: 18px;
+  font-weight: 1000;
+  opacity: 0;
+  transform: scale(0.72);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.28);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.lobby-feature:hover,
+.lobby-feature:focus-visible,
+.hero-game-card:hover,
+.hero-game-card:focus-visible,
+.game-card.playable:hover,
+.game-card.playable:focus-visible {
+  border-color: rgba(255, 211, 107, 0.58);
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.34);
+  transform: translateY(-4px);
+}
+
+.lobby-feature:hover img,
+.lobby-feature:focus-visible img {
+  filter: drop-shadow(0 12px 18px rgba(255, 207, 99, 0.22));
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.hero-game-card:hover .hero-game-art img,
+.hero-game-card:focus-visible .hero-game-art img {
+  filter: saturate(1.1) brightness(1.08);
+  transform: scale(1.06);
+}
+
+.game-card.playable:hover .game-card-art::after,
+.game-card.playable:focus-visible .game-card-art::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.game-card.playable:hover .game-card-bg-blur,
+.game-card.playable:focus-visible .game-card-bg-blur {
+  filter: blur(14px) brightness(0.5) saturate(1.22);
+  transform: scale(1.12);
+}
+
+.game-card.playable:hover .game-card-fg,
+.game-card.playable:focus-visible .game-card-fg {
+  filter: drop-shadow(0 16px 22px rgba(0, 0, 0, 0.36));
+  transform: scale(1.06);
+}
+
+.game-card.playable:hover .game-card-hero,
+.game-card.playable:focus-visible .game-card-hero {
+  filter: drop-shadow(0 16px 22px rgba(255, 207, 99, 0.28));
+  transform: translateX(-50%) scale(1.16);
+}
+
+.game-card:active,
+.hero-game-card:active,
+.lobby-feature:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
 .coming-soon {
   opacity: 0.72;
 }

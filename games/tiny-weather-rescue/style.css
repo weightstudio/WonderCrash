@@ -310,10 +310,11 @@ select {
   animation: pulseArrow 1.2s ease-in-out infinite;
 }
 
-.tool-shadow.hidden-hint {
-  color: transparent;
-  text-shadow: 0 0 18px rgba(23, 49, 79, 0.24);
-  background: repeating-linear-gradient(135deg, rgba(23, 49, 79, 0.1) 0 8px, rgba(255, 255, 255, 0.7) 8px 16px);
+.tool-shadow {
+  color: rgba(23, 49, 79, 0.64);
+  background:
+    repeating-linear-gradient(135deg, rgba(23, 49, 79, 0.08) 0 8px, rgba(255, 255, 255, 0.76) 8px 16px),
+    #ffffff;
 }
 
 .tool-grid {
