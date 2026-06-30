@@ -87,7 +87,7 @@
       allClear: "All Levels Clear!",
       victoryDesc: "You cleared the level in {moves} moves!",
       defeatDesc: "Try again to unlock the next level.",
-      allClearDesc: "Fantastic! You cleared all 6 levels!",
+      allClearDesc: "Fantastic! You cleared all {count} levels!",
       nextLevel: "Next Level",
       again: "Play Again",
       levels: "Levels",
@@ -103,12 +103,20 @@
       stage4Name: "Level 4: Animal Friends",
       stage5Name: "Level 5: Sweet Snacks",
       stage6Name: "Level 6: Galaxy Masters",
+      stage7Name: "Level 7: Moon Garden",
+      stage8Name: "Level 8: Animal Parade",
+      stage9Name: "Level 9: Sweet Galaxy",
+      stage10Name: "Level 10: Memory Master",
       stage1Desc: "Warm up with 2 pairs and unlimited moves.",
       stage2Desc: "Match 3 pairs with 8 moves limit.",
       stage3Desc: "Match 6 pairs under 16 moves.",
       stage4Desc: "Find 8 cute animals in 22 moves.",
       stage5Desc: "Match 10 delicious treats in 28 moves.",
       stage6Desc: "Combine space and animals in 35 moves.",
+      stage7Desc: "A tighter space challenge with fewer safe moves.",
+      stage8Desc: "More animal pairs with a careful move limit.",
+      stage9Desc: "Space, animals, and sweets all mixed together.",
+      stage10Desc: "The full 12-pair board for memory experts.",
       highScore: "High Score: {score}"
     },
     "zh-Hant": {
@@ -127,7 +135,7 @@
       allClear: "全關卡完美通關！",
       victoryDesc: "你用了 {moves} 步完成關卡！",
       defeatDesc: "再試一次以解鎖下一關。",
-      allClearDesc: "太厲害了！你完成了全部 6 個關卡！",
+      allClearDesc: "太厲害了！你完成了全部 {count} 個關卡！",
       nextLevel: "下一關",
       again: "再玩一次",
       levels: "關卡列表",
@@ -143,12 +151,20 @@
       stage4Name: "第四關：可愛動物園",
       stage5Name: "第五關：美味甜點盒",
       stage6Name: "第六關：星系大師挑戰",
+      stage7Name: "第七關：月光花園",
+      stage8Name: "第八關：動物遊行",
+      stage9Name: "第九關：甜點星系",
+      stage10Name: "第十關：記憶大師",
       stage1Desc: "用 2 對卡牌與無限步數來暖暖身吧。",
       stage2Desc: "在 8 步內配對 3 對卡牌。",
       stage3Desc: "在 16 步內配對 6 對卡牌。",
       stage4Desc: "在 22 步內找出 8 隻可愛小動物。",
       stage5Desc: "在 28 步內配對 10 種美味小甜點。",
       stage6Desc: "混合太空與動物，35 步內極限挑戰。",
+      stage7Desc: "更緊湊的太空挑戰，能失誤的步數更少。",
+      stage8Desc: "更多動物配對，需要仔細記住位置。",
+      stage9Desc: "太空、動物和甜點全部混在一起。",
+      stage10Desc: "完整 12 對卡牌，挑戰記憶高手。",
       highScore: "最高分: {score}"
     }
   };
@@ -208,6 +224,42 @@
       limit: 35,
       symbols: ["donut", "heart", "panda", "bear", "lion", "cat", "sun", "moon", "star", "rocket", "ufo", "planet"],
       stars: [18, 22, 35]
+    },
+    {
+      id: 7,
+      nameKey: "stage7Name",
+      descKey: "stage7Desc",
+      grid: { r: 3, c: 4 },
+      limit: 14,
+      symbols: ["sun", "moon", "star", "rocket", "ufo", "planet"],
+      stars: [8, 10, 14]
+    },
+    {
+      id: 8,
+      nameKey: "stage8Name",
+      descKey: "stage8Desc",
+      grid: { r: 4, c: 4 },
+      limit: 20,
+      symbols: ["panda", "bear", "lion", "cat", "donut", "heart", "sun", "moon"],
+      stars: [11, 14, 20]
+    },
+    {
+      id: 9,
+      nameKey: "stage9Name",
+      descKey: "stage9Desc",
+      grid: { r: 4, c: 5 },
+      limit: 26,
+      symbols: ["donut", "heart", "panda", "bear", "lion", "cat", "sun", "moon", "star", "rocket"],
+      stars: [14, 18, 26]
+    },
+    {
+      id: 10,
+      nameKey: "stage10Name",
+      descKey: "stage10Desc",
+      grid: { r: 4, c: 6 },
+      limit: 32,
+      symbols: ["donut", "heart", "panda", "bear", "lion", "cat", "sun", "moon", "star", "rocket", "ufo", "planet"],
+      stars: [18, 23, 32]
     }
   ];
 
@@ -576,7 +628,7 @@
     
     // Victory UI
     resultTitle.textContent = stage.id === stages.length ? t("allClear") : t("victory");
-    resultText.textContent = stage.id === stages.length ? t("allClearDesc") : t("victoryDesc", { moves: state.moves });
+    resultText.textContent = stage.id === stages.length ? t("allClearDesc", { count: stages.length }) : t("victoryDesc", { moves: state.moves });
     
     // Stars indicator
     document.querySelectorAll("#starContainer .star").forEach((star) => {

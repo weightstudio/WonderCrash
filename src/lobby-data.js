@@ -75,12 +75,12 @@ window.WONDER_LOBBY = {
       ages: ["5", "family"],
       ageLabel: "5+",
       description: {
-        en: "Clear 6 memory stages by remembering cards and matching the same symbols.",
-        "zh-Hant": "挑戰 6 個記憶關卡，記住卡牌位置並翻出相同符號。",
+        en: "Clear 10 memory stages by remembering cards and matching the same symbols.",
+        "zh-Hant": "挑戰 10 個記憶關卡，記住卡牌位置並翻出相同符號。",
       },
       meta: {
-        en: ["6 Levels", "Replayable", "Memory"],
-        "zh-Hant": ["6 關", "可重玩", "記憶力"],
+        en: ["10 Levels", "Replayable", "Memory"],
+        "zh-Hant": ["10 關", "可重玩", "記憶力"],
       },
       art: {
         kind: "image",
