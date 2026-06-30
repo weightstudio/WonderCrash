@@ -253,10 +253,12 @@ function renderDailyReward() {
       <small>${i18n.t("daily.desc", { count: reward.streak, day: reward.dayIndex + 1, diamonds: reward.reward })}</small>
     </div>
     <div class="daily-track">${rewardCards}</div>
-    <button class="daily-claim" type="button" ${reward.claimedToday ? "disabled" : ""}>
-      <span>${claimLabel}</span>
-      <b>+${reward.reward}</b>
-    </button>
+    ${reward.claimedToday ? "" : `
+      <button class="daily-claim" type="button">
+        <span>${claimLabel}</span>
+        <b>+${reward.reward}</b>
+      </button>
+    `}
   `;
   dailyReward.querySelector("button")?.addEventListener("click", claimDailyReward);
 }

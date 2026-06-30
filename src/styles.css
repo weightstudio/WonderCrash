@@ -222,12 +222,12 @@ body.lobby-page {
 
 .daily-reward {
   display: grid;
-  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr) minmax(132px, auto);
-  gap: 14px;
+  grid-template-columns: minmax(190px, 0.7fr) minmax(0, 1.6fr) minmax(108px, auto);
+  gap: 10px;
   align-items: center;
-  min-height: 128px;
-  margin: 0 0 12px;
-  padding: 16px;
+  min-height: 98px;
+  margin: 0 0 10px;
+  padding: 12px;
   overflow: hidden;
   border: 1px solid rgba(255, 211, 107, 0.42);
   border-radius: 8px;
@@ -239,25 +239,25 @@ body.lobby-page {
 
 .daily-reward-copy {
   display: grid;
-  gap: 5px;
+  gap: 3px;
   min-width: 0;
 }
 
 .daily-reward-copy span {
   color: #ffcf63;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 1000;
 }
 
 .daily-reward-copy strong {
   overflow-wrap: anywhere;
-  font-size: clamp(24px, 4vw, 36px);
+  font-size: clamp(19px, 3vw, 28px);
   line-height: 1.05;
 }
 
 .daily-reward-copy small {
   color: rgba(255, 255, 255, 0.74);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 900;
   line-height: 1.35;
 }
@@ -265,16 +265,16 @@ body.lobby-page {
 .daily-track {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 7px;
+  gap: 5px;
   min-width: 0;
 }
 
 .daily-day {
   display: grid;
   place-items: center;
-  gap: 4px;
-  min-height: 86px;
-  padding: 8px 5px;
+  gap: 2px;
+  min-height: 62px;
+  padding: 6px 4px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   background: rgba(10, 15, 23, 0.48);
@@ -284,14 +284,14 @@ body.lobby-page {
 .daily-day span,
 .daily-day small {
   color: rgba(255, 255, 255, 0.68);
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
   line-height: 1.1;
 }
 
 .daily-day b {
   color: #9eeaff;
-  font-size: 19px;
+  font-size: 16px;
   line-height: 1;
 }
 
@@ -312,9 +312,9 @@ body.lobby-page {
 .daily-claim {
   display: grid;
   place-items: center;
-  min-width: 132px;
-  min-height: 78px;
-  padding: 9px 14px;
+  min-width: 108px;
+  min-height: 56px;
+  padding: 8px 12px;
   border: 0;
   border-radius: 8px;
   background: #ffcf63;
@@ -325,7 +325,7 @@ body.lobby-page {
 }
 
 .daily-claim b {
-  font-size: 28px;
+  font-size: 22px;
   line-height: 1;
 }
 
@@ -1085,7 +1085,7 @@ body.lobby-page {
   }
 
   .daily-day {
-    min-height: 76px;
+    min-height: 58px;
   }
 
   .daily-claim {
