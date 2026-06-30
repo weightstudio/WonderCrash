@@ -190,12 +190,12 @@ body.lobby-page {
 
 .daily-reward {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(132px, auto);
-  gap: 12px;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr) minmax(132px, auto);
+  gap: 14px;
   align-items: center;
-  min-height: 94px;
+  min-height: 128px;
   margin: 0 0 12px;
-  padding: 14px;
+  padding: 16px;
   overflow: hidden;
   border: 1px solid rgba(255, 211, 107, 0.42);
   border-radius: 8px;
@@ -219,7 +219,7 @@ body.lobby-page {
 
 .daily-reward-copy strong {
   overflow-wrap: anywhere;
-  font-size: clamp(22px, 4vw, 34px);
+  font-size: clamp(24px, 4vw, 36px);
   line-height: 1.05;
 }
 
@@ -230,11 +230,58 @@ body.lobby-page {
   line-height: 1.35;
 }
 
-.daily-reward button {
+.daily-track {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 7px;
+  min-width: 0;
+}
+
+.daily-day {
+  display: grid;
+  place-items: center;
+  gap: 4px;
+  min-height: 86px;
+  padding: 8px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(10, 15, 23, 0.48);
+  text-align: center;
+}
+
+.daily-day span,
+.daily-day small {
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.daily-day b {
+  color: #ffcf63;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.daily-day.current {
+  border-color: rgba(255, 220, 122, 0.94);
+  background: linear-gradient(180deg, rgba(255, 207, 99, 0.32), rgba(255, 255, 255, 0.1));
+  box-shadow: 0 0 0 2px rgba(255, 207, 99, 0.12) inset;
+}
+
+.daily-day.claimed:not(.current) {
+  opacity: 0.72;
+}
+
+.daily-day.claimed small {
+  color: #7dff8a;
+}
+
+.daily-claim {
   display: grid;
   place-items: center;
   min-width: 132px;
-  min-height: 62px;
+  min-height: 78px;
   padding: 9px 14px;
   border: 0;
   border-radius: 8px;
@@ -245,12 +292,12 @@ body.lobby-page {
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.22);
 }
 
-.daily-reward button b {
-  font-size: 24px;
+.daily-claim b {
+  font-size: 28px;
   line-height: 1;
 }
 
-.daily-reward button:disabled {
+.daily-claim:disabled {
   background: rgba(255, 255, 255, 0.18);
   color: rgba(255, 255, 255, 0.62);
   box-shadow: none;
@@ -997,7 +1044,15 @@ body.lobby-page {
     grid-template-columns: 1fr;
   }
 
-  .daily-reward button {
+  .daily-track {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .daily-day {
+    min-height: 76px;
+  }
+
+  .daily-claim {
     width: 100%;
   }
 

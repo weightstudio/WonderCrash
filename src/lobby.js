@@ -22,6 +22,7 @@ const i18n = window.WonderI18n;
 const favoritesKey = "weightplayFavoriteGames";
 const dailyRewardKey = "weightplayDailyReward";
 const wonderProfileKey = "wonderCrashProfile";
+const dailyRewardTrack = [30, 40, 55, 70, 90, 115, 150];
 let activeFilter = "all";
 let activeTopic = "all";
 let activeLibrary = "all";
@@ -220,21 +221,38 @@ function getDailyRewardState() {
   const lastNumber = dayNumber(saved.lastClaimDate);
   const claimedToday = saved.lastClaimDate === today;
   const streak = claimedToday ? saved.streak : lastNumber === yesterdayNumber ? saved.streak + 1 : 1;
-  const reward = 30 + Math.min(6, Math.max(0, streak - 1)) * 10;
-  return { ...saved, today, claimedToday, streak, reward };
+  const dayIndex = (Math.max(1, streak) - 1) % dailyRewardTrack.length;
+  const reward = dailyRewardTrack[dayIndex];
+  return { ...saved, today, claimedToday, streak, dayIndex, reward };
 }
 
 function renderDailyReward() {
   if (!dailyReward) return;
   const reward = getDailyRewardState();
+  const claimLabel = reward.claimedToday ? i18n.t("daily.claimed") : i18n.t("daily.claim");
+  const rewardCards = dailyRewardTrack
+    .map((coins, index) => {
+      const isCurrent = index === reward.dayIndex;
+      const isPast = reward.claimedToday ? index <= reward.dayIndex : index < reward.dayIndex;
+      const className = ["daily-day", isCurrent ? "current" : "", isPast ? "claimed" : ""].filter(Boolean).join(" ");
+      return `
+        <div class="${className}">
+          <span>${i18n.t("daily.day", { day: index + 1 })}</span>
+          <b>+${coins}</b>
+          <small>${isCurrent ? claimLabel : i18n.t(isPast ? "daily.done" : "daily.next")}</small>
+        </div>
+      `;
+    })
+    .join("");
   dailyReward.innerHTML = `
     <div class="daily-reward-copy">
       <span>${i18n.t("daily.kicker")}</span>
       <strong>${i18n.t("daily.title")}</strong>
-      <small>${i18n.t("daily.desc", { count: reward.streak, coins: reward.reward })}</small>
+      <small>${i18n.t("daily.desc", { count: reward.streak, day: reward.dayIndex + 1, coins: reward.reward })}</small>
     </div>
-    <button type="button" ${reward.claimedToday ? "disabled" : ""}>
-      <span>${reward.claimedToday ? i18n.t("daily.claimed") : i18n.t("daily.claim")}</span>
+    <div class="daily-track">${rewardCards}</div>
+    <button class="daily-claim" type="button" ${reward.claimedToday ? "disabled" : ""}>
+      <span>${claimLabel}</span>
       <b>+${reward.reward}</b>
     </button>
   `;
