@@ -207,6 +207,13 @@ body.lobby-page {
   overflow-x: auto;
 }
 
+.library-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  padding: 0 0 14px;
+}
+
 .topic-filter button {
   transition:
     background 0.15s ease,
@@ -219,7 +226,8 @@ body.lobby-page {
 }
 
 .age-filter button,
-.topic-filter button {
+.topic-filter button,
+.library-tabs button {
   min-width: 64px;
   height: 42px;
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -236,7 +244,8 @@ body.lobby-page {
 }
 
 .age-filter button.active,
-.topic-filter button.active {
+.topic-filter button.active,
+.library-tabs button.active {
   border-color: rgba(255, 220, 122, 0.86);
   background: #ffcf63;
   color: #241a08;
@@ -472,6 +481,7 @@ body.lobby-page {
 }
 
 .game-card {
+  position: relative;
   display: flex;
   min-height: 360px;
   overflow: hidden;
@@ -483,6 +493,36 @@ body.lobby-page {
   text-decoration: none;
   flex-direction: column;
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+  background: rgba(9, 13, 19, 0.72);
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 1000;
+  line-height: 1;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+}
+
+.favorite-toggle.active {
+  border-color: rgba(255, 212, 106, 0.95);
+  background: #ffcf63;
+  color: #4b2606;
+}
+
+.favorite-toggle:active {
+  transform: scale(0.94);
 }
 
 .game-card.playable {

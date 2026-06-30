@@ -1,6 +1,7 @@
 const lobby = window.WONDER_LOBBY;
 const filterButtons = document.querySelectorAll("[data-age-filter]");
 const topicButtons = document.querySelectorAll("[data-topic-filter]");
+const libraryButtons = document.querySelectorAll("[data-library-tab]");
 const gameGrid = document.querySelector("#gameGrid");
 const heroGames = document.querySelector("#heroGames");
 const heroGamesSection = document.querySelector("#heroGamesSection");
@@ -17,9 +18,12 @@ const localeSelect = document.querySelector("#localeSelect");
 const heroRankLabel = document.querySelector("#heroRankLabel");
 const heroGamesTitle = document.querySelector("#heroGamesTitle");
 const i18n = window.WonderI18n;
+const favoritesKey = "weightplayFavoriteGames";
 let activeFilter = "all";
 let activeTopic = "all";
+let activeLibrary = "all";
 let toastTimer = null;
+let favoriteGameIds = readFavorites();
 
 function text(value) {
   return i18n.getLocalized(value);
@@ -29,27 +33,78 @@ function categoryText(category) {
   return i18n.t(`category.${category}`);
 }
 
+function readFavorites() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(favoritesKey) || "[]");
+    return Array.isArray(saved) ? saved.filter((id) => typeof id === "string") : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveFavorites() {
+  try {
+    localStorage.setItem(favoritesKey, JSON.stringify(favoriteGameIds));
+  } catch {
+    // Favorite storage is optional.
+  }
+}
+
+function isFavorite(gameId) {
+  return favoriteGameIds.includes(gameId);
+}
+
+function openGame(game, title, ageLabel) {
+  window.WonderSound?.play("click");
+  window.WonderAnalytics?.track("game_open", {
+    game_id: game.id,
+    game_title: title,
+    age_label: ageLabel,
+    categories: (game.categories || []).join(","),
+    locale: i18n.locale(),
+    from_library: activeLibrary,
+  });
+  window.location.href = game.href;
+}
+
+function toggleFavorite(game, title) {
+  const wasFavorite = isFavorite(game.id);
+  favoriteGameIds = wasFavorite ? favoriteGameIds.filter((id) => id !== game.id) : [...favoriteGameIds, game.id];
+  saveFavorites();
+  window.WonderSound?.play("click");
+  window.WonderAnalytics?.track(wasFavorite ? "favorite_remove" : "favorite_add", {
+    game_id: game.id,
+    game_title: title,
+    locale: i18n.locale(),
+  });
+  showToast(i18n.t(wasFavorite ? "toast.favorite_removed" : "toast.favorite_added", { title }));
+  renderLobby();
+}
+
 function createGameCard(game) {
   const isPlayable = game.status === "playable";
   const title = text(game.title);
   const type = text(game.type);
   const ageLabel = text(game.ageLabel);
-  const card = document.createElement(isPlayable ? "a" : "article");
+  const card = document.createElement("article");
+  const favorite = isFavorite(game.id);
   card.className = `game-card ${isPlayable ? "playable" : "coming-soon"}`;
   card.dataset.age = game.ages.join(" ");
   card.dataset.topic = (game.categories || []).join("|");
+  card.dataset.gameId = game.id;
+  card.dataset.favorite = favorite ? "true" : "false";
 
   if (isPlayable) {
-    card.href = game.href;
+    card.tabIndex = 0;
+    card.setAttribute("role", "link");
     card.addEventListener("click", () => {
-      window.WonderSound?.play("click");
-      window.WonderAnalytics?.track("game_open", {
-        game_id: game.id,
-        game_title: title,
-        age_label: ageLabel,
-        categories: (game.categories || []).join(","),
-        locale: i18n.locale(),
-      });
+      openGame(game, title, ageLabel);
+    });
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openGame(game, title, ageLabel);
+      }
     });
   } else {
     card.tabIndex = 0;
@@ -73,6 +128,7 @@ function createGameCard(game) {
 
   card.innerHTML = `
     ${art}
+    <button class="favorite-toggle ${favorite ? "active" : ""}" type="button" aria-label="${i18n.t(favorite ? "action.remove_favorite" : "action.add_favorite")}" title="${i18n.t(favorite ? "action.remove_favorite" : "action.add_favorite")}">${favorite ? "♥" : "♡"}</button>
     <div class="game-card-body">
       <div class="game-card-topline">
         <span class="age-pill">${ageLabel}</span>
@@ -88,6 +144,12 @@ function createGameCard(game) {
       </div>
     </div>
   `;
+
+  card.querySelector(".favorite-toggle").addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleFavorite(game, title);
+  });
 
   return card;
 }
@@ -160,20 +222,29 @@ function applyFilter() {
     const topics = card.dataset.topic ? card.dataset.topic.split("|") : [];
     const matchesAge = activeFilter === "all" || ages.includes(activeFilter);
     const matchesTopic = activeTopic === "all" || topics.includes(activeTopic);
-    const isVisible = matchesAge && matchesTopic;
+    const matchesLibrary = activeLibrary === "all" || card.dataset.favorite === "true";
+    const isVisible = matchesAge && matchesTopic && matchesLibrary;
     card.classList.toggle("hidden", !isVisible);
     if (isVisible) visibleCount += 1;
   });
 
-  const isFiltered = activeFilter !== "all" || activeTopic !== "all";
+  const isFiltered = activeFilter !== "all" || activeTopic !== "all" || activeLibrary !== "all";
   heroGamesSection.classList.toggle("hidden", isFiltered);
   filterStatus.classList.toggle("empty", visibleCount === 0);
-  filterStatus.textContent =
-    visibleCount === 0
-      ? i18n.t("status.no_games")
-      : isFiltered
-        ? i18n.t(visibleCount > 1 ? "status.games_found_many" : "status.games_found_one", { count: visibleCount })
-        : i18n.t("status.all_games");
+
+  if (visibleCount === 0) {
+    filterStatus.textContent = activeLibrary === "favorites" ? i18n.t("status.no_favorites") : i18n.t("status.no_games");
+  } else if (activeLibrary === "favorites" && activeFilter === "all" && activeTopic === "all") {
+    filterStatus.textContent = i18n.t(visibleCount > 1 ? "status.favorite_games" : "status.favorite_games_one", {
+      count: visibleCount,
+    });
+  } else if (isFiltered) {
+    filterStatus.textContent = i18n.t(visibleCount > 1 ? "status.games_found_many" : "status.games_found_one", {
+      count: visibleCount,
+    });
+  } else {
+    filterStatus.textContent = i18n.t("status.all_games");
+  }
 }
 
 function applyStaticTranslations() {
@@ -225,6 +296,17 @@ topicButtons.forEach((button) => {
     window.WonderSound?.play("click");
     window.WonderAnalytics?.track("topic_filter", { topic_filter: activeTopic, locale: i18n.locale() });
     topicButtons.forEach((item) => item.classList.toggle("active", item === button));
+    applyFilter();
+  });
+});
+
+libraryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeLibrary = button.dataset.libraryTab;
+
+    window.WonderSound?.play("click");
+    window.WonderAnalytics?.track("library_tab", { library_tab: activeLibrary, locale: i18n.locale() });
+    libraryButtons.forEach((item) => item.classList.toggle("active", item === button));
     applyFilter();
   });
 });
