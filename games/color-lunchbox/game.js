@@ -356,6 +356,9 @@
           <span>${isUnlocked ? t("play") : t("locked")}</span>
           <strong>${t(stage.nameKey)}</strong>
           <small>${t(stage.descKey)}</small>
+          <div class="stage-card-colors" aria-hidden="true">
+            ${stage.colors.map((color) => `<i class="${colorDB[color].className}"></i>`).join("")}
+          </div>
         `;
         if (isUnlocked) button.addEventListener("click", () => startStage(index));
         return button;
