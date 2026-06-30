@@ -13,7 +13,7 @@ window.WONDER_LOBBY = {
     defaultLocale: "en",
   },
   featuredGameId: "wonder-crash",
-  heroGameIds: ["wonder-crash", "animal-rescue", "animal-quiz"],
+  heroGameIds: ["wonder-crash", "snack-blocks", "animal-rescue"],
   games: [
     {
       id: "wonder-crash",
