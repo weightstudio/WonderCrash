@@ -443,7 +443,7 @@
     nodes.nextStageBtn.classList.toggle("hidden", !cleared || stage.id >= stages.length);
     renderStageGrid();
     playSound(cleared ? "success" : "wrong");
-    track("game_end", { stage: stage.id, score, stars, cleared });
+    track("game_complete", { stage: stage.id, score, stars, cleared });
   }
 
   function showMenu() {
@@ -472,7 +472,10 @@
       nodes.loadingFill.style.width = `${progress}%`;
       if (progress >= 100) {
         window.clearInterval(id);
-        window.setTimeout(() => nodes.loadingPanel.classList.add("hidden"), 100);
+        window.setTimeout(() => {
+          nodes.loadingPanel.classList.add("hidden");
+          track("game_ready");
+        }, 100);
       }
     }, 80);
   }
@@ -487,7 +490,10 @@
   });
   nodes.backToStagesBtn.addEventListener("click", showMenu);
   nodes.resultStagesBtn.addEventListener("click", showMenu);
-  nodes.retryBtn.addEventListener("click", () => startStage(currentStage));
+  nodes.retryBtn.addEventListener("click", () => {
+    track("game_restart", { stage: currentStage + 1 });
+    startStage(currentStage);
+  });
   nodes.nextStageBtn.addEventListener("click", () => startStage(Math.min(currentStage + 1, stages.length - 1)));
 
   localizeStatic();
