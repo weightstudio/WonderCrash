@@ -47,7 +47,7 @@ const dictionary = {
     winTitle: "Stage Clear!",
     winText: "You answered {score} / {total}.",
     allClearTitle: "All Clear!",
-    allClearText: "You cleared all 3 animal stages.",
+    allClearText: "You cleared all {count} animal stages.",
     again: "Play Again",
     nextStage: "Next Stage",
     stages: "Stages",
@@ -55,9 +55,13 @@ const dictionary = {
     stageAfrica: "Stage 1: African Animals",
     stageAsia: "Stage 2: Asian Animals",
     stageOceanHome: "Stage 3: Ocean & Home Animals",
+    stageForest: "Stage 4: Forest Friends",
+    stageFarm: "Stage 5: Farm & Night Animals",
     stageAfricaDesc: "Meet animals from grasslands, rivers, and warm habitats.",
     stageAsiaDesc: "Guess animals from forests, mountains, and nearby nature.",
     stageOceanHomeDesc: "Find animals from the sea and animals kids see often.",
+    stageForestDesc: "Practice animals from forests, bamboo groves, ponds, and trees.",
+    stageFarmDesc: "Review familiar farm animals and animals that move at night.",
     lion: "Lion",
     hippo: "Hippo",
     snake: "Snake",
@@ -115,7 +119,7 @@ const dictionary = {
     winTitle: "關卡完成！",
     winText: "答對 {score} / {total} 題。",
     allClearTitle: "全部通關！",
-    allClearText: "你完成了 3 個動物關卡。",
+    allClearText: "你完成了 {count} 個動物關卡。",
     again: "再玩一次",
     nextStage: "下一關",
     stages: "關卡",
@@ -123,9 +127,13 @@ const dictionary = {
     stageAfrica: "第 1 關：非洲動物",
     stageAsia: "第 2 關：亞洲動物",
     stageOceanHome: "第 3 關：海洋與身邊動物",
+    stageForest: "第 4 關：森林朋友",
+    stageFarm: "第 5 關：農場與夜晚動物",
     stageAfricaDesc: "認識草原、河邊和溫暖地區的動物。",
     stageAsiaDesc: "猜猜森林、山區和附近自然裡的動物。",
     stageOceanHomeDesc: "找出海裡的動物，以及孩子常見的動物。",
+    stageForestDesc: "練習森林、竹林、池塘與樹上的動物。",
+    stageFarmDesc: "複習熟悉的農場動物，以及夜晚活動的動物。",
     lion: "獅子",
     hippo: "河馬",
     snake: "蛇",
@@ -209,6 +217,16 @@ const stages = [
     name: "stageOceanHome",
     description: "stageOceanHomeDesc",
     questions: ["whale", "penguin", "frog", "turtle", "cow", "cat", "dog", "rabbit", "owl", "fox"],
+  },
+  {
+    name: "stageForest",
+    description: "stageForestDesc",
+    questions: ["bear", "fox", "owl", "frog", "rabbit", "panda", "koala", "monkey", "snake", "turtle"],
+  },
+  {
+    name: "stageFarm",
+    description: "stageFarmDesc",
+    questions: ["cow", "dog", "cat", "rabbit", "owl", "fox", "frog", "turtle", "penguin", "whale"],
   },
 ];
 
@@ -460,7 +478,7 @@ function renderResultText() {
   const isFinalStage = state.stageIndex >= stages.length - 1;
   resultTitle.textContent = isFinalStage ? t("allClearTitle") : t("winTitle");
   resultText.textContent = isFinalStage
-    ? t("allClearText")
+    ? t("allClearText", { count: stages.length })
     : t("winText", { score: state.score, total: currentStage().questions.length });
 }
 

@@ -219,12 +219,12 @@ window.WONDER_LOBBY = {
       ageLabel: { en: "Family", "zh-Hant": "親子" },
       href: "games/animal-quiz/index.html",
       description: {
-        en: "Clear 3 animal stages with 10 questions in each stage.",
-        "zh-Hant": "挑戰 3 個動物關卡，每關回答 10 題問題。",
+        en: "Clear 5 animal stages with 10 questions in each stage.",
+        "zh-Hant": "挑戰 5 個動物關卡，每關回答 10 題問題。",
       },
       meta: {
-        en: ["Animal Games", "3 Stages", "30 Questions"],
-        "zh-Hant": ["動物遊戲", "3 關", "30 題"],
+        en: ["Animal Games", "5 Stages", "50 Questions"],
+        "zh-Hant": ["動物遊戲", "5 關", "50 題"],
       },
       art: {
         kind: "image",
