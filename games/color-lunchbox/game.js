@@ -104,7 +104,7 @@
       stage4Name: "Level 4: Sweet Snack",
       stage4Desc: "Sort soft pink, black, white, and brown treats.",
       stage5Name: "Level 5: Market Mix",
-      stage5Desc: "A busy market with eight different foods.",
+      stage5Desc: "A busy market with five different foods.",
       stage6Name: "Level 6: Rainbow Lunch",
       stage6Desc: "A brighter lunch with orange and purple boxes.",
       stage7Name: "Level 7: Cool Drinks",
@@ -112,9 +112,9 @@
       stage8Name: "Level 8: Veggie Day",
       stage8Desc: "Green, orange, purple, and red vegetables appear.",
       stage9Name: "Level 9: Big Buffet",
-      stage9Desc: "Many foods from every theme are mixed together.",
+      stage9Desc: "Five foods from different themes are mixed together.",
       stage10Name: "Level 10: Color Party",
-      stage10Desc: "The final party changes colors and foods quickly.",
+      stage10Desc: "The final party mixes five colorful foods.",
       food_strawberry: "Strawberry",
       food_tomato: "Tomato",
       food_banana: "Banana",
@@ -182,7 +182,7 @@
       stage4Name: "第 4 關：甜點小盒",
       stage4Desc: "分辨粉紅、黑、白、棕的甜點。",
       stage5Name: "第 5 關：市場混合",
-      stage5Desc: "市場裡有八種不同食物。",
+      stage5Desc: "市場裡有五種不同食物。",
       stage6Name: "第 6 關：彩虹午餐",
       stage6Desc: "橘色與紫色便當盒也加入挑戰。",
       stage7Name: "第 7 關：清涼飲品",
@@ -190,9 +190,9 @@
       stage8Name: "第 8 關：蔬菜日",
       stage8Desc: "綠、橘、紫、紅的蔬菜登場。",
       stage9Name: "第 9 關：大餐自助吧",
-      stage9Desc: "不同主題的食物全部混在一起。",
+      stage9Desc: "不同主題的五種食物混在一起。",
       stage10Name: "第 10 關：顏色派對",
-      stage10Desc: "最後派對會快速切換顏色與食物。",
+      stage10Desc: "最後派對混合五種彩色食物。",
       food_strawberry: "草莓",
       food_tomato: "番茄",
       food_banana: "香蕉",
@@ -233,17 +233,19 @@
   };
 
   const stages = [
-    { id: 1, nameKey: "stage1Name", descKey: "stage1Desc", colors: ["red", "yellow", "blue", "green"], foods: ["strawberry", "banana", "blueberry", "apple"], rounds: 8 },
-    { id: 2, nameKey: "stage2Name", descKey: "stage2Desc", colors: ["orange", "purple", "white", "brown"], foods: ["carrot", "eggplant", "rice", "bread"], rounds: 8 },
-    { id: 3, nameKey: "stage3Name", descKey: "stage3Desc", colors: ["red", "yellow", "green", "purple"], foods: ["tomato", "corn", "cucumber", "grapes"], rounds: 10 },
-    { id: 4, nameKey: "stage4Name", descKey: "stage4Desc", colors: ["pink", "black", "white", "brown"], foods: ["peach", "blackSesame", "yogurt", "chocolate"], rounds: 10 },
-    { id: 5, nameKey: "stage5Name", descKey: "stage5Desc", colors: ["orange", "blue", "green", "gray"], foods: ["orange", "blueberry", "broccoli", "fish", "carrot", "soda", "apple", "milk"], rounds: 12 },
-    { id: 6, nameKey: "stage6Name", descKey: "stage6Desc", colors: ["red", "orange", "purple", "brown"], foods: ["watermelon", "tomato", "carrot", "orange", "eggplant", "purplePotato", "bread", "chocolate"], rounds: 12 },
-    { id: 7, nameKey: "stage7Name", descKey: "stage7Desc", colors: ["blue", "cyan", "white", "yellow"], foods: ["blueberry", "soda", "milk", "yogurt", "banana", "cheese", "corn", "rice"], rounds: 14 },
-    { id: 8, nameKey: "stage8Name", descKey: "stage8Desc", colors: ["green", "orange", "purple", "red"], foods: ["broccoli", "cucumber", "carrot", "orange", "eggplant", "purplePotato", "tomato", "strawberry"], rounds: 14 },
-    { id: 9, nameKey: "stage9Name", descKey: "stage9Desc", colors: ["pink", "gray", "black", "yellow"], foods: ["peach", "fish", "blackSesame", "banana", "corn", "cheese", "soda", "yogurt"], rounds: 16 },
-    { id: 10, nameKey: "stage10Name", descKey: "stage10Desc", colors: ["red", "orange", "purple", "cyan"], foods: ["strawberry", "watermelon", "orange", "carrot", "grapes", "purplePotato", "soda", "blueberry"], rounds: 16 },
+    { id: 1, nameKey: "stage1Name", descKey: "stage1Desc", colors: ["red", "yellow", "blue", "green"], foods: ["strawberry", "banana", "blueberry", "apple", "tomato"], rounds: 5 },
+    { id: 2, nameKey: "stage2Name", descKey: "stage2Desc", colors: ["orange", "purple", "white", "brown"], foods: ["carrot", "eggplant", "rice", "bread", "orange"], rounds: 5 },
+    { id: 3, nameKey: "stage3Name", descKey: "stage3Desc", colors: ["red", "yellow", "green", "purple"], foods: ["tomato", "corn", "cucumber", "grapes", "strawberry"], rounds: 5 },
+    { id: 4, nameKey: "stage4Name", descKey: "stage4Desc", colors: ["pink", "black", "white", "brown"], foods: ["peach", "blackSesame", "yogurt", "chocolate", "rice"], rounds: 5 },
+    { id: 5, nameKey: "stage5Name", descKey: "stage5Desc", colors: ["orange", "blue", "green", "gray"], foods: ["orange", "blueberry", "broccoli", "fish", "carrot"], rounds: 5 },
+    { id: 6, nameKey: "stage6Name", descKey: "stage6Desc", colors: ["red", "orange", "purple", "brown"], foods: ["watermelon", "carrot", "eggplant", "bread", "chocolate"], rounds: 5 },
+    { id: 7, nameKey: "stage7Name", descKey: "stage7Desc", colors: ["blue", "cyan", "white", "yellow"], foods: ["blueberry", "soda", "milk", "banana", "corn"], rounds: 5 },
+    { id: 8, nameKey: "stage8Name", descKey: "stage8Desc", colors: ["green", "orange", "purple", "red"], foods: ["broccoli", "cucumber", "carrot", "purplePotato", "tomato"], rounds: 5 },
+    { id: 9, nameKey: "stage9Name", descKey: "stage9Desc", colors: ["pink", "gray", "black", "yellow"], foods: ["peach", "fish", "blackSesame", "banana", "corn"], rounds: 5 },
+    { id: 10, nameKey: "stage10Name", descKey: "stage10Desc", colors: ["red", "orange", "purple", "cyan"], foods: ["strawberry", "orange", "grapes", "soda", "watermelon"], rounds: 5 },
   ];
+
+  validateStageData();
 
   const state = {
     stageIndex: 0,
@@ -271,6 +273,25 @@
 
   function shuffle(items) {
     return [...items].sort(() => Math.random() - 0.5);
+  }
+
+  function validateStageData() {
+    for (const stage of stages) {
+      const uniqueFoods = new Set(stage.foods);
+      if (uniqueFoods.size !== stage.foods.length) {
+        throw new Error(`Color Lunchbox stage ${stage.id} has duplicate foods.`);
+      }
+      if (stage.rounds > uniqueFoods.size) {
+        throw new Error(`Color Lunchbox stage ${stage.id} has more rounds than unique foods.`);
+      }
+      for (const foodId of stage.foods) {
+        const food = foodsDB[foodId];
+        if (!food) throw new Error(`Color Lunchbox stage ${stage.id} references missing food ${foodId}.`);
+        if (!stage.colors.includes(food.color)) {
+          throw new Error(`Color Lunchbox stage ${stage.id} is missing ${food.color} box for ${foodId}.`);
+        }
+      }
+    }
   }
 
   function loadUnlockedStage() {
@@ -392,9 +413,7 @@
     state.mistakes = 0;
 
     const pool = stage.foods.map((id) => foodsDB[id]);
-    const deck = [];
-    while (deck.length < stage.rounds) deck.push(...shuffle(pool));
-    state.deck = deck.slice(0, stage.rounds);
+    state.deck = shuffle(pool).slice(0, stage.rounds);
 
     stageSelectPanel.classList.add("hidden");
     resultPanel.classList.add("hidden");
