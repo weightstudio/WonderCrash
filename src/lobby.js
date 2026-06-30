@@ -138,9 +138,14 @@ function renderHeroGames() {
         card.addEventListener("click", () => showPlannedGame(game));
       }
       card.innerHTML = `
-        <span>#${index + 1}</span>
-        <strong>${title}</strong>
-        <small>${type} · ${ageLabel}</small>
+        <div class="hero-game-art">
+          <img src="${game.art?.background || game.art?.hero || "assets/hero.png"}" alt="" />
+          <span>#${index + 1}</span>
+        </div>
+        <div class="hero-game-copy">
+          <strong>${title}</strong>
+          <small>${type} · ${ageLabel}</small>
+        </div>
       `;
       return card;
     });
