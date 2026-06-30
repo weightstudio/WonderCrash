@@ -33,6 +33,7 @@ body.lobby-page {
   min-height: 100dvh;
   overflow: auto;
   touch-action: pan-y;
+  overscroll-behavior-x: none;
   overscroll-behavior-y: contain;
   background:
     radial-gradient(circle at 18% 8%, rgba(117, 191, 255, 0.18), transparent 28%),
