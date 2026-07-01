@@ -108,7 +108,7 @@ select {
 
 .cover {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1;
   max-height: 430px;
   border-radius: 22px;
   object-fit: cover;
@@ -268,11 +268,11 @@ select {
 }
 
 .bubble.pop {
-  animation: bubble-pop .32s ease forwards;
+  animation: bubble-pop .34s cubic-bezier(.18,.75,.22,1) forwards;
 }
 
 .bubble.drop {
-  animation: bubble-drop .26s cubic-bezier(.18,.82,.3,1.08);
+  animation: bubble-drop .5s cubic-bezier(.18,.88,.22,1.18);
 }
 
 .board-float {
@@ -336,15 +336,24 @@ select {
 }
 
 @keyframes bubble-pop {
+  45% {
+    opacity: 1;
+    transform: scale(1.18);
+    filter: brightness(1.18) saturate(1.12);
+  }
+
   to {
     opacity: 0;
-    transform: scale(1.35) rotate(10deg);
+    transform: scale(.35) rotate(12deg);
+    filter: brightness(1.35) saturate(1.2);
   }
 }
 
 @keyframes bubble-drop {
-  from { transform: translateY(var(--drop-y, -72px)) scale(.94); }
-  to { transform: translateY(0) scale(1); }
+  0% { transform: translateY(calc(var(--drop-y, 1) * -112%)) scale(.96); }
+  72% { transform: translateY(5%) scale(1.02, .98); }
+  88% { transform: translateY(-2%) scale(.99, 1.01); }
+  100% { transform: translateY(0) scale(1); }
 }
 
 @keyframes float-up {

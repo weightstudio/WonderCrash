@@ -87,7 +87,7 @@
       },
       art: {
         kind: "image",
-        background: "assets/bubble-bakery-cover.svg",
+        background: "assets/bubble-bakery-cover.png",
         hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
       },
     },

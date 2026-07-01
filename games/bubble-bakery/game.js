@@ -244,7 +244,7 @@
         button.type = "button";
         button.className = `bubble ${dropMap.has(key) ? "drop" : ""}`;
         button.style.setProperty("--bubble", data.css);
-        if (dropMap.has(key)) button.style.setProperty("--drop-y", `${dropMap.get(key)}px`);
+        if (dropMap.has(key)) button.style.setProperty("--drop-y", String(dropMap.get(key)));
         button.dataset.row = String(r);
         button.dataset.col = String(c);
         button.setAttribute("aria-label", id);
@@ -296,10 +296,12 @@
       });
       const dropMap = collapseBoard(stages[currentStage].palette);
       renderAll(dropMap);
-      busy = false;
-      if (isComplete()) return finish(true);
-      if (moves <= 0) return finish(false);
-    }, 230);
+      window.setTimeout(() => {
+        busy = false;
+        if (isComplete()) return finish(true);
+        if (moves <= 0) return finish(false);
+      }, 520);
+    }, 340);
   }
 
   function markPopping(group) {
@@ -320,12 +322,12 @@
       let target = rows - 1;
       kept.forEach((item) => {
         next[target][c] = item.id;
-        if (item.from !== target) dropMap.set(`${target},${c}`, -Math.max(1, target - item.from) * 72);
+        if (item.from !== target) dropMap.set(`${target},${c}`, Math.max(1, target - item.from));
         target -= 1;
       });
       while (target >= 0) {
         next[target][c] = randomFrom(palette);
-        dropMap.set(`${target},${c}`, -Math.max(2, target + 2) * 72);
+        dropMap.set(`${target},${c}`, Math.max(2, target + 2));
         target -= 1;
       }
     }
@@ -379,7 +381,7 @@
   }
 
   function initLoading() {
-    const assets = ["../../assets/bubble-bakery-cover.svg"];
+    const assets = ["../../assets/bubble-bakery-cover.png"];
     let loaded = 0;
     const update = () => {
       const pct = Math.min(100, Math.round((loaded / assets.length) * 100));
