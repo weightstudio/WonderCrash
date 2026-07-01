@@ -268,6 +268,9 @@
         button.type = "button";
         button.className = "bubble";
         button.style.setProperty("--bubble", data.css);
+        button.style.visibility = "visible";
+        button.style.opacity = "1";
+        button.style.transform = "none";
         if (dropMap.has(key)) {
           const rowsToFall = dropMap.get(key);
           button.dataset.dropDistance = String(Math.max(1, rowsToFall) * pitch);
@@ -345,16 +348,22 @@
     });
 
     const animations = popNodes.map((node) => {
+      const row = Number(node.dataset.row);
+      const col = Number(node.dataset.col);
+      const id = board[row]?.[col];
+      const data = colorData(id);
       const rect = node.getBoundingClientRect();
-      const clone = node.cloneNode(true);
+      node.getAnimations?.().forEach((animation) => animation.cancel());
+      const clone = document.createElement("button");
+      clone.type = "button";
       clone.disabled = true;
-      clone.removeAttribute("data-row");
-      clone.removeAttribute("data-col");
-      clone.classList.add("bubble-pop-clone");
+      clone.className = "bubble bubble-pop-clone";
+      clone.style.setProperty("--bubble", data.css);
       clone.style.left = `${rect.left}px`;
       clone.style.top = `${rect.top}px`;
       clone.style.width = `${rect.width}px`;
       clone.style.height = `${rect.height}px`;
+      clone.innerHTML = `<span>${data.icon}</span>`;
       popLayer.appendChild(clone);
       node.style.visibility = "hidden";
 
@@ -401,6 +410,11 @@
 
     return Promise.all(animations).then(() => {
       nodes.board.querySelectorAll(".bubble").forEach((node) => {
+        node.getAnimations?.().forEach((animation) => animation.cancel());
+        delete node.dataset.dropDistance;
+        node.style.transform = "none";
+        node.style.opacity = "1";
+        node.style.visibility = "visible";
         node.disabled = false;
       });
       return wait(40);
