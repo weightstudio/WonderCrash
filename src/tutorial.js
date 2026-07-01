@@ -111,6 +111,14 @@
         { icon: "★", en: ["Clear", "Help enough animals to finish the stage."], "zh-Hant": ["過關", "完成足夠任務就能過關。"] },
       ],
     },
+    "animal-guard-yard": {
+      title: { en: "Guard the yard.", "zh-Hant": "守住動物庭院" },
+      steps: [
+        { icon: "☀", en: ["Collect Sun", "Tap sun drops to gain energy for animal guards."], "zh-Hant": ["收集太陽", "點擊掉落的太陽，取得放置動物的能量。"] },
+        { icon: "🐱", en: ["Place Guards", "Choose an animal, then tap a grass tile to place it."], "zh-Hant": ["放置守衛", "先選動物，再點草地格子放置守衛。"] },
+        { icon: "🧟", en: ["Stop Zombies", "Animals attack zombies in the same lane. Do not let zombies reach the yard."], "zh-Hant": ["擋住殭屍", "動物會攻擊同一路線的殭屍，別讓殭屍闖進庭院。"] },
+      ],
+    },
   };
 
   function gameIdFromPath() {
