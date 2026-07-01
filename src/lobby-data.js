@@ -253,11 +253,11 @@ window.WONDER_LOBBY = {
       ageLabel: { en: "5+", "zh-Hant": "5+" },
       href: "games/animal-guard-yard/index.html",
       description: {
-        en: "Place full-body animal guards, earn coins, upgrade your team, and fight through 5 zombie stages with a boss.",
+        en: "Place full-body animal guards, earn coins, upgrade your team, and fight through 8 zombie stages with boss battles.",
         "zh-Hant": "放置全身動物守衛，賺金幣升級隊伍，挑戰 5 關殭屍與 Boss。",
       },
       meta: {
-        en: ["5 Stages", "Animal Upgrades", "Boss Fight"],
+        en: ["8 Stages", "Animal Upgrades", "Boss Battles"],
         "zh-Hant": ["5 關", "動物升級", "Boss 戰"],
       },
       art: {

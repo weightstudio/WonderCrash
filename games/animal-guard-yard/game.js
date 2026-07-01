@@ -66,6 +66,9 @@
       swarm: "Swarm night",
       boss: "Boss at the gate",
       basic: "First defense",
+      crossfire: "Cross-lane ambush",
+      tankTrial: "Shield stampede",
+      grandBoss: "Grand boss garden",
     },
     "zh-Hant": {
       gameTitle: "\u52d5\u7269\u5b88\u885b\u5ead\u9662",
@@ -126,6 +129,9 @@
       swarm: "\u591c\u665a\u7fa4\u8972",
       boss: "Boss \u58d3\u5883",
       basic: "\u7b2c\u4e00\u9053\u9632\u7dda",
+      crossfire: "\u8de8\u7dda\u5947\u8972",
+      tankTrial: "\u76fe\u724c\u8a66\u7df4",
+      grandBoss: "\u6700\u7d42\u5ead\u9662",
     },
   };
 
@@ -153,6 +159,9 @@
     { titleKey: "shield", theme: "rain", energy: 165, hp: 4, rows: 5, cols: 9, total: 17, interval: 1880, zombies: [{ type: "normal", hp: 115, speed: 15, damage: 18 }, { type: "fast", hp: 88, speed: 22, damage: 14 }, { type: "shield", hp: 180, speed: 10, damage: 24 }] },
     { titleKey: "swarm", theme: "swamp", energy: 180, hp: 4, rows: 5, cols: 9, total: 21, interval: 1650, zombies: [{ type: "normal", hp: 125, speed: 16, damage: 18 }, { type: "fast", hp: 96, speed: 25, damage: 15 }, { type: "shield", hp: 200, speed: 11, damage: 25 }] },
     { titleKey: "boss", theme: "boss", energy: 205, hp: 5, rows: 5, cols: 9, total: 24, interval: 1550, zombies: [{ type: "normal", hp: 135, speed: 16, damage: 19 }, { type: "fast", hp: 104, speed: 25, damage: 16 }, { type: "shield", hp: 220, speed: 11, damage: 26 }], boss: { type: "boss", hp: 620, speed: 7, damage: 38 } },
+    { titleKey: "crossfire", theme: "sunset", energy: 220, hp: 5, rows: 5, cols: 9, total: 27, interval: 1450, zombies: [{ type: "normal", hp: 150, speed: 17, damage: 20 }, { type: "fast", hp: 112, speed: 28, damage: 17 }, { type: "shield", hp: 235, speed: 12, damage: 27 }] },
+    { titleKey: "tankTrial", theme: "rain", energy: 235, hp: 5, rows: 5, cols: 9, total: 30, interval: 1380, zombies: [{ type: "normal", hp: 165, speed: 17, damage: 21 }, { type: "shield", hp: 285, speed: 12, damage: 30 }, { type: "shield", hp: 310, speed: 10, damage: 34 }] },
+    { titleKey: "grandBoss", theme: "boss", energy: 255, hp: 6, rows: 5, cols: 9, total: 32, interval: 1300, zombies: [{ type: "normal", hp: 175, speed: 18, damage: 22 }, { type: "fast", hp: 128, speed: 29, damage: 18 }, { type: "shield", hp: 310, speed: 12, damage: 34 }], boss: { type: "boss", hp: 980, speed: 8, damage: 48 } },
   ];
 
   const $ = (id) => document.getElementById(id);
