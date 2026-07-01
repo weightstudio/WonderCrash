@@ -57,6 +57,10 @@
       unitDog: "Dog",
       unitOwl: "Owl",
       unitFox: "Fox",
+      roleRanged: "Ranged",
+      roleTankMelee: "Tank Melee",
+      roleFastRanged: "Fast Ranged",
+      roleCrossLane: "Cross-lane",
       fast: "Fast zombies",
       shield: "Shield zombies",
       swarm: "Swarm night",
@@ -113,6 +117,10 @@
       unitDog: "\u72d7\u6230\u58eb",
       unitOwl: "\u8c93\u982d\u9df9\u6cd5\u5e2b",
       unitFox: "\u72d0\u72f8\u904a\u4fe0",
+      roleRanged: "\u9060\u7a0b",
+      roleTankMelee: "\u5766\u514b\u8fd1\u6230",
+      roleFastRanged: "\u5feb\u901f\u9060\u7a0b",
+      roleCrossLane: "\u8de8\u7dda\u5c04\u64ca",
       fast: "\u5feb\u901f\u6bad\u5c4d",
       shield: "\u76fe\u724c\u6bad\u5c4d",
       swarm: "\u591c\u665a\u7fa4\u8972",
@@ -122,10 +130,10 @@
   };
 
   const units = [
-    { id: "cat", nameKey: "unitCat", cost: 50, hp: 80, damage: 18, cooldown: 820, range: 9, unlockCost: 0 },
-    { id: "dog", nameKey: "unitDog", cost: 80, hp: 120, damage: 30, cooldown: 1180, range: 8, unlockCost: 0 },
-    { id: "owl", nameKey: "unitOwl", cost: 110, hp: 70, damage: 24, cooldown: 640, range: 9, unlockCost: 0 },
-    { id: "fox", nameKey: "unitFox", cost: 140, hp: 92, damage: 42, cooldown: 980, range: 9, unlockCost: 18 },
+    { id: "cat", nameKey: "unitCat", roleKey: "roleRanged", attackStyle: "ranged", cost: 50, hp: 82, damage: 18, cooldown: 820, range: 9, unlockCost: 0 },
+    { id: "dog", nameKey: "unitDog", roleKey: "roleTankMelee", attackStyle: "melee", cost: 75, hp: 190, damage: 38, cooldown: 920, range: 1.25, unlockCost: 0 },
+    { id: "owl", nameKey: "unitOwl", roleKey: "roleFastRanged", attackStyle: "ranged", cost: 105, hp: 72, damage: 22, cooldown: 560, range: 9, unlockCost: 0 },
+    { id: "fox", nameKey: "unitFox", roleKey: "roleCrossLane", attackStyle: "cross", cost: 145, hp: 98, damage: 36, cooldown: 860, range: 9, targetRows: 1, unlockCost: 18 },
   ];
 
   const spriteAssets = {
@@ -452,7 +460,7 @@
         <div class="kennel-animal">${animalSprite(unit.id)}</div>
         <div>
           <strong>${t(unit.nameKey)} <small>${t("level", { n: trained.level })}</small></strong>
-          <span>ATK ${trained.damage} / HP ${trained.hp} / SUN ${trained.cost}</span>
+          <span>${t(trained.roleKey)} / ATK ${trained.damage} / HP ${trained.hp} / SUN ${trained.cost}</span>
         </div>
         <button type="button" data-kennel-unit="${unit.id}" ${canBuy ? "" : "disabled"}>
           ${cost} ${owned ? t("upgrade") : t("unlock")}
@@ -474,7 +482,7 @@
         <div class="shop-hero">${animalSprite(unit.id)}</div>
         <div>
           <strong>${t(unit.nameKey)}</strong>
-          <span>ATK ${trained.damage} / HP ${trained.hp} / SUN ${trained.cost}</span>
+          <span>${t(trained.roleKey)} / ATK ${trained.damage} / HP ${trained.hp} / SUN ${trained.cost}</span>
         </div>
         <button type="button" data-kennel-unit="${unit.id}" ${owned || readDiamonds() < unit.unlockCost ? "disabled" : ""}>
           ${owned ? t("owned") : `${unit.unlockCost} ${t("unlock")}`}
@@ -568,7 +576,7 @@
       if (!owned || energy < trained.cost) button.classList.add("disabled");
       button.innerHTML = `
         <span class="mini-animal">${animalSprite(unit.id)}</span>
-        <span>${t(unit.nameKey)} <em>${t("level", { n: trained.level })}</em><small>SUN ${trained.cost} / ATK ${trained.damage}</small></span>
+        <span>${t(unit.nameKey)} <em>${t("level", { n: trained.level })}</em><small>${t(trained.roleKey)} / SUN ${trained.cost} / ATK ${trained.damage}</small></span>
       `;
       button.addEventListener("click", () => {
         if (!owned) {
@@ -700,27 +708,61 @@
   function updateGuards(dt) {
     entities.filter((item) => item.kind === "guard").forEach((guard) => {
       guard.cooldown -= dt;
-      const cols = stages[currentStage].cols;
-      const guardX = (guard.col + 0.5) / cols;
-      const rangeEnd = Math.min(1.08, (guard.col + guard.data.range + 0.5) / cols);
-      const target = entities
-        .filter((item) => item.kind === "zombie" && item.row === guard.row && item.x > guardX && item.x <= rangeEnd)
-        .sort((a, b) => a.x - b.x)[0];
+      const target = findTargetForGuard(guard);
       if (target && guard.cooldown <= 0) {
-        shoot(guard, target);
+        if (guard.data.attackStyle === "melee") {
+          meleeAttack(guard, target);
+        } else {
+          shoot(guard, target);
+        }
         guard.cooldown = guard.data.cooldown;
       }
       updateEntityElement(guard);
     });
   }
 
+  function findTargetForGuard(guard) {
+    const stage = stages[currentStage];
+    const guardX = cellCenterX(guard.col, stage);
+    const rangeEnd = Math.min(1.08, guardX + guard.data.range / stage.cols);
+    const rowReach = guard.data.attackStyle === "cross" ? guard.data.targetRows || 1 : 0;
+    return entities
+      .filter((item) => (
+        item.kind === "zombie"
+        && Math.abs(item.row - guard.row) <= rowReach
+        && item.x > guardX - 0.012
+        && item.x <= rangeEnd
+      ))
+      .sort((a, b) => Math.abs(a.row - guard.row) - Math.abs(b.row - guard.row) || a.x - b.x)[0];
+  }
+
+  function applyDamage(target, damage, impactType, impactY) {
+    target.hp -= damage;
+    pulseClass(target.el, "is-hit");
+    spawnImpact(target.x, impactY, impactType);
+    showBoardText(`-${damage}`, target.x, Math.max(0.06, impactY - 0.08));
+    if (target.hp <= 0 && !target.rewarded) {
+      target.rewarded = true;
+      const coinGain = target.type === "boss" ? 30 : target.type === "shield" ? 8 : target.type === "fast" ? 5 : 6;
+      coinsEarned += coinGain;
+      showBoardText(`+${coinGain}`, target.x, impactY + 0.02);
+    }
+    playSound("hit");
+  }
+
+  function meleeAttack(guard, target) {
+    pulseClass(guard.el, "is-shooting");
+    const y = laneProjectileY(target.row);
+    applyDamage(target, guard.data.damage, guard.id, y);
+  }
+
   function shoot(guard, target) {
     pulseClass(guard.el, "is-shooting");
     const stage = stages[currentStage];
-    const laneY = laneProjectileY(guard.row, stage);
+    const laneY = laneProjectileY(target.row, stage);
     const projectile = {
-      row: guard.row,
-      x: (guard.col + 0.76) / stage.cols,
+      row: target.row,
+      x: Math.min(1.02, cellCenterX(guard.col, stage) + 0.25 / stage.cols),
       y: laneY,
       speed: 0.00095,
       damage: guard.data.damage,
@@ -745,18 +787,8 @@
         && item.x <= shot.x + 0.035
       ));
       if (hit) {
-        hit.hp -= shot.damage;
-        pulseClass(hit.el, "is-hit");
-        spawnImpact(hit.x, shot.y, shot.unitId);
-        showBoardText(`-${shot.damage}`, hit.x, Math.max(0.06, shot.y - 0.08));
-        if (hit.hp <= 0 && !hit.rewarded) {
-          hit.rewarded = true;
-          const coinGain = hit.type === "boss" ? 30 : hit.type === "shield" ? 8 : hit.type === "fast" ? 5 : 6;
-          coinsEarned += coinGain;
-          showBoardText(`+${coinGain}`, hit.x, shot.y + 0.02);
-        }
+        applyDamage(hit, shot.damage, shot.unitId, shot.y);
         shot.dead = true;
-        playSound("hit");
       }
       if (shot.x > 1.08) shot.dead = true;
       shot.el.style.transform = `translate(${shot.x * boardRect.width}px, ${shot.y * boardRect.height}px) translate(-50%, -50%)`;
@@ -768,9 +800,8 @@
   }
 
   function updateZombies(dt) {
-    const cols = stages[currentStage].cols;
     entities.filter((item) => item.kind === "zombie").forEach((zombie) => {
-      const blocking = entities.find((item) => item.kind === "guard" && item.row === zombie.row && Math.abs((item.col + 0.5) / cols - zombie.x) < 0.065);
+      const blocking = entities.find((item) => item.kind === "guard" && item.row === zombie.row && Math.abs(cellCenterX(item.col) - zombie.x) < 0.065);
       if (blocking) {
         zombie.biteCooldown -= dt;
         if (zombie.biteCooldown <= 0) {
@@ -778,7 +809,7 @@
           zombie.biteCooldown = 760;
           pulseClass(zombie.el, "is-biting");
           pulseClass(blocking.el, "is-hit");
-          spawnImpact((blocking.col + 0.5) / cols, (blocking.row + 0.5) / stages[currentStage].rows, "bite");
+          spawnImpact(cellCenterX(blocking.col), laneProjectileY(blocking.row), "bite");
           playSound("hit");
         }
       } else {
@@ -810,22 +841,26 @@
   function updateEntityElement(entity) {
     const stage = stages[currentStage];
     if (entity.kind === "guard") {
-      const x = ((entity.col + 0.5) / stage.cols) * boardRect.width;
+      const x = cellCenterX(entity.col, stage) * boardRect.width;
       const y = laneCenterY(entity.row, stage) * boardRect.height;
       entity.el.style.setProperty("--actor-x", `${x}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
-      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -82%)";
+      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
     } else {
       const y = laneCenterY(entity.row, stage) * boardRect.height;
       entity.el.style.setProperty("--actor-x", `${entity.x * boardRect.width}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
-      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -82%)";
+      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
     }
     entity.el.querySelector(".hp i").style.width = `${clamp((entity.hp / entity.maxHp) * 100, 0, 100)}%`;
   }
 
+  function cellCenterX(col, stage = stages[currentStage]) {
+    return (col + 0.5) / stage.cols;
+  }
+
   function laneCenterY(row, stage = stages[currentStage]) {
-    return (row + 0.62) / stage.rows;
+    return (row + 0.5) / stage.rows;
   }
 
   function laneProjectileY(row, stage = stages[currentStage]) {

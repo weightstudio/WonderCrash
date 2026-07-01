@@ -542,8 +542,9 @@ select {
 }
 
 .actor {
-  width: 10.5%;
-  height: 22%;
+  z-index: 5;
+  width: min(10.2%, calc(100% / var(--grid-cols) * 0.92));
+  height: min(18.5%, calc(100% / var(--grid-rows) * 0.92));
   filter: drop-shadow(0 10px 8px rgba(22, 51, 31, 0.28));
 }
 
@@ -552,7 +553,7 @@ select {
   position: absolute;
   left: 12%;
   right: 12%;
-  bottom: 4px;
+  bottom: -2px;
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
@@ -570,7 +571,7 @@ select {
 
 .projectile {
   z-index: 7;
-  width: 4.6%;
+  width: min(4.6%, calc(100% / var(--grid-cols) * 0.42));
   aspect-ratio: 1.55;
   border-radius: 999px 60% 60% 999px;
   background: radial-gradient(circle at 74% 36%, #fff9bd 0 16%, #ffe066 17% 52%, #f59e0b 53% 100%);
@@ -589,8 +590,7 @@ select {
 }
 
 .projectile.dog {
-  background: radial-gradient(circle at 74% 36%, #fff1c2 0 16%, #ff7b62 17% 52%, #c42f4a 53% 100%);
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.45), 0 4px 10px rgba(80, 30, 30, 0.24), 0 0 18px rgba(255, 123, 98, 0.52);
+  display: none;
 }
 
 .projectile.owl {
@@ -604,14 +604,15 @@ select {
 }
 
 .zombie {
-  width: 10.8%;
-  height: 22%;
+  z-index: 6;
+  width: min(10.4%, calc(100% / var(--grid-cols) * 0.94));
+  height: min(18.5%, calc(100% / var(--grid-rows) * 0.92));
   filter: drop-shadow(0 10px 8px rgba(29, 50, 32, 0.32));
 }
 
 .zombie.boss {
-  width: 15.5%;
-  height: 31%;
+  width: min(15.5%, calc(100% / var(--grid-cols) * 1.42));
+  height: min(28%, calc(100% / var(--grid-rows) * 1.38));
   filter: drop-shadow(0 15px 12px rgba(29, 50, 32, 0.38));
 }
 
