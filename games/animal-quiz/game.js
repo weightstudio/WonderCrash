@@ -17,6 +17,7 @@ const feedbackText = document.querySelector("#feedbackText");
 const resultPanel = document.querySelector("#resultPanel");
 const resultTitle = document.querySelector("#resultTitle");
 const resultText = document.querySelector("#resultText");
+const skillReport = document.querySelector("#skillReport");
 const againBtn = document.querySelector("#againBtn");
 const nextStageBtn = document.querySelector("#nextStageBtn");
 const stageSelectBtn = document.querySelector("#stageSelectBtn");
@@ -29,6 +30,7 @@ const loadingFill = document.querySelector("#loadingFill");
 
 const GAME_ID = "animal-quiz";
 const UNLOCK_KEY = "animalQuizUnlockedStage";
+const PROGRESS_KEY = "animalQuizProgress";
 
 const dictionary = {
   en: {
@@ -52,6 +54,16 @@ const dictionary = {
     nextStage: "Next Stage",
     stages: "Stages",
     lobby: "Lobby",
+    reportTitle: "Skill Report",
+    previousBest: "Previous Best",
+    todayScore: "Today's Score",
+    improvement: "Improvement",
+    animalKnowledge: "Animal Knowledge",
+    memory: "Memory",
+    reading: "Reading",
+    reportGreat: "Great job! Your animal recognition was strong, and you used the clues well.",
+    reportGood: "Good effort! Try again to become more familiar with animal features.",
+    reportTry: "Nice practice! Look slowly at the picture and clue, then try again.",
     stageAfrica: "Stage 1: African Animals",
     stageAsia: "Stage 2: Asian Animals",
     stageOceanHome: "Stage 3: Ocean & Home Animals",
@@ -109,31 +121,41 @@ const dictionary = {
     chooseStage: "選擇關卡",
     start: "開始",
     locked: "未解鎖",
-    complete: "已通關",
-    prompt: "這是什麼動物？",
+    complete: "已完成",
+    prompt: "這是哪一種動物？",
     choose: "選一個答案",
     correct: "答對了！",
-    wrong: "再試試看",
+    wrong: "再觀察一次",
     loading: "載入中",
     question: "{stage}  {current} / {total}",
     winTitle: "關卡完成！",
     winText: "答對 {score} / {total} 題。",
-    allClearTitle: "全部通關！",
-    allClearText: "你完成了 {count} 個動物關卡。",
+    allClearTitle: "全部完成！",
+    allClearText: "你完成了全部 {count} 個動物關卡。",
     again: "再玩一次",
     nextStage: "下一關",
-    stages: "關卡",
-    lobby: "回大廳",
+    stages: "選關",
+    lobby: "大廳",
+    reportTitle: "能力小報告",
+    previousBest: "之前最佳",
+    todayScore: "本次分數",
+    improvement: "進步",
+    animalKnowledge: "動物知識",
+    memory: "記憶力",
+    reading: "閱讀理解",
+    reportGreat: "很棒！這次動物辨識很穩定，也能從線索中找到答案。",
+    reportGood: "做得不錯！再玩一次可以更熟悉動物特徵。",
+    reportTry: "好努力！可以慢慢看圖片和提示，再試著找答案。",
     stageAfrica: "第 1 關：非洲動物",
     stageAsia: "第 2 關：亞洲動物",
-    stageOceanHome: "第 3 關：海洋與身邊動物",
+    stageOceanHome: "第 3 關：海洋與家中動物",
     stageForest: "第 4 關：森林朋友",
-    stageFarm: "第 5 關：農場與夜晚動物",
-    stageAfricaDesc: "認識草原、河邊和溫暖地區的動物。",
-    stageAsiaDesc: "猜猜森林、山區和附近自然裡的動物。",
-    stageOceanHomeDesc: "找出海裡的動物，以及孩子常見的動物。",
-    stageForestDesc: "練習森林、竹林、池塘與樹上的動物。",
-    stageFarmDesc: "複習熟悉的農場動物，以及夜晚活動的動物。",
+    stageFarm: "第 5 關：農場與夜行動物",
+    stageAfricaDesc: "認識草原、河邊和溫暖棲地的動物。",
+    stageAsiaDesc: "猜猜森林、山區和自然環境中的動物。",
+    stageOceanHomeDesc: "找出海洋動物，以及孩子常見的動物朋友。",
+    stageForestDesc: "練習森林、竹林、池塘和樹上的動物。",
+    stageFarmDesc: "複習熟悉的農場動物與夜晚活動的動物。",
     lion: "獅子",
     hippo: "河馬",
     snake: "蛇",
@@ -154,24 +176,24 @@ const dictionary = {
     whale: "鯨魚",
     owl: "貓頭鷹",
     cow: "乳牛",
-    clueLion: "我有大大的鬃毛。",
-    clueHippo: "我喜歡水，也有大大的嘴巴。",
-    clueSnake: "我會在地上爬行。",
-    clueRabbit: "我有長耳朵，會跳跳跳。",
+    clueLion: "我有一圈很大的鬃毛。",
+    clueHippo: "我喜歡水，嘴巴非常大。",
+    clueSnake: "我會在地上滑行。",
+    clueRabbit: "我有長耳朵，會跳來跳去。",
     clueTurtle: "我背上有硬硬的殼。",
     clueElephant: "我有長長的鼻子。",
-    cluePenguin: "我是會搖搖走路的鳥。",
-    clueMonkey: "我會爬樹和盪來盪去。",
-    clueBear: "我很大、毛茸茸，也很強壯。",
+    cluePenguin: "我是會搖搖擺擺走路的鳥。",
+    clueMonkey: "我會爬樹，也會盪來盪去。",
+    clueBear: "我很大、毛茸茸，而且很強壯。",
     clueCat: "我會喵喵叫，臉上有鬍鬚。",
     clueDog: "我會汪汪叫，也會搖尾巴。",
-    clueFox: "我有橘色毛和蓬蓬的尾巴。",
-    clueGiraffe: "我有非常長的脖子。",
+    clueFox: "我有橘色毛和蓬鬆尾巴。",
+    clueGiraffe: "我的脖子非常長。",
     clueZebra: "我身上有黑白條紋。",
-    cluePanda: "我是黑白色，也喜歡竹子。",
+    cluePanda: "我黑白相間，喜歡吃竹子。",
     clueKoala: "我喜歡抱著樹，有圓圓的耳朵。",
     clueFrog: "我會跳，也會呱呱叫。",
-    clueWhale: "我是住在海裡的大動物。",
+    clueWhale: "我是住在海洋裡的巨大動物。",
     clueOwl: "我是有大眼睛的鳥。",
     clueCow: "我會哞哞叫，也會產牛奶。",
   },
@@ -273,6 +295,29 @@ function loadUnlockedStage() {
 function saveUnlockedStage(value) {
   state.unlockedStage = Math.max(state.unlockedStage, Math.min(value, stages.length - 1));
   localStorage.setItem(UNLOCK_KEY, String(state.unlockedStage));
+}
+
+function loadProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function saveProgress(stageKey, entry) {
+  const progress = loadProgress();
+  progress[stageKey] = entry;
+  localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+}
+
+function stars(value) {
+  const count = Math.max(1, Math.min(5, value));
+  return `${"★".repeat(count)}${"☆".repeat(5 - count)}`;
+}
+
+function scoreStars(score, total, offset = 0) {
+  return Math.max(1, Math.min(5, Math.ceil((score / total) * 5) + offset));
 }
 
 async function preloadGame() {
@@ -461,6 +506,7 @@ function finishStage() {
   state.completed = true;
   levelFill.style.width = "100%";
   saveUnlockedStage(state.stageIndex + 1);
+  updateProgress();
   renderResultText();
   nextStageBtn.classList.toggle("hidden", isFinalStage);
   resultPanel.classList.remove("hidden");
@@ -480,6 +526,49 @@ function renderResultText() {
   resultText.textContent = isFinalStage
     ? t("allClearText", { count: stages.length })
     : t("winText", { score: state.score, total: currentStage().questions.length });
+  renderSkillReport();
+}
+
+function updateProgress() {
+  const stageKey = String(state.stageIndex);
+  const total = currentStage().questions.length;
+  const progress = loadProgress();
+  const previous = progress[stageKey] || {};
+  const previousBest = Number(previous.bestScore) || 0;
+  const bestScore = Math.max(previousBest, state.score);
+  const improvementPercent = previousBest > 0 ? Math.round(((state.score - previousBest) / previousBest) * 100) : state.score > 0 ? 100 : 0;
+  saveProgress(stageKey, {
+    lastScore: state.score,
+    bestScore,
+    previousBest,
+    playCount: (Number(previous.playCount) || 0) + 1,
+    lastPlayedAt: new Date().toISOString(),
+    improvementPercent,
+    total,
+  });
+}
+
+function renderSkillReport() {
+  const stageKey = String(state.stageIndex);
+  const total = currentStage().questions.length;
+  const progress = loadProgress()[stageKey] || {};
+  const previousBest = Number(progress.previousBest) || 0;
+  const improvementPercent = Number(progress.improvementPercent) || 0;
+  const ratio = state.score / total;
+  const messageKey = ratio >= 0.85 ? "reportGreat" : ratio >= 0.6 ? "reportGood" : "reportTry";
+  const improvementText = improvementPercent > 0 ? `+${improvementPercent}%` : "0%";
+  skillReport.innerHTML = `
+    <h2>${t("reportTitle")}</h2>
+    <dl>
+      <dt>${t("previousBest")}</dt><dd>${previousBest} / ${total}</dd>
+      <dt>${t("todayScore")}</dt><dd>${state.score} / ${total}</dd>
+      <dt>${t("improvement")}</dt><dd>${improvementText}</dd>
+      <dt>${t("animalKnowledge")}</dt><dd class="stars">${stars(scoreStars(state.score, total))}</dd>
+      <dt>${t("memory")}</dt><dd class="stars">${stars(scoreStars(state.score, total, -1))}</dd>
+      <dt>${t("reading")}</dt><dd class="stars">${stars(scoreStars(state.score, total, -1))}</dd>
+    </dl>
+    <p>${t(messageKey)}</p>
+  `;
 }
 
 function applyLocaleChange() {

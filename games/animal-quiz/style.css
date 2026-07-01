@@ -362,6 +362,55 @@ a {
   font-weight: 1000;
 }
 
+.skill-report {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border: 3px solid rgba(56, 107, 45, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.58);
+  text-align: left;
+}
+
+.skill-report h2 {
+  margin: 0;
+  color: #2d5123;
+  font-size: 18px;
+  line-height: 1.1;
+}
+
+.skill-report p {
+  margin: 0;
+  color: #496b2e;
+  font-size: 13px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.skill-report dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 5px 10px;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 1000;
+}
+
+.skill-report dt,
+.skill-report dd {
+  margin: 0;
+}
+
+.skill-report dd {
+  color: #2d5123;
+  text-align: right;
+}
+
+.skill-report .stars {
+  color: #ffad27;
+  letter-spacing: 1px;
+}
+
 .result-card button,
 .result-card a {
   display: grid;
