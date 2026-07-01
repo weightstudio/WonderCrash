@@ -1,7 +1,9 @@
 {
   "name": "WeightPlay",
   "short_name": "WeightPlay",
-  "start_url": "./",
+  "id": "https://weightplay.com/",
+  "start_url": "https://weightplay.com/",
+  "scope": "https://weightplay.com/",
   "display": "fullscreen",
   "orientation": "portrait",
   "background_color": "#151923",
