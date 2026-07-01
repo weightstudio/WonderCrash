@@ -104,6 +104,16 @@
   const popMs = 620;
   const dropMs = 920;
 
+  function wait(ms) {
+    return new Promise((resolve) => window.setTimeout(resolve, ms));
+  }
+
+  function playNodeAnimation(node, keyframes, options) {
+    if (!node || typeof node.animate !== "function") return wait(options.duration || 0);
+    const animation = node.animate(keyframes, options);
+    return animation.finished.catch(() => undefined);
+  }
+
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
   }
@@ -256,11 +266,11 @@
         const key = `${r},${c}`;
         const button = document.createElement("button");
         button.type = "button";
-        button.className = `bubble ${dropMap.has(key) ? "drop" : ""}`;
+        button.className = "bubble";
         button.style.setProperty("--bubble", data.css);
         if (dropMap.has(key)) {
           const rowsToFall = dropMap.get(key);
-          button.style.setProperty("--drop-distance", `${Math.max(1, rowsToFall) * pitch}px`);
+          button.dataset.dropDistance = String(Math.max(1, rowsToFall) * pitch);
         }
         button.dataset.row = String(r);
         button.dataset.col = String(c);
@@ -291,7 +301,7 @@
     return { id, group };
   }
 
-  function popGroup(r, c) {
+  async function popGroup(r, c) {
     if (busy || moves <= 0) return;
     const { id, group } = groupFrom(r, c);
     if (group.length < 2) {
@@ -303,37 +313,80 @@
     moves -= 1;
     score += group.length * group.length * 5;
     if (orders[id] > 0) orders[id] = Math.max(0, orders[id] - group.length);
-    markPopping(group);
     showFloat(`+${group.length}`, window.innerWidth / 2, window.innerHeight * 0.5);
     playSound("pop");
 
-    window.setTimeout(() => {
-      group.forEach(([gr, gc]) => {
-        board[gr][gc] = null;
-      });
-      const dropMap = collapseBoard(stages[currentStage].palette);
-      renderAll(dropMap);
-      window.setTimeout(() => {
-        busy = false;
-        if (isComplete()) return finish(true);
-        if (moves <= 0) return finish(false);
-      }, dropMs);
-    }, popMs);
+    await markPopping(group);
+    group.forEach(([gr, gc]) => {
+      board[gr][gc] = null;
+    });
+    const dropMap = collapseBoard(stages[currentStage].palette);
+    renderAll(dropMap);
+    await animateDroppingBubbles();
+    busy = false;
+    if (isComplete()) return finish(true);
+    if (moves <= 0) return finish(false);
   }
 
   function markPopping(group) {
     nodes.board.classList.add("is-popping");
-    group.forEach(([r, c]) => {
+    const popNodes = group.map(([r, c]) => {
       const node = nodes.board.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-      if (!node) return;
-      node.disabled = true;
-      node.style.setProperty("--pop-order", "0");
-      node.classList.add("pop");
-    });
-    nodes.board.querySelectorAll(".bubble:not(.pop)").forEach((node) => {
+      return node;
+    }).filter(Boolean);
+
+    nodes.board.querySelectorAll(".bubble").forEach((node) => {
       node.disabled = true;
     });
-    window.setTimeout(() => nodes.board.classList.remove("is-popping"), popMs + 40);
+
+    const animations = popNodes.map((node) => {
+      node.style.zIndex = "4";
+      return playNodeAnimation(node, [
+        { opacity: 1, transform: "scale(1)", filter: "brightness(1) saturate(1)" },
+        { opacity: 1, transform: "scale(1.16)", filter: "brightness(1.22) saturate(1.16)", offset: 0.38 },
+        { opacity: 0.72, transform: "scale(0.34) rotate(10deg)", filter: "brightness(1.38) saturate(1.22)", offset: 0.72 },
+        { opacity: 0, transform: "scale(0.02) rotate(18deg)", filter: "brightness(1.45) saturate(1.25)" },
+      ], {
+        duration: popMs,
+        easing: "cubic-bezier(.14,.78,.2,1)",
+        fill: "forwards",
+      }).then(() => {
+        node.style.opacity = "0";
+      });
+    });
+
+    return Promise.all(animations).then(() => {
+      nodes.board.classList.remove("is-popping");
+      return wait(30);
+    });
+  }
+
+  function animateDroppingBubbles() {
+    const dropping = Array.from(nodes.board.querySelectorAll("[data-drop-distance]"));
+    if (!dropping.length) return wait(0);
+    const animations = dropping.map((node) => {
+      const distance = Number(node.dataset.dropDistance) || 96;
+      node.disabled = true;
+      return playNodeAnimation(node, [
+        { opacity: 0.98, transform: `translateY(${-distance}px) scale(.985)` },
+        { opacity: 1, transform: "translateY(0) scale(1)", offset: 0.62 },
+        { opacity: 1, transform: "translateY(8%) scale(1.04, .95)", offset: 0.74 },
+        { opacity: 1, transform: "translateY(-3.5%) scale(.985, 1.018)", offset: 0.86 },
+        { opacity: 1, transform: "translateY(1.5%) scale(1.01, .992)", offset: 0.95 },
+        { opacity: 1, transform: "translateY(0) scale(1)" },
+      ], {
+        duration: dropMs,
+        easing: "cubic-bezier(.18,.72,.15,1.02)",
+        fill: "both",
+      });
+    });
+
+    return Promise.all(animations).then(() => {
+      nodes.board.querySelectorAll(".bubble").forEach((node) => {
+        node.disabled = false;
+      });
+      return wait(40);
+    });
   }
 
   function collapseBoard(palette) {
