@@ -219,12 +219,12 @@ window.WONDER_LOBBY = {
       ageLabel: { en: "5+", "zh-Hant": "5+" },
       href: "games/animal-guard-yard/index.html",
       description: {
-        en: "Place full-body animal guards, earn coins, upgrade your team, and unlock a rare fox with diamonds.",
-        "zh-Hant": "放置全身動物守衛，賺金幣升級隊伍，並用鑽石解鎖稀有狐狸。",
+        en: "Place full-body animal guards, earn coins, upgrade your team, and fight through 5 zombie stages with a boss.",
+        "zh-Hant": "放置全身動物守衛，賺金幣升級隊伍，挑戰 5 關殭屍與 Boss。",
       },
       meta: {
-        en: ["3 Stages", "Animal Upgrades", "Diamonds"],
-        "zh-Hant": ["3 關", "動物升級", "鑽石"],
+        en: ["5 Stages", "Animal Upgrades", "Boss Fight"],
+        "zh-Hant": ["5 關", "動物升級", "Boss 戰"],
       },
       art: {
         kind: "image",

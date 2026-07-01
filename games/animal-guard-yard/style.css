@@ -433,7 +433,14 @@ select {
   filter: drop-shadow(0 9px 8px rgba(29, 50, 32, 0.28));
 }
 
-.zombie.shield::after {
+.zombie.boss {
+  width: 18%;
+  height: 34%;
+  filter: drop-shadow(0 14px 11px rgba(29, 50, 32, 0.34));
+}
+
+.zombie.shield::after,
+.zombie.boss::after {
   content: "";
   position: absolute;
   width: 36%;
@@ -443,6 +450,14 @@ select {
   border-radius: 44% 56% 52% 48%;
   background: linear-gradient(145deg, rgba(225, 246, 255, 0.96), rgba(110, 166, 187, 0.82));
   box-shadow: inset 0 0 0 3px rgba(72, 126, 142, 0.34), 0 5px 8px rgba(24, 57, 67, 0.2);
+}
+
+.zombie.boss::after {
+  width: 42%;
+  height: 56%;
+  right: -11%;
+  top: 18%;
+  background: linear-gradient(145deg, rgba(241, 246, 251, 0.98), rgba(100, 139, 155, 0.92));
 }
 
 .animal-sprite,
@@ -654,6 +669,33 @@ select {
 
 .zombie-sprite.shield .body {
   background: #6f9876;
+}
+
+.zombie-sprite.boss .body {
+  left: 24%;
+  top: 29%;
+  width: 52%;
+  height: 52%;
+  background: #5f8468;
+}
+
+.zombie-sprite.boss .head {
+  left: 31%;
+  top: 6%;
+  width: 46%;
+  height: 38%;
+  background: #7aa684;
+}
+
+.zombie-sprite.boss .arm {
+  top: 38%;
+  height: 46%;
+  background: #52745d;
+}
+
+.zombie-sprite.boss .eye {
+  background: #1f241f;
+  box-shadow: -15px 0 #1f241f;
 }
 
 .energy-drop {

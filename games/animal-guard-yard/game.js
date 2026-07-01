@@ -42,6 +42,8 @@
       unitFox: "Fox",
       fast: "Fast zombies",
       shield: "Shield zombies",
+      swarm: "Swarm night",
+      boss: "Boss at the gate",
       basic: "First defense",
     },
     "zh-Hant": {
@@ -80,6 +82,8 @@
       unitFox: "狐狸",
       fast: "快速殭屍",
       shield: "盾牌殭屍",
+      swarm: "殭屍群夜襲",
+      boss: "大王殭屍來襲",
       basic: "初次防守",
     },
   };
@@ -95,6 +99,8 @@
     { titleKey: "basic", energy: 120, hp: 3, rows: 3, cols: 6, total: 8, interval: 2400, zombies: [{ type: "normal", hp: 88, speed: 13, damage: 14 }] },
     { titleKey: "fast", energy: 130, hp: 3, rows: 3, cols: 6, total: 12, interval: 2050, zombies: [{ type: "normal", hp: 100, speed: 14, damage: 16 }, { type: "fast", hp: 74, speed: 22, damage: 12 }] },
     { titleKey: "shield", energy: 150, hp: 4, rows: 3, cols: 6, total: 15, interval: 1900, zombies: [{ type: "normal", hp: 115, speed: 15, damage: 18 }, { type: "fast", hp: 88, speed: 22, damage: 14 }, { type: "shield", hp: 180, speed: 10, damage: 24 }] },
+    { titleKey: "swarm", energy: 165, hp: 4, rows: 3, cols: 6, total: 18, interval: 1650, zombies: [{ type: "normal", hp: 125, speed: 16, damage: 18 }, { type: "fast", hp: 96, speed: 25, damage: 15 }, { type: "shield", hp: 200, speed: 11, damage: 25 }] },
+    { titleKey: "boss", energy: 185, hp: 5, rows: 3, cols: 6, total: 20, interval: 1550, zombies: [{ type: "normal", hp: 135, speed: 16, damage: 19 }, { type: "fast", hp: 104, speed: 25, damage: 16 }, { type: "shield", hp: 220, speed: 11, damage: 26 }], boss: { type: "boss", hp: 520, speed: 7, damage: 38 } },
   ];
 
   const $ = (id) => document.getElementById(id);
@@ -457,7 +463,7 @@
     const stage = stages[currentStage];
     if (spawned >= stage.total) return;
     spawned += 1;
-    const data = stage.zombies[Math.floor(Math.random() * stage.zombies.length)];
+    const data = stage.boss && spawned === stage.total ? stage.boss : stage.zombies[Math.floor(Math.random() * stage.zombies.length)];
     const row = Math.floor(Math.random() * stage.rows);
     const zombie = {
       kind: "zombie",
@@ -471,7 +477,7 @@
       biteCooldown: 0,
       el: document.createElement("div"),
     };
-    zombie.el.className = `zombie ${data.type === "shield" ? "shield" : ""}`;
+    zombie.el.className = `zombie ${data.type}`;
     zombie.el.innerHTML = `${zombieSprite(data.type)}<span class="hp"><i></i></span>`;
     nodes.yardBoard.appendChild(zombie.el);
     entities.push(zombie);
@@ -560,7 +566,7 @@
         hit.hp -= shot.damage;
         if (hit.hp <= 0 && !hit.rewarded) {
           hit.rewarded = true;
-          const coinGain = hit.type === "shield" ? 8 : hit.type === "fast" ? 5 : 6;
+          const coinGain = hit.type === "boss" ? 30 : hit.type === "shield" ? 8 : hit.type === "fast" ? 5 : 6;
           coinsEarned += coinGain;
           showBoardText(`+${coinGain}`, hit.x, (hit.row + 0.36) / stages[currentStage].rows);
         }
