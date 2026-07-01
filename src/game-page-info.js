@@ -471,6 +471,12 @@
     return `${base}${gameId}/`;
   }
 
+  function rerenderAfterLocaleSelect() {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(render);
+    });
+  }
+
   function render() {
     const id = currentGameId();
     const baseGame = games[id];
@@ -545,4 +551,10 @@
   }
 
   window.addEventListener("wonder:locale-change", render);
+  document.addEventListener("change", (event) => {
+    if (event.target?.id === "localeSelect") rerenderAfterLocaleSelect();
+  });
+  document.addEventListener("input", (event) => {
+    if (event.target?.id === "localeSelect") rerenderAfterLocaleSelect();
+  });
 })();
