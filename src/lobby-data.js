@@ -65,6 +65,30 @@ window.WONDER_LOBBY = {
       },
     },
     {
+      id: "bubble-bakery",
+      title: { en: "Bubble Bakery", "zh-Hant": "泡泡烘焙坊" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      href: "games/bubble-bakery/index.html",
+      type: { en: "Bubble Puzzle", "zh-Hant": "泡泡益智" },
+      categories: ["Puzzle", "Family"],
+      ages: ["5", "family"],
+      ageLabel: { en: "5+", "zh-Hant": "5+" },
+      description: {
+        en: "Tap matching bubbles, fill bakery orders, and clear 6 cozy puzzle stages.",
+        "zh-Hant": "點擊相同泡泡，完成烘焙訂單，挑戰 6 個溫暖益智關卡。",
+      },
+      meta: {
+        en: ["6 Stages", "Tap Groups", "Family Puzzle"],
+        "zh-Hant": ["6 關", "群組消除", "親子益智"],
+      },
+      art: {
+        kind: "image",
+        background: "assets/bubble-bakery-cover.svg",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
+    },
+    {
       id: "star-memory",
       title: { en: "Star Memory", "zh-Hant": "星星翻翻牌" },
       status: "playable",

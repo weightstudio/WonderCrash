@@ -103,6 +103,14 @@
         { icon: "✓", en: ["Help", "Finish all shape friends to clear."], "zh-Hant": ["完成", "幫所有形狀朋友上車就過關。"] },
       ],
     },
+    "bubble-bakery": {
+      title: { en: "Fill bakery orders.", "zh-Hant": "完成烘焙訂單" },
+      steps: [
+        { icon: "🫧", en: ["Find Groups", "Tap 2 or more matching bubbles that touch."], "zh-Hant": ["找群組", "點擊相連的 2 個以上相同泡泡。"] },
+        { icon: "🧁", en: ["Collect", "Clear the colors shown in the order bar."], "zh-Hant": ["收集", "消除訂單列指定的顏色。"] },
+        { icon: "👆", en: ["Plan", "Use your moves carefully before they run out."], "zh-Hant": ["規劃", "在步數用完前完成訂單。"] },
+      ],
+    },
     "zoo-helper-day": {
       title: { en: "Help zoo animals.", "zh-Hant": "照顧動物園動物" },
       steps: [
