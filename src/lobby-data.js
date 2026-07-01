@@ -243,12 +243,12 @@ window.WONDER_LOBBY = {
       ageLabel: { en: "3+", "zh-Hant": "3+" },
       href: "games/zoo-helper-day/index.html",
       description: {
-        en: "Help cute zoo animals with food, water, cleaning, and play tasks across gentle stages.",
-        "zh-Hant": "幫可愛動物完成餵食、喝水、清潔和玩具任務。",
+        en: "Help cute zoo animals with food, water, cleaning, and play tasks across 8 gentle stages.",
+        "zh-Hant": "幫可愛動物完成 8 關餵食、喝水、清潔和玩具任務。",
       },
       meta: {
-        en: ["6 Stages", "Animal Care", "Family"],
-        "zh-Hant": ["6 關", "動物照顧", "親子"],
+        en: ["8 Stages", "Animal Care", "Family"],
+        "zh-Hant": ["8 關", "動物照顧", "親子"],
       },
       art: {
         kind: "image",

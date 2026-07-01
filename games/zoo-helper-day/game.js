@@ -42,6 +42,8 @@
         penguin: "Penguin",
         giraffe: "Giraffe",
         monkey: "Monkey",
+        koala: "Koala",
+        zebra: "Zebra",
       },
     },
     "zh-Hant": {
@@ -81,6 +83,8 @@
         penguin: "企鵝",
         giraffe: "長頸鹿",
         monkey: "猴子",
+        koala: "無尾熊",
+        zebra: "斑馬",
       },
     },
   };
@@ -103,6 +107,8 @@
     { animal: "penguin", icon: "\u{1F427}", tasks: ["fish", "water", "ball", "brush", "fish"], pool: ["fish", "water", "ball", "brush", "fruit"] },
     { animal: "giraffe", icon: "\u{1F992}", tasks: ["leaf", "water", "fruit", "brush", "toy"], pool: ["leaf", "water", "fruit", "brush", "toy"] },
     { animal: "monkey", icon: "\u{1F412}", tasks: ["fruit", "ball", "water", "toy", "brush", "fruit"], pool: ["fruit", "ball", "water", "toy", "brush"] },
+    { animal: "koala", icon: "\u{1F428}", tasks: ["leaf", "water", "brush", "toy", "fruit"], pool: ["leaf", "water", "brush", "toy", "fruit", "ball"] },
+    { animal: "zebra", icon: "\u{1F993}", tasks: ["brush", "water", "ball", "shower", "fruit", "leaf"], pool: ["brush", "water", "ball", "shower", "fruit", "leaf"] },
   ];
 
   const $ = (id) => document.getElementById(id);
