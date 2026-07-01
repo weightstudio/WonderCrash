@@ -92,6 +92,31 @@
       },
     },
     {
+      id: "animal-zoo-idle",
+      title: { en: "Animal Zoo Idle", "zh-Hant": "動物小小樂園" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      href: "games/animal-zoo-idle/",
+      type: { en: "Idle Zoo", "zh-Hant": "放置樂園" },
+      categories: ["Featured", "Animal Games", "Family"],
+      skills: ["Logic", "Focus", "Animal Knowledge"],
+      ages: ["5", "family"],
+      ageLabel: { en: "5+", "zh-Hant": "5+" },
+      description: {
+        en: "Grow cute habitats, collect coins, care for animals, and upgrade a tiny zoo over time.",
+        "zh-Hant": "經營可愛棲地，收金幣、照顧動物，慢慢升級小小樂園。",
+      },
+      meta: {
+        en: ["Idle Zoo", "Local Progress", "Animal Care"],
+        "zh-Hant": ["放置樂園", "本機進度", "動物照顧"],
+      },
+      art: {
+        kind: "image",
+        background: "assets/animal-zoo-idle-cover.svg",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
+    },
+    {
       id: "star-memory",
       title: { en: "Animal Star Memory", "zh-Hant": "動物星星翻牌" },
       status: "playable",

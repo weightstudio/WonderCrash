@@ -51,6 +51,24 @@
         ["Can families play together?", "Yes. It is designed to be easy to discuss and replay."],
       ],
     },
+    "animal-zoo-idle": {
+      title: "Animal Zoo Idle",
+      age: "5+",
+      difficulty: "Easy",
+      time: "3-8 minutes",
+      skills: ["Logic", "Focus", "Animal Knowledge"],
+      intro:
+        "Animal Zoo Idle is a gentle animal habitat game where players collect coins, care for animals, upgrade habitats, and unlock new animal friends over time. It is designed as WeightPlay's first return-friendly idle game: progress is saved locally, animals can keep earning while the player is away, and short care actions give families a simple reason to come back. The game focuses on calm growth instead of pressure, chat, or public ranking.",
+      how: ["Start the zoo from the menu.", "Collect coins from each habitat.", "Care for animals to earn extra coins and progress.", "Upgrade habitats and unlock more animals."],
+      parent:
+        "This game may help children practice focus, simple planning, responsibility, and animal knowledge through a gentle habitat-growth loop. Progress is stored locally in the browser and is for fun only, not a formal assessment.",
+      faq: [
+        ["Is Animal Zoo Idle free?", "Yes. It runs in the browser on WeightPlay."],
+        ["Does it require login?", "No. Basic play uses local browser progress only."],
+        ["What age is it for?", "It is recommended for age 5+ and family play."],
+        ["What skills does it practice?", "It can practice focus, logic, planning, and animal knowledge."],
+      ],
+    },
     "star-memory": {
       title: "Star Memory",
       age: "5+",
@@ -342,6 +360,15 @@
         how: ["查看本關的烘焙訂單目標。", "找出兩個以上相連的同色動物泡泡。", "點擊泡泡群讓它們一起消除，並觀察上方泡泡掉落。", "在步數用完前完成訂單，也可以重玩挑戰更好的星等。"],
         parent: "這款遊戲可以讓孩子透過輕鬆的泡泡消除練習邏輯、問題解決與專注力。關卡分數和星等只用於遊戲樂趣與本機進步紀錄，不是智力測驗、學習診斷或正式能力評量。",
         faq: [["動物泡泡烘焙坊適合幾歲？", "建議 5+，因為需要觀察目標、管理步數並做簡單規劃。"], ["遊戲有時間限制嗎？", "沒有。挑戰主要來自步數與訂單目標，不需要急著點。"], ["可以練習什麼能力？", "可以練習邏輯、問題解決、專注力與簡單的策略思考。"], ["分數代表孩子能力嗎？", "不代表。分數只適合用來鼓勵孩子看到自己的進步。"]],
+      },
+      "animal-zoo-idle": {
+        title: "動物小小樂園",
+        difficulty: "簡單",
+        time: "3-8 分鐘",
+        intro: "動物小小樂園是 WeightPlay 的溫和放置型動物棲地遊戲。玩家可以收取金幣、照顧動物、升級棲地，並慢慢解鎖新的動物朋友。這款遊戲的重點不是快速反應，而是讓孩子用短時間照顧樂園，看到本機進度一點一點成長。離開後再回來也能取得部分收益，適合親子一起討論要先升級哪個棲地、解鎖哪隻動物。",
+        how: ["從選單開始經營樂園。", "收取每個棲地產生的金幣。", "照顧動物來獲得額外金幣與進度。", "升級棲地，解鎖更多動物朋友。"],
+        parent: "這款遊戲可以讓孩子透過溫和的棲地成長玩法練習專注、簡單規劃、責任感與動物知識。進度只儲存在瀏覽器本機，分數與報告只用於鼓勵與遊戲樂趣，不是正式能力評量。",
+        faq: [["動物小小樂園需要登入嗎？", "不需要。基本遊玩使用瀏覽器本機進度。"], ["適合幾歲？", "建議 5+，也適合親子一起玩。"], ["離開遊戲會有進度嗎？", "會。遊戲會依照本機時間計算一段離線收益。"], ["可以練習什麼？", "可以練習專注、邏輯、簡單規劃與動物知識。"]],
       },
       "snack-blocks": {
         title: "動物零食方塊",

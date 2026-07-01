@@ -111,6 +111,14 @@
         { icon: "3", en: ["Plan", "Use your moves carefully before they run out."], "zh-Hant": ["規劃", "步數有限，點擊前先想一下。"] },
       ],
     },
+    "animal-zoo-idle": {
+      title: { en: "Grow your zoo.", "zh-Hant": "經營動物樂園" },
+      steps: [
+        { icon: "1", en: ["Collect", "Tap Collect to gather coins from each habitat."], "zh-Hant": ["收取", "點擊收取，取得每個棲地產生的金幣。"] },
+        { icon: "2", en: ["Care", "Tap Care to make animals happy and earn extra coins."], "zh-Hant": ["照顧", "點擊照顧，讓動物開心並獲得額外金幣。"] },
+        { icon: "3", en: ["Upgrade", "Upgrade habitats and unlock more animal friends."], "zh-Hant": ["升級", "升級棲地，慢慢解鎖更多動物朋友。"] },
+      ],
+    },
     "zoo-helper-day": {
       title: { en: "Help zoo animals.", "zh-Hant": "幫助動物園動物" },
       steps: [
