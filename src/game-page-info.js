@@ -252,6 +252,11 @@
       skills: "Skills Trained",
       howToPlay: "How to Play",
       parentNote: "Parent Note",
+      progressGuide: "Progress Guide",
+      progressNote: "Scores are for fun and local progress tracking only. They are not an IQ test, medical diagnosis, psychological test, or formal school assessment.",
+      beginner: "Beginner",
+      good: "Good",
+      excellent: "Excellent",
       faq: "FAQ",
       relatedGames: "Related Games",
       relatedIntro: "Because this game practices {skill}, try these next:",
@@ -266,6 +271,11 @@
       skills: "訓練能力",
       howToPlay: "玩法說明",
       parentNote: "家長說明",
+      progressGuide: "進步參考",
+      progressNote: "分數只用於遊戲樂趣與本機進步紀錄，不是智力測驗、醫療診斷、心理測驗或正式學習評量。",
+      beginner: "開始練習",
+      good: "表現不錯",
+      excellent: "非常棒",
       faq: "常見問題",
       relatedGames: "相關遊戲",
       relatedIntro: "因為這款遊戲會練習 {skill}，也可以試試：",
@@ -331,6 +341,26 @@
     return locale() === "zh-Hant" && age === "Family" ? "親子" : age;
   }
 
+  function scoreBandsFor(game) {
+    const compact = game.time.includes("1-3");
+    const scoreAttack = game.title.includes("Dash") || game.title.includes("Merge") || game.title.includes("Blocks");
+    const baseByAge = {
+      "3+": compact ? [0, 20, 21, 40, 41] : [0, 30, 31, 55, 56],
+      "5+": scoreAttack ? [0, 80, 81, 150, 151] : [0, 40, 41, 70, 71],
+      "7+": scoreAttack ? [0, 110, 111, 210, 211] : [0, 55, 56, 95, 96],
+      "9+": scoreAttack ? [0, 140, 141, 260, 261] : [0, 70, 71, 120, 121],
+      "12+": scoreAttack ? [0, 180, 181, 340, 341] : [0, 90, 91, 150, 151],
+      Family: [0, 50, 51, 100, 101],
+    };
+    return [game.age, "5+", "7+"]
+      .filter((age, index, list) => age && list.indexOf(age) === index)
+      .slice(0, 3)
+      .map((age) => {
+        const [b0, b1, g0, g1, e0] = baseByAge[age] || baseByAge["5+"];
+        return { age, beginner: `${b0}-${b1}`, good: `${g0}-${g1}`, excellent: `${e0}+` };
+      });
+  }
+
   function localizedGame(id) {
     const base = games[id];
     const override = localizedGames[locale()]?.[id] || {};
@@ -373,6 +403,7 @@
 
     document.body.classList.add("has-game-page-info");
     const related = relatedGames(id, baseGame);
+    const scoreBands = scoreBandsFor(baseGame);
     const section = document.createElement("section");
     section.className = "game-page-info";
     section.setAttribute("aria-label", uiLabel("guideLabel", { title: game.title }));
@@ -398,6 +429,24 @@
         <div class="game-info-section game-info-parent">
           <h3>${escapeHtml(uiLabel("parentNote"))}</h3>
           <p>${escapeHtml(game.parent)}</p>
+        </div>
+        <div class="game-info-section game-info-progress">
+          <h3>${escapeHtml(uiLabel("progressGuide"))}</h3>
+          <div class="game-info-bands">
+            ${scoreBands
+              .map(
+                (band) => `
+                  <div class="game-info-band">
+                    <strong>${escapeHtml(localizeAge(band.age))}</strong>
+                    <span>${escapeHtml(uiLabel("beginner"))}: ${escapeHtml(band.beginner)}</span>
+                    <span>${escapeHtml(uiLabel("good"))}: ${escapeHtml(band.good)}</span>
+                    <span>${escapeHtml(uiLabel("excellent"))}: ${escapeHtml(band.excellent)}</span>
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+          <p>${escapeHtml(uiLabel("progressNote"))}</p>
         </div>
         <div class="game-info-section">
           <h3>${escapeHtml(uiLabel("faq"))}</h3>

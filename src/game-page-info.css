@@ -158,6 +158,38 @@ body.has-game-page-info {
   background: linear-gradient(180deg, #fff9df, #fff);
 }
 
+.game-info-progress {
+  border-color: #b8e0c9;
+  background: linear-gradient(180deg, #f0fff6, #fff);
+}
+
+.game-info-bands {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.game-info-band {
+  display: grid;
+  gap: 5px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #cfe9da;
+}
+
+.game-info-band strong {
+  color: #157043;
+  font-size: 0.95rem;
+}
+
+.game-info-band span {
+  color: #3d5360;
+  font-size: 0.86rem;
+  font-weight: 800;
+  line-height: 1.35;
+}
+
 .game-info-related {
   display: flex;
   flex-wrap: wrap;
