@@ -22,7 +22,7 @@ window.WONDER_LOBBY = {
       statusText: { en: "Playable", "zh-Hant": "可遊玩" },
       type: { en: "Defense", "zh-Hant": "守城防禦" },
       categories: ["Featured", "Arcade"],
-      ages: ["5", "13"],
+      ages: ["5"],
       ageLabel: "5+",
       href: "games/wonder-crash/index.html",
       description: {

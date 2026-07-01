@@ -327,22 +327,29 @@ body.lobby-page {
 }
 
 .age-filter {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 2;
   display: flex;
   gap: 8px;
-  padding: 10px 0 14px;
+  padding: 8px;
+  margin: 4px 0 10px;
   overflow-x: auto;
-  background: linear-gradient(180deg, rgba(17, 24, 33, 0.98), rgba(17, 24, 33, 0.72));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
   backdrop-filter: blur(10px);
 }
 
 .topic-filter {
   display: flex;
   gap: 8px;
-  padding: 0 0 14px;
+  padding: 8px;
+  margin: 0 0 10px;
   overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(10px);
 }
 
 .library-tabs {
@@ -368,12 +375,13 @@ body.lobby-page {
 .library-tabs button {
   min-width: 64px;
   height: 42px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.1);
   color: #fff;
   font-size: 15px;
   font-weight: 900;
+  box-shadow: inset 0 -2px rgba(0, 0, 0, 0.1);
 }
 
 .topic-filter button {
@@ -385,8 +393,9 @@ body.lobby-page {
 .topic-filter button.active,
 .library-tabs button.active {
   border-color: rgba(255, 220, 122, 0.86);
-  background: #ffcf63;
+  background: linear-gradient(180deg, #ffeaa0, #ffbf42);
   color: #241a08;
+  box-shadow: 0 8px 18px rgba(255, 191, 66, 0.18), inset 0 -3px rgba(128, 80, 11, 0.14);
 }
 
 .hero-games-section {

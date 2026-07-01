@@ -1,38 +1,65 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Animal Guard Yard cover">
   <defs>
     <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-      <stop stop-color="#75d8ff"/>
-      <stop offset=".48" stop-color="#fff0a3"/>
-      <stop offset="1" stop-color="#44a85f"/>
+      <stop stop-color="#173957"/>
+      <stop offset=".45" stop-color="#4c7543"/>
+      <stop offset="1" stop-color="#23361f"/>
     </linearGradient>
-    <linearGradient id="frame" x1="0" x2="1" y1="0" y2="1">
-      <stop stop-color="#fff8d6"/>
-      <stop offset="1" stop-color="#ffb74b"/>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#fff2a8"/>
+      <stop offset=".48" stop-color="#f7b943"/>
+      <stop offset="1" stop-color="#8b4d1d"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#1a2c22" flood-opacity=".3"/>
+    <linearGradient id="banner" x1="0" x2="0" y1="0" y2="1">
+      <stop stop-color="#fff7d2"/>
+      <stop offset=".58" stop-color="#f1ba62"/>
+      <stop offset="1" stop-color="#9f5f2b"/>
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#07100c" flood-opacity=".42"/>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="18"/>
     </filter>
   </defs>
-  <rect width="1200" height="900" rx="64" fill="url(#sky)"/>
-  <circle cx="1012" cy="116" r="82" fill="#ffdf57"/>
-  <g fill="#fff" opacity=".65">
-    <ellipse cx="174" cy="155" rx="124" ry="42"/>
-    <ellipse cx="284" cy="147" rx="76" ry="31"/>
-    <ellipse cx="784" cy="202" rx="138" ry="43"/>
-    <ellipse cx="898" cy="199" rx="84" ry="32"/>
+
+  <rect width="1200" height="900" rx="66" fill="url(#sky)"/>
+  <circle cx="984" cy="118" r="74" fill="#ffe16d"/>
+  <circle cx="984" cy="118" r="120" fill="#ffe16d" opacity=".2" filter="url(#soft)"/>
+  <g opacity=".45" fill="#dff5ff">
+    <ellipse cx="174" cy="128" rx="130" ry="42"/>
+    <ellipse cx="286" cy="124" rx="74" ry="29"/>
+    <ellipse cx="760" cy="188" rx="124" ry="38"/>
+    <ellipse cx="872" cy="184" rx="72" ry="28"/>
   </g>
-  <path d="M0 420 C190 370 350 414 510 462 C706 520 890 456 1200 394 L1200 900 L0 900Z" fill="#5cc867"/>
-  <path d="M76 496H1124M76 626H1124M76 756H1124M226 456V848M421 456V848M616 456V848M811 456V848M1006 456V848" stroke="#257d48" stroke-width="8" opacity=".26"/>
-  <rect x="52" y="50" width="1096" height="168" rx="44" fill="url(#frame)" stroke="#5c3a1e" stroke-width="10" filter="url(#shadow)"/>
-  <text x="600" y="124" text-anchor="middle" font-family="Arial Rounded MT Bold, Noto Sans TC, sans-serif" font-size="64" font-weight="900" fill="#17314f">Animal Guard Yard</text>
-  <text x="600" y="178" text-anchor="middle" font-family="Arial Rounded MT Bold, Noto Sans TC, sans-serif" font-size="34" font-weight="900" fill="#6a3d1b">Upgrade animals. Stop the zombies.</text>
+
+  <path d="M0 418 C180 352 348 390 520 444 C710 506 882 438 1200 378 L1200 900 L0 900Z" fill="#3e8f52"/>
+  <path d="M0 554 C228 486 386 528 568 584 C760 642 936 596 1200 510 L1200 900 L0 900Z" fill="#286d42"/>
+  <path d="M106 724 C280 636 446 622 598 690 C740 752 902 748 1108 666 L1200 900 L0 900Z" fill="#c68b4a" opacity=".55"/>
+  <path d="M70 646H1130M70 770H1130M232 514V842M432 504V842M632 494V842M832 480V842M1032 456V842" stroke="#fff1b9" stroke-width="8" opacity=".18"/>
+  <path d="M70 646H1130M70 770H1130M232 514V842M432 504V842M632 494V842M832 480V842M1032 456V842" stroke="#17331f" stroke-width="3" opacity=".22"/>
+
+  <rect x="42" y="42" width="1116" height="816" rx="58" fill="none" stroke="#3c2514" stroke-width="22" opacity=".72"/>
+  <rect x="55" y="55" width="1090" height="790" rx="48" fill="none" stroke="url(#gold)" stroke-width="12"/>
+
   <g filter="url(#shadow)">
-    <image href="animal-guard-cat.png" x="72" y="424" width="262" height="262"/>
-    <image href="animal-guard-dog.png" x="290" y="560" width="252" height="252"/>
-    <image href="animal-guard-owl.png" x="500" y="414" width="258" height="258"/>
-    <image href="animal-guard-fox.png" x="674" y="560" width="252" height="252"/>
-    <image href="animal-guard-zombie-normal.png" x="854" y="422" width="250" height="250"/>
-    <image href="animal-guard-zombie-shield.png" x="986" y="602" width="252" height="252"/>
+    <path d="M110 72H1090C1128 72 1148 92 1148 130V214C1148 252 1128 272 1090 272H110C72 272 52 252 52 214V130C52 92 72 72 110 72Z" fill="url(#banner)" stroke="#4a2d18" stroke-width="10"/>
+    <text x="600" y="150" text-anchor="middle" font-family="Arial Rounded MT Bold, Noto Sans TC, sans-serif" font-size="64" font-weight="900" fill="#1a304b" stroke="#ffffff" stroke-width="7" paint-order="stroke">Animal Guard Yard</text>
+    <text x="600" y="210" text-anchor="middle" font-family="Arial Rounded MT Bold, Noto Sans TC, sans-serif" font-size="34" font-weight="900" fill="#5e3218">Upgrade animals. Hold the yard.</text>
   </g>
-  <path d="M82 820 C246 782 413 802 578 828 C756 856 950 850 1118 805" fill="none" stroke="#fff4bd" stroke-width="12" stroke-linecap="round" opacity=".65"/>
+
+  <g filter="url(#shadow)">
+    <image href="animal-guard-cat.png" x="62" y="410" width="292" height="292"/>
+    <image href="animal-guard-dog.png" x="268" y="560" width="284" height="284"/>
+    <image href="animal-guard-owl.png" x="468" y="392" width="292" height="292"/>
+    <image href="animal-guard-fox.png" x="634" y="548" width="284" height="284"/>
+    <path d="M790 408 C894 370 1002 374 1128 430 L1128 844 C1002 792 890 786 790 822Z" fill="#3a2a25" opacity=".22"/>
+    <image href="animal-guard-zombie-normal.png" x="820" y="412" width="254" height="254"/>
+    <image href="animal-guard-zombie-shield.png" x="964" y="598" width="250" height="250"/>
+  </g>
+
+  <g opacity=".9">
+    <path d="M84 820 C246 774 416 798 584 826 C768 858 944 846 1116 792" fill="none" stroke="#fff0a6" stroke-width="13" stroke-linecap="round"/>
+    <path d="M84 842 C252 804 420 824 584 850 C768 882 948 872 1116 824" fill="none" stroke="#654025" stroke-width="7" stroke-linecap="round" opacity=".55"/>
+  </g>
 </svg>

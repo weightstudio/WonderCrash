@@ -2,7 +2,7 @@
   color-scheme: light;
   font-family: "Arial Rounded MT Bold", "Noto Sans TC", system-ui, sans-serif;
   color: #2d2118;
-  background: #fed37a;
+  background: #21352b;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
@@ -19,9 +19,9 @@ body {
   overflow-x: hidden;
   overscroll-behavior-x: none;
   background:
-    radial-gradient(circle at 16% 9%, rgba(255, 245, 146, 0.95), transparent 14rem),
-    radial-gradient(circle at 82% 17%, rgba(255, 124, 89, 0.28), transparent 16rem),
-    linear-gradient(180deg, #73cfff 0%, #fbd06b 44%, #50aa61 100%);
+    radial-gradient(circle at 18% 8%, rgba(255, 220, 112, 0.42), transparent 13rem),
+    radial-gradient(circle at 84% 18%, rgba(108, 202, 255, 0.2), transparent 16rem),
+    linear-gradient(180deg, #1f3c54 0%, #30533a 48%, #18291f 100%);
 }
 
 button,
@@ -78,12 +78,14 @@ select {
 .title-block p {
   font-size: 0.72rem;
   font-weight: 900;
-  color: rgba(22, 51, 31, 0.68);
+  color: rgba(255, 239, 188, 0.72);
 }
 
 .title-block h1 {
   font-size: clamp(1.2rem, 4.8vw, 2.2rem);
   line-height: 1.04;
+  color: #fff7d1;
+  text-shadow: 0 3px 0 rgba(58, 32, 13, 0.36);
 }
 
 .language-picker {
@@ -92,7 +94,7 @@ select {
   gap: 4px;
   font-size: 0.72rem;
   font-weight: 900;
-  color: rgba(59, 42, 23, 0.72);
+  color: rgba(255, 239, 188, 0.78);
 }
 
 .language-picker select {
@@ -114,15 +116,18 @@ select {
 }
 
 .menu-shell {
-  border: 5px solid rgba(120, 76, 30, 0.58);
+  border: 5px solid rgba(97, 67, 36, 0.9);
   border-radius: 28px;
   padding: 12px;
   display: grid;
   gap: 12px;
   background:
-    linear-gradient(180deg, rgba(255, 246, 206, 0.92), rgba(255, 214, 127, 0.82)),
-    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.7), transparent 13rem);
-  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.38), 0 16px 32px rgba(85, 56, 25, 0.28);
+    linear-gradient(180deg, rgba(255, 242, 198, 0.96), rgba(206, 142, 64, 0.9)),
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.74), transparent 13rem);
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.38),
+    inset 0 -18px rgba(92, 53, 25, 0.12),
+    0 18px 36px rgba(8, 16, 12, 0.36);
 }
 
 .cover {
@@ -131,7 +136,8 @@ select {
   border-radius: 22px;
   object-fit: cover;
   object-position: center;
-  box-shadow: 0 12px 0 #9b6428, 0 18px 38px rgba(82, 51, 19, 0.26);
+  border: 4px solid rgba(74, 48, 25, 0.82);
+  box-shadow: 0 12px 0 #6f4621, 0 18px 38px rgba(28, 17, 9, 0.34);
 }
 
 .menu-copy {
@@ -435,12 +441,17 @@ select {
   min-height: 318px;
   overflow: hidden;
   border-radius: 24px;
+  border: 5px solid rgba(94, 58, 31, 0.82);
   background:
     linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px) 0 0 / 16.666% 100%,
-    linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
-    radial-gradient(circle at 72% 18%, rgba(255, 232, 122, 0.28), transparent 10rem),
-    linear-gradient(180deg, #8adf70 0%, #3e9f58 100%);
-  box-shadow: inset 0 0 0 5px rgba(120, 76, 30, 0.42), 0 18px 34px rgba(37, 84, 51, 0.22);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
+    radial-gradient(circle at 77% 16%, rgba(255, 230, 114, 0.35), transparent 10rem),
+    radial-gradient(ellipse at 22% 93%, rgba(77, 45, 21, 0.25), transparent 12rem),
+    linear-gradient(180deg, #9de08f 0%, #4ca45d 55%, #2e6b42 100%);
+  box-shadow:
+    inset 0 0 0 4px rgba(255, 245, 190, 0.28),
+    inset 0 -18px rgba(33, 72, 42, 0.18),
+    0 20px 34px rgba(8, 16, 12, 0.34);
 }
 
 .yard-board::before,
@@ -525,11 +536,12 @@ select {
   place-items: center;
   pointer-events: none;
   will-change: transform;
+  overflow: visible;
 }
 
 .actor {
-  width: 17%;
-  height: 31%;
+  width: 18.5%;
+  height: 34%;
   filter: drop-shadow(0 10px 8px rgba(22, 51, 31, 0.28));
 }
 
@@ -588,14 +600,14 @@ select {
 }
 
 .zombie {
-  width: 16%;
-  height: 31%;
+  width: 17.5%;
+  height: 34%;
   filter: drop-shadow(0 10px 8px rgba(29, 50, 32, 0.32));
 }
 
 .zombie.boss {
-  width: 22%;
-  height: 41%;
+  width: 24%;
+  height: 44%;
   filter: drop-shadow(0 15px 12px rgba(29, 50, 32, 0.38));
 }
 
