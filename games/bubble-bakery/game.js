@@ -330,6 +330,11 @@
 
   function markPopping(group) {
     nodes.board.classList.add("is-popping");
+    const popLayer = document.createElement("div");
+    popLayer.className = "bubble-pop-layer";
+    popLayer.setAttribute("aria-hidden", "true");
+    document.body.appendChild(popLayer);
+
     const popNodes = group.map(([r, c]) => {
       const node = nodes.board.querySelector(`[data-row="${r}"][data-col="${c}"]`);
       return node;
@@ -340,8 +345,20 @@
     });
 
     const animations = popNodes.map((node) => {
-      node.style.zIndex = "4";
-      return playNodeAnimation(node, [
+      const rect = node.getBoundingClientRect();
+      const clone = node.cloneNode(true);
+      clone.disabled = true;
+      clone.removeAttribute("data-row");
+      clone.removeAttribute("data-col");
+      clone.classList.add("bubble-pop-clone");
+      clone.style.left = `${rect.left}px`;
+      clone.style.top = `${rect.top}px`;
+      clone.style.width = `${rect.width}px`;
+      clone.style.height = `${rect.height}px`;
+      popLayer.appendChild(clone);
+      node.style.visibility = "hidden";
+
+      return playNodeAnimation(clone, [
         { opacity: 1, transform: "scale(1)", filter: "brightness(1) saturate(1)" },
         { opacity: 1, transform: "scale(1.16)", filter: "brightness(1.22) saturate(1.16)", offset: 0.38 },
         { opacity: 0.72, transform: "scale(0.34) rotate(10deg)", filter: "brightness(1.38) saturate(1.22)", offset: 0.72 },
@@ -351,12 +368,13 @@
         easing: "cubic-bezier(.14,.78,.2,1)",
         fill: "forwards",
       }).then(() => {
-        node.style.opacity = "0";
+        clone.remove();
       });
     });
 
     return Promise.all(animations).then(() => {
       nodes.board.classList.remove("is-popping");
+      popLayer.remove();
       return wait(30);
     });
   }
