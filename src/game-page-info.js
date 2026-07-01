@@ -58,10 +58,10 @@
       time: "3-8 minutes",
       skills: ["Logic", "Focus", "Animal Knowledge"],
       intro:
-        "Animal Zoo Idle is a gentle animal habitat game where players collect coins, care for animals, upgrade habitats, and unlock new animal friends over time. It is designed as WeightPlay's first return-friendly idle game: progress is saved locally, animals can keep earning while the player is away, and short care actions give families a simple reason to come back. The game focuses on calm growth instead of pressure, chat, or public ranking.",
-      how: ["Start the zoo from the menu.", "Collect coins from each habitat.", "Care for animals to earn extra coins and progress.", "Upgrade habitats and unlock more animals."],
+        "Animal Zoo Idle is a gentle safari park game where visitors walk in, buy tickets, and leave coins in the ticket box while the animals play on a sunny meadow. Players feed the lion and giraffe, keep animal happiness high, collect ticket income, and upgrade the meadow to welcome more visitors. It is designed as a return-friendly idle game with visible animal care instead of an instant button-click reward loop.",
+      how: ["Open the safari park from the menu.", "Wait for visitors to buy tickets and fill the ticket box.", "Feed animals to raise happiness and attract more visitors.", "Use coins to upgrade the meadow and invite the giraffe."],
       parent:
-        "This game may help children practice focus, simple planning, responsibility, and animal knowledge through a gentle habitat-growth loop. Progress is stored locally in the browser and is for fun only, not a formal assessment.",
+        "This game may help children practice focus, simple planning, responsibility, and animal knowledge through a gentle zoo-care loop. Progress is stored locally in the browser and is for fun only, not a formal assessment.",
       faq: [
         ["Is Animal Zoo Idle free?", "Yes. It runs in the browser on WeightPlay."],
         ["Does it require login?", "No. Basic play uses local browser progress only."],
@@ -365,10 +365,10 @@
         title: "動物小小樂園",
         difficulty: "簡單",
         time: "3-8 分鐘",
-        intro: "動物小小樂園是 WeightPlay 的溫和放置型動物棲地遊戲。玩家可以收取金幣、照顧動物、升級棲地，並慢慢解鎖新的動物朋友。這款遊戲的重點不是快速反應，而是讓孩子用短時間照顧樂園，看到本機進度一點一點成長。離開後再回來也能取得部分收益，適合親子一起討論要先升級哪個棲地、解鎖哪隻動物。",
-        how: ["從選單開始經營樂園。", "收取每個棲地產生的金幣。", "照顧動物來獲得額外金幣與進度。", "升級棲地，解鎖更多動物朋友。"],
-        parent: "這款遊戲可以讓孩子透過溫和的棲地成長玩法練習專注、簡單規劃、責任感與動物知識。進度只儲存在瀏覽器本機，分數與報告只用於鼓勵與遊戲樂趣，不是正式能力評量。",
-        faq: [["動物小小樂園需要登入嗎？", "不需要。基本遊玩使用瀏覽器本機進度。"], ["適合幾歲？", "建議 5+，也適合親子一起玩。"], ["離開遊戲會有進度嗎？", "會。遊戲會依照本機時間計算一段離線收益。"], ["可以練習什麼？", "可以練習專注、邏輯、簡單規劃與動物知識。"]],
+        intro: "動物小小樂園是 WeightPlay 的溫和放置型草原動物園遊戲。遊客會走進樂園買票參觀，票錢會慢慢累積在票箱裡；玩家可以餵獅子與長頸鹿，提高動物幸福感，吸引更多遊客，再用金幣升級草原。這款遊戲不再只是按按鈕領錢，而是讓孩子看到動物、遊客和票箱一起形成簡單的經營循環。",
+        how: ["從選單開放草原樂園。", "等待遊客進園買票，讓票箱累積金幣。", "餵食獅子或長頸鹿，提高幸福感並吸引更多遊客。", "用金幣升級草原，並邀請長頸鹿加入。"],
+        parent: "這款遊戲可以讓孩子透過溫和的動物園經營循環練習專注、簡單規劃、責任感與動物知識。進度只儲存在瀏覽器本機，分數與報告只用於鼓勵與遊戲樂趣，不是正式能力評量。",
+        faq: [["動物小小樂園需要登入嗎？", "不需要。基本遊玩使用瀏覽器本機進度。"], ["適合幾歲？", "建議 5+，也適合親子一起玩。"], ["離開遊戲會有進度嗎？", "會。遊戲會依照本機時間計算一段離線票箱收益。"], ["可以練習什麼？", "可以練習專注、邏輯、簡單規劃與動物知識。"]],
       },
       "snack-blocks": {
         title: "動物零食方塊",

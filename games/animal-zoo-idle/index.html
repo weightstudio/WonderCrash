@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,27 +8,28 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="robots" content="index,follow" />
-    <meta name="description" content="Grow cute animal habitats, collect coins, care for animals, and upgrade your local zoo in Animal Zoo Idle on WeightPlay." />
+    <meta name="description" content="Run a lively safari park where visitors buy tickets while you feed animals, upgrade the meadow, and grow your zoo in Animal Zoo Idle on WeightPlay." />
     <meta property="og:site_name" content="WeightPlay" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Animal Zoo Idle - WeightPlay" />
-    <meta property="og:description" content="A family-friendly animal idle game about habitats, coins, care tasks, and local zoo progress." />
+    <meta property="og:description" content="A family-friendly animal zoo idle game with visitors, ticket income, feeding, meadow upgrades, and local progress." />
     <meta property="og:url" content="https://weightplay.com/games/animal-zoo-idle/" />
     <meta property="og:image" content="https://weightplay.com/assets/animal-zoo-idle-cover.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <title>Animal Zoo Idle - WeightPlay</title>
     <link rel="canonical" href="https://weightplay.com/games/animal-zoo-idle/" />
-    <link rel="stylesheet" href="style.css?v=20260701-zoo-idle1" />
+    <link rel="stylesheet" href="style.css?v=20260702-zoo-rework1" />
     <link rel="stylesheet" href="../../src/tutorial.css?v=20260701-style1" />
+    <link rel="stylesheet" href="../../src/game-page-info.css?v=20260701-related-groups1" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "VideoGame",
         "name": "Animal Zoo Idle",
-        "alternateName": "動物小小樂園",
+        "alternateName": "?撠?璅?",
         "url": "https://weightplay.com/games/animal-zoo-idle/",
         "image": "https://weightplay.com/assets/animal-zoo-idle-cover.svg",
-        "description": "Grow cute animal habitats, collect coins, care for animals, and upgrade your local zoo.",
+        "description": "Run a lively safari park where visitors buy tickets while you feed animals, upgrade the meadow, and grow your zoo.",
         "applicationCategory": "Game",
         "operatingSystem": "Web browser",
         "publisher": { "@type": "Organization", "name": "WeightStudio" },
@@ -36,12 +37,11 @@
         "isAccessibleForFree": true
       }
     </script>
-    <link rel="stylesheet" href="../../src/game-page-info.css?v=20260701-related-groups1" />
   </head>
   <body>
     <main class="zoo-app">
       <header class="topbar">
-        <a class="icon-btn" href="/" aria-label="Back to lobby">‹</a>
+        <a class="icon-btn" href="/" aria-label="Back to lobby">??/a>
         <div>
           <p>WeightPlay</p>
           <h1 data-ui="title">Animal Zoo Idle</h1>
@@ -50,7 +50,7 @@
           <span data-ui="language">Language</span>
           <select id="localeSelect" aria-label="Language">
             <option value="en">English</option>
-            <option value="zh-Hant">繁體中文</option>
+            <option value="zh-Hant">蝜?銝剜?</option>
           </select>
         </label>
       </header>
@@ -58,20 +58,20 @@
       <section id="menuPanel" class="menu-panel">
         <img class="cover" src="../../assets/animal-zoo-idle-cover.svg" alt="" />
         <div class="menu-copy">
-          <strong data-ui="menuTitle">Grow a tiny animal park.</strong>
-          <span data-ui="menuHint">Collect coins, care for animals, and upgrade habitats.</span>
-          <button id="startBtn" type="button" data-ui="start">Start Zoo</button>
+          <strong data-ui="menuTitle">Build a lively safari park.</strong>
+          <span data-ui="menuHint">Visitors buy tickets while animals play. Feed animals, upgrade the meadow, and collect the ticket box.</span>
+          <button id="startBtn" type="button" data-ui="start">Open Park</button>
         </div>
       </section>
 
       <section id="gamePanel" class="game-panel hidden">
         <div class="resource-row">
           <div class="resource-card"><span data-ui="coins">Coins</span><b id="coinText">0</b></div>
-          <div class="resource-card"><span data-ui="income">Income</span><b id="incomeText">0/m</b></div>
-          <button id="reportBtn" class="soft-btn" type="button" data-ui="report">Care Report</button>
+          <div class="resource-card"><span data-ui="tickets">Ticket Box</span><b id="incomeText">0</b></div>
+          <button id="reportBtn" class="soft-btn" type="button" data-ui="report">Park Report</button>
         </div>
         <div id="offlineNotice" class="offline-notice hidden"></div>
-        <section id="habitatGrid" class="habitat-grid" aria-label="Habitats"></section>
+        <section id="habitatGrid" class="habitat-grid" aria-label="Safari park"></section>
       </section>
 
       <div id="resultPanel" class="result-panel hidden">
@@ -80,9 +80,9 @@
           <div id="reportScore" class="report-score">0</div>
           <p id="reportText"></p>
           <div class="skill-lines">
-            <span>Focus <b id="focusStars">★★★☆☆</b></span>
-            <span>Logic <b id="logicStars">★★★☆☆</b></span>
-            <span>Animal Knowledge <b id="animalStars">★★★☆☆</b></span>
+            <span>Focus <b id="focusStars">??????/b></span>
+            <span>Logic <b id="logicStars">??????/b></span>
+            <span>Animal Knowledge <b id="animalStars">??????/b></span>
           </div>
           <button id="closeReportBtn" type="button" data-ui="continue">Continue</button>
         </section>
@@ -97,15 +97,15 @@
       </div>
     </main>
 
-    <script src="../../src/site-config.js?v=20260701-zoo-idle1"></script>
+    <script src="../../src/site-config.js?v=20260702-zoo-rework1"></script>
     <script src="../../src/version.js?v=20260701-version2"></script>
     <script src="../../src/analytics.js?v=20260701-analytics2"></script>
     <script>window.WonderAnalytics?.track("game_view", { game_id: "animal-zoo-idle" });</script>
     <script src="../../src/sound.js?v=20260701-labels1"></script>
     <script src="../../src/edge-guard.js?v=20260701-edge3"></script>
     <script src="../../src/i18n.js?v=20260701-i18n2"></script>
-    <script src="../../src/tutorial.js?v=20260701-zoo-idle1"></script>
-    <script src="game.js?v=20260701-zoo-idle1"></script>
-    <script src="../../src/game-page-info.js?v=20260701-zoo-idle1"></script>
+    <script src="../../src/tutorial.js?v=20260702-tutorial-clean1"></script>
+    <script src="game.js?v=20260702-zoo-rework1"></script>
+    <script src="../../src/game-page-info.js?v=20260702-zoo-rework1"></script>
   </body>
 </html>

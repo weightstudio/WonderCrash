@@ -1,63 +1,84 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
   <defs>
     <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
-      <stop offset="0" stop-color="#8bdcff"/>
-      <stop offset=".55" stop-color="#fff0b5"/>
-      <stop offset="1" stop-color="#91dc85"/>
+      <stop offset="0" stop-color="#6ecbff"/>
+      <stop offset=".48" stop-color="#dff5ff"/>
+      <stop offset=".72" stop-color="#ffe19b"/>
+      <stop offset="1" stop-color="#62b957"/>
     </linearGradient>
-    <linearGradient id="sign" x1="0" x2="1">
-      <stop offset="0" stop-color="#ffb85c"/>
-      <stop offset="1" stop-color="#ff6f9c"/>
+    <linearGradient id="gold" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#fff0a8"/>
+      <stop offset="1" stop-color="#e89a39"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#50311b" flood-opacity=".28"/>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="18" stdDeviation="14" flood-color="#463016" flood-opacity=".3"/>
     </filter>
   </defs>
   <rect width="1024" height="1024" fill="url(#sky)"/>
-  <circle cx="132" cy="118" r="72" fill="#fff7b3"/>
-  <g fill="#fff" opacity=".9">
-    <ellipse cx="742" cy="126" rx="92" ry="38"/>
-    <ellipse cx="820" cy="126" rx="70" ry="30"/>
-    <ellipse cx="208" cy="220" rx="88" ry="32"/>
-    <ellipse cx="284" cy="222" rx="62" ry="26"/>
+  <circle cx="850" cy="132" r="78" fill="#ffdf52"/>
+  <g fill="#fff" opacity=".92">
+    <ellipse cx="185" cy="128" rx="96" ry="36"/>
+    <ellipse cx="270" cy="128" rx="72" ry="30"/>
+    <ellipse cx="570" cy="190" rx="92" ry="34"/>
+    <ellipse cx="650" cy="190" rx="64" ry="26"/>
   </g>
-  <path d="M0 670 C160 604 276 650 416 590 C574 522 734 564 1024 476 L1024 1024 L0 1024 Z" fill="#64bd60"/>
-  <path d="M0 742 C188 690 340 734 504 668 C698 590 820 650 1024 574 L1024 1024 L0 1024 Z" fill="#45a64e"/>
+  <path d="M0 610 C162 548 296 610 454 548 C620 482 760 524 1024 450 L1024 1024 L0 1024 Z" fill="#7bca58"/>
+  <path d="M0 725 C188 650 366 728 542 652 C724 574 846 640 1024 574 L1024 1024 L0 1024 Z" fill="#4fa747"/>
+  <path d="M88 880 C220 792 432 776 610 812 C738 838 840 822 936 772 L1016 1024 L0 1024 Z" fill="#dcae68" opacity=".9"/>
+
   <g filter="url(#shadow)">
-    <rect x="118" y="110" width="788" height="178" rx="56" fill="url(#sign)"/>
-    <text x="512" y="214" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="82" font-weight="900" fill="#fff">Animal Zoo Idle</text>
-    <text x="512" y="264" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="35" font-weight="900" fill="#5b321c">Grow habitats every day</text>
+    <path d="M128 170 h768 a48 48 0 0 1 48 48 v102 a48 48 0 0 1-48 48 H128 a48 48 0 0 1-48-48 V218 a48 48 0 0 1 48-48z" fill="#5d3a22"/>
+    <rect x="112" y="142" width="800" height="176" rx="54" fill="url(#gold)"/>
+    <text x="512" y="242" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="78" font-weight="900" fill="#fff" stroke="#5d3a22" stroke-width="8" paint-order="stroke">Animal Zoo Idle</text>
+    <text x="512" y="292" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="34" font-weight="900" fill="#563014">Feed animals • Welcome visitors</text>
   </g>
+
   <g filter="url(#shadow)">
-    <rect x="94" y="510" width="250" height="310" rx="42" fill="#ffe19b"/>
-    <rect x="386" y="454" width="252" height="366" rx="42" fill="#c4f0ff"/>
-    <rect x="680" y="526" width="250" height="294" rx="42" fill="#ffd1e4"/>
-    <path d="M94 592 C160 544 256 544 344 596 L344 820 L94 820 Z" fill="#ffbf57"/>
-    <path d="M386 540 C474 494 562 496 638 546 L638 820 L386 820 Z" fill="#52b86b"/>
-    <path d="M680 604 C760 558 842 560 930 610 L930 820 L680 820 Z" fill="#75caee"/>
+    <path d="M426 678 C470 542 580 474 702 486 C812 496 906 582 922 704 C840 662 766 660 690 694 C598 736 510 732 426 678z" fill="#98d76b"/>
+    <rect x="88" y="628" width="150" height="230" rx="28" fill="#8a4f26"/>
+    <rect x="64" y="590" width="198" height="70" rx="26" fill="#ffd86a"/>
+    <text x="164" y="638" text-anchor="middle" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="42" font-weight="900" fill="#74411e">TICKET</text>
   </g>
+
   <g filter="url(#shadow)">
-    <circle cx="218" cy="638" r="82" fill="#f6a13d"/>
-    <circle cx="190" cy="610" r="34" fill="#c8792f"/>
-    <circle cx="246" cy="610" r="34" fill="#c8792f"/>
-    <circle cx="194" cy="630" r="10" fill="#2c1b18"/>
-    <circle cx="242" cy="630" r="10" fill="#2c1b18"/>
-    <path d="M196 670 Q218 690 242 670" fill="none" stroke="#2c1b18" stroke-width="9" stroke-linecap="round"/>
-    <circle cx="510" cy="604" r="76" fill="#d7a260"/>
-    <circle cx="474" cy="578" r="24" fill="#9b6a3f"/>
-    <circle cx="546" cy="578" r="24" fill="#9b6a3f"/>
-    <circle cx="486" cy="598" r="9" fill="#2c1b18"/>
-    <circle cx="534" cy="598" r="9" fill="#2c1b18"/>
-    <path d="M490 640 Q510 658 532 640" fill="none" stroke="#2c1b18" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="804" cy="650" r="76" fill="#ff9ab8"/>
-    <circle cx="776" cy="604" r="28" fill="#ffcad8"/>
-    <circle cx="832" cy="604" r="28" fill="#ffcad8"/>
-    <circle cx="780" cy="638" r="9" fill="#2c1b18"/>
-    <circle cx="828" cy="638" r="9" fill="#2c1b18"/>
-    <path d="M784 680 Q806 698 830 680" fill="none" stroke="#2c1b18" stroke-width="8" stroke-linecap="round"/>
+    <path d="M186 766 C232 732 292 722 354 740 C412 756 448 806 442 858 C342 848 254 860 172 900 C140 852 144 800 186 766z" fill="#d88037"/>
+    <circle cx="230" cy="706" r="82" fill="#8d4521"/>
+    <circle cx="190" cy="668" r="35" fill="#8d4521"/>
+    <circle cx="268" cy="668" r="35" fill="#8d4521"/>
+    <circle cx="230" cy="710" r="54" fill="#f4b85c"/>
+    <circle cx="210" cy="700" r="8" fill="#1f221b"/>
+    <circle cx="252" cy="700" r="8" fill="#1f221b"/>
+    <path d="M210 736 Q230 752 254 736" fill="none" stroke="#1f221b" stroke-width="8" stroke-linecap="round"/>
+    <path d="M374 760 C452 730 478 706 506 666" fill="none" stroke="#b9662d" stroke-width="20" stroke-linecap="round"/>
+    <circle cx="512" cy="660" r="24" fill="#8d4521"/>
   </g>
-  <g fill="#fff4b8" opacity=".95">
-    <path d="M130 374 l18 38 42 6-30 30 7 42-37-20-37 20 7-42-30-30 42-6z"/>
-    <path d="M854 356 l14 28 31 5-22 22 5 31-28-15-28 15 5-31-22-22 31-5z"/>
+
+  <g filter="url(#shadow)">
+    <path d="M650 760 C690 728 764 728 820 756 C858 776 876 822 860 870 C766 850 694 852 616 884 C600 830 612 790 650 760z" fill="#e1a23e"/>
+    <rect x="708" y="462" width="56" height="306" rx="26" fill="#d89435"/>
+    <path d="M698 450 C730 404 798 406 832 448 C842 460 838 486 820 494 C782 510 742 506 704 492 C686 486 686 464 698 450z" fill="#efbd5b"/>
+    <circle cx="724" cy="458" r="8" fill="#20231c"/>
+    <circle cx="786" cy="458" r="8" fill="#20231c"/>
+    <path d="M724 488 Q756 510 790 488" fill="none" stroke="#20231c" stroke-width="7" stroke-linecap="round"/>
+    <g fill="#8e5428">
+      <circle cx="682" cy="792" r="18"/>
+      <circle cx="736" cy="612" r="16"/>
+      <circle cx="786" cy="738" r="19"/>
+    </g>
+  </g>
+
+  <g filter="url(#shadow)">
+    <g transform="translate(146 842)">
+      <circle cx="0" cy="-20" r="18" fill="#f3bb7c"/>
+      <rect x="-15" y="-6" width="30" height="44" rx="13" fill="#5cc2ff"/>
+    </g>
+    <g transform="translate(222 856)">
+      <circle cx="0" cy="-20" r="18" fill="#f3bb7c"/>
+      <rect x="-15" y="-6" width="30" height="44" rx="13" fill="#ff75a2"/>
+    </g>
+    <g transform="translate(300 846)">
+      <circle cx="0" cy="-20" r="18" fill="#f3bb7c"/>
+      <rect x="-15" y="-6" width="30" height="44" rx="13" fill="#ffcf48"/>
+    </g>
   </g>
 </svg>

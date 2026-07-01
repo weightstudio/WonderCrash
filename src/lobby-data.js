@@ -103,12 +103,12 @@
       ages: ["5", "family"],
       ageLabel: { en: "5+", "zh-Hant": "5+" },
       description: {
-        en: "Grow cute habitats, collect coins, care for animals, and upgrade a tiny zoo over time.",
-        "zh-Hant": "經營可愛棲地，收金幣、照顧動物，慢慢升級小小樂園。",
+        en: "Run a safari meadow where visitors buy tickets while you feed animals and upgrade the park.",
+        "zh-Hant": "經營草原動物園，讓遊客買票參觀，餵食動物並升級樂園。",
       },
       meta: {
-        en: ["Idle Zoo", "Local Progress", "Animal Care"],
-        "zh-Hant": ["放置樂園", "本機進度", "動物照顧"],
+        en: ["Idle Zoo", "Ticket Income", "Animal Feeding"],
+        "zh-Hant": ["放置樂園", "票箱收益", "餵食動物"],
       },
       art: {
         kind: "image",
