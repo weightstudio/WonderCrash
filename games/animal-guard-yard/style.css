@@ -570,35 +570,36 @@ select {
 
 .projectile {
   z-index: 7;
-  width: 3.8%;
-  aspect-ratio: 1;
-  border-radius: 999px;
-  background: radial-gradient(circle at 35% 30%, #fff9bd 0 18%, #ffe066 19% 58%, #f59e0b 59% 100%);
+  width: 4.6%;
+  aspect-ratio: 1.55;
+  border-radius: 999px 60% 60% 999px;
+  background: radial-gradient(circle at 74% 36%, #fff9bd 0 16%, #ffe066 17% 52%, #f59e0b 53% 100%);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.46), 0 4px 10px rgba(80, 60, 8, 0.24), 0 0 18px rgba(255, 224, 102, 0.56);
-  animation: projectile-spin 0.45s linear infinite;
 }
 
 .projectile::before {
   content: "";
   position: absolute;
-  inset: 22%;
-  border-radius: 40% 60% 45% 55%;
-  background: rgba(255, 255, 255, 0.72);
+  left: -48%;
+  top: 30%;
+  width: 68%;
+  height: 40%;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.72));
 }
 
 .projectile.dog {
-  background: radial-gradient(circle at 36% 30%, #fff1c2 0 18%, #ff7b62 19% 58%, #c42f4a 59% 100%);
+  background: radial-gradient(circle at 74% 36%, #fff1c2 0 16%, #ff7b62 17% 52%, #c42f4a 53% 100%);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.45), 0 4px 10px rgba(80, 30, 30, 0.24), 0 0 18px rgba(255, 123, 98, 0.52);
 }
 
 .projectile.owl {
-  border-radius: 34% 66% 35% 65%;
-  background: radial-gradient(circle at 36% 30%, #f6e7a4 0 20%, #9f86ff 21% 60%, #4d3ca6 61% 100%);
-  transform-origin: 42% 50%;
+  border-radius: 999px 52% 52% 999px;
+  background: radial-gradient(circle at 74% 36%, #f6e7a4 0 16%, #9f86ff 17% 52%, #4d3ca6 53% 100%);
 }
 
 .projectile.fox {
-  background: radial-gradient(circle at 36% 30%, #fff0c3 0 18%, #59e28b 19% 58%, #138f56 59% 100%);
+  background: radial-gradient(circle at 74% 36%, #fff0c3 0 16%, #59e28b 17% 52%, #138f56 53% 100%);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.44), 0 4px 10px rgba(18, 78, 44, 0.24), 0 0 18px rgba(89, 226, 139, 0.52);
 }
 
@@ -1071,12 +1072,6 @@ select {
   }
   100% {
     transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) scale(1);
-  }
-}
-
-@keyframes projectile-spin {
-  to {
-    rotate: 1turn;
   }
 }
 
