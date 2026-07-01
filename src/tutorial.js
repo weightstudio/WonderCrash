@@ -9,122 +9,130 @@
     "zh-Hant": {
       close: "開始玩",
       closeAria: "關閉教學",
-      aria: "玩法提示",
+      aria: "玩法說明",
       lobbyAria: "回到大廳",
     },
   };
 
   const tutorials = {
     "wonder-crash": {
-      title: { en: "Protect the wall.", "zh-Hant": "保護城牆" },
+      title: { en: "Protect the wall.", "zh-Hant": "守住城牆" },
       steps: [
-        { icon: "↔", en: ["Move", "Tap or drag anywhere to move the hero left and right."], "zh-Hant": ["移動", "點擊或拖曳畫面，讓角色左右移動。"] },
-        { icon: "⌛", en: ["Auto Weapons", "Equipped weapons fire when their cooldown is ready."], "zh-Hant": ["自動攻擊", "裝備的武器冷卻完成後會自動發射。"] },
-        { icon: "▰", en: ["Win", "Stop monsters before the wall breaks."], "zh-Hant": ["過關", "在城牆被打破前擊退怪物。"] },
+        { icon: "1", en: ["Move", "Tap or drag anywhere to move the hero left and right."], "zh-Hant": ["移動", "點擊或拖曳畫面，讓角色左右移動。"] },
+        { icon: "2", en: ["Auto Weapons", "Equipped weapons fire when their cooldown is ready."], "zh-Hant": ["自動攻擊", "裝備的武器冷卻完成後會自動發射。"] },
+        { icon: "3", en: ["Win", "Stop monsters before the wall breaks."], "zh-Hant": ["勝利", "在城牆被破壞前擋住怪物。"] },
       ],
     },
     "animal-rescue": {
       title: { en: "Guide animals home.", "zh-Hant": "帶動物回家" },
       steps: [
-        { icon: "1", en: ["Choose Nearby", "Tap a nearby tile to move one step."], "zh-Hant": ["選旁邊", "點相鄰格子，讓動物走一步。"] },
-        { icon: "●", en: ["Collect", "Pick up fruit on the way for more stars."], "zh-Hant": ["收集", "路上拿水果，可以得到更多星星。"] },
-        { icon: "⌂", en: ["Goal", "Reach the home tile to clear the trail."], "zh-Hant": ["目標", "走到家的格子就能完成關卡。"] },
+        { icon: "1", en: ["Choose Nearby", "Tap a nearby tile to move one step."], "zh-Hant": ["選附近格子", "點附近的格子讓動物移動一步。"] },
+        { icon: "2", en: ["Collect", "Pick up fruit on the way for more stars."], "zh-Hant": ["收集", "路上拿到水果可以得到更多星星。"] },
+        { icon: "3", en: ["Goal", "Reach the home tile to clear the trail."], "zh-Hant": ["目標", "走到家的格子就能完成關卡。"] },
       ],
     },
     "tiny-weather-rescue": {
-      title: { en: "Help the animal.", "zh-Hant": "幫小動物" },
+      title: { en: "Help the animal.", "zh-Hant": "幫助動物" },
       steps: [
-        { icon: "☔", en: ["Look", "See what the animal needs."], "zh-Hant": ["觀察", "先看小動物需要什麼。"] },
-        { icon: "☂", en: ["Help", "Tap a care item, or drag it to the animal."], "zh-Hant": ["幫忙", "點照顧道具，或拖到小動物身上。"] },
-        { icon: "😄", en: ["Clear", "Happy faces mean you helped correctly."], "zh-Hant": ["過關", "出現笑臉就是幫對了。"] },
+        { icon: "1", en: ["Look", "See what the animal needs."], "zh-Hant": ["觀察", "先看動物現在需要什麼。"] },
+        { icon: "2", en: ["Help", "Tap a care item, or drag it to the animal."], "zh-Hant": ["幫忙", "點道具，或把道具拖到動物身上。"] },
+        { icon: "3", en: ["Clear", "Happy faces mean you helped correctly."], "zh-Hant": ["完成", "出現笑臉就代表幫對了。"] },
       ],
     },
     "snack-blocks": {
-      title: { en: "Match snacks.", "zh-Hant": "配對零食" },
+      title: { en: "Match snacks.", "zh-Hant": "消除零食" },
       steps: [
-        { icon: "↕", en: ["Swap", "Tap or drag a snack to swap with a neighbor."], "zh-Hant": ["交換", "點一下或拖曳零食，和旁邊交換。"] },
-        { icon: "3", en: ["Match", "Line up 3 or more of the same snack to clear them."], "zh-Hant": ["消除", "排出 3 個以上相同零食就會消除。"] },
-        { icon: "✓", en: ["Goal", "Use all moves, then the stage checks your goal."], "zh-Hant": ["目標", "用完步數後，系統會判斷是否過關。"] },
+        { icon: "1", en: ["Swap", "Tap or drag a snack to swap with a neighbor."], "zh-Hant": ["交換", "點擊或拖曳零食，和旁邊的零食交換。"] },
+        { icon: "2", en: ["Match", "Line up 3 or more of the same snack to clear them."], "zh-Hant": ["配對", "讓 3 個以上相同零食連成一線即可消除。"] },
+        { icon: "3", en: ["Goal", "Use all moves, then the stage checks your goal."], "zh-Hant": ["目標", "把步數用完後，關卡會檢查是否達成目標。"] },
       ],
     },
     "fruit-merge": {
       title: { en: "Merge bigger fruits.", "zh-Hant": "合成更大的水果" },
       steps: [
-        { icon: "1", en: ["Aim", "Move your finger or mouse to choose where the fruit drops."], "zh-Hant": ["瞄準", "移動手指或滑鼠，選擇水果落下的位置。"] },
-        { icon: "2", en: ["Drop", "Release or tap Drop to let the fruit fall."], "zh-Hant": ["丟下", "放開手指，或按丟下讓水果掉下去。"] },
-        { icon: "3", en: ["Merge", "Two matching fruits merge into the next fruit. Do not pass the red line."], "zh-Hant": ["合成", "兩顆相同水果會合成下一級，別讓水果超過紅線。"] },
+        { icon: "1", en: ["Aim", "Move your finger or mouse to choose where the fruit drops."], "zh-Hant": ["瞄準", "移動手指或滑鼠，選擇水果掉落位置。"] },
+        { icon: "2", en: ["Drop", "Release or tap Drop to let the fruit fall."], "zh-Hant": ["投下", "放開或按下投放，讓水果掉下去。"] },
+        { icon: "3", en: ["Merge", "Two matching fruits merge into the next fruit. Do not pass the red line."], "zh-Hant": ["合成", "兩顆相同水果會合成下一種水果，不要超過紅線。"] },
       ],
     },
     "garden-tiles": {
       title: { en: "Relax and match.", "zh-Hant": "放鬆配對" },
       steps: [
-        { icon: "1", en: ["Look", "All tiles are open. Take your time and find two matching pictures."], "zh-Hant": ["觀察", "所有圖塊都會打開，慢慢找兩張一樣的圖。"] },
-        { icon: "2", en: ["Match", "Tap two matching garden tiles to remove them."], "zh-Hant": ["配對", "點兩張相同的花園圖塊，就能把它們消除。"] },
-        { icon: "3", en: ["Clear", "Clear every pair to finish the level. There is no timer."], "zh-Hant": ["完成", "消完全部配對就過關，沒有倒數壓力。"] },
+        { icon: "1", en: ["Look", "All tiles are open. Take your time and find two matching pictures."], "zh-Hant": ["觀察", "所有方塊都看得到，慢慢找出相同圖案。"] },
+        { icon: "2", en: ["Match", "Tap two matching garden tiles to remove them."], "zh-Hant": ["配對", "點兩個相同的花園方塊即可移除。"] },
+        { icon: "3", en: ["Clear", "Clear every pair to finish the level. There is no timer."], "zh-Hant": ["完成", "配對所有方塊就能過關，沒有倒數壓力。"] },
       ],
     },
     "campus-dash": {
-      title: { en: "Dodge in three lanes.", "zh-Hant": "三條路閃避" },
+      title: { en: "Dodge in three lanes.", "zh-Hant": "三路閃避" },
       steps: [
-        { icon: "↔", en: ["Move", "Swipe or tap left and right lanes to move."], "zh-Hant": ["移動", "滑動或點左右路線來換位置。"] },
-        { icon: "!", en: ["Avoid", "Dodge obstacles and stay on the open lane."], "zh-Hant": ["閃避", "避開障礙物，站在安全路線。"] },
-        { icon: "★", en: ["Score", "Survive longer to beat your best score."], "zh-Hant": ["分數", "撐越久分數越高，挑戰最佳紀錄。"] },
+        { icon: "1", en: ["Move", "Swipe or tap left and right lanes to move."], "zh-Hant": ["移動", "左右滑動或點擊跑道來移動。"] },
+        { icon: "2", en: ["Avoid", "Dodge obstacles and stay on the open lane."], "zh-Hant": ["閃避", "避開障礙物，保持在安全路線。"] },
+        { icon: "3", en: ["Score", "Survive longer to beat your best score."], "zh-Hant": ["分數", "撐得越久越能挑戰自己的最佳分數。"] },
       ],
     },
     "animal-quiz": {
       title: { en: "Answer animal questions.", "zh-Hant": "回答動物問題" },
       steps: [
-        { icon: "?", en: ["Question", "Look at the animal picture and question."], "zh-Hant": ["題目", "看動物圖片和問題。"] },
-        { icon: "✓", en: ["Answer", "Tap the answer you think is right."], "zh-Hant": ["作答", "點選你覺得正確的答案。"] },
-        { icon: "10", en: ["Stage", "Finish 10 questions to clear a stage."], "zh-Hant": ["關卡", "完成 10 題就能完成一關。"] },
+        { icon: "1", en: ["Question", "Look at the animal picture and question."], "zh-Hant": ["題目", "看動物圖片和問題。"] },
+        { icon: "2", en: ["Answer", "Tap the answer you think is right."], "zh-Hant": ["回答", "點選你覺得正確的答案。"] },
+        { icon: "3", en: ["Stage", "Finish 10 questions to clear a stage."], "zh-Hant": ["關卡", "完成 10 題就能通過一個關卡。"] },
       ],
     },
     "color-lunchbox": {
       title: { en: "Sort food by color.", "zh-Hant": "依顏色分類食物" },
       steps: [
-        { icon: "●", en: ["Look", "Check each food color."], "zh-Hant": ["觀察", "看清楚每個食物的顏色。"] },
-        { icon: "↘", en: ["Drag", "Drag food into the matching lunchbox."], "zh-Hant": ["拖曳", "把食物拖到相同顏色的便當盒。"] },
-        { icon: "✓", en: ["Clear", "Sort everything correctly to finish."], "zh-Hant": ["完成", "全部放對就能過關。"] },
+        { icon: "1", en: ["Look", "Check each food color."], "zh-Hant": ["觀察", "先看每個食物的顏色。"] },
+        { icon: "2", en: ["Drag", "Drag food into the matching lunchbox."], "zh-Hant": ["拖曳", "把食物拖到相同顏色的便當盒。"] },
+        { icon: "3", en: ["Clear", "Sort everything correctly to finish."], "zh-Hant": ["完成", "全部分類正確就能過關。"] },
       ],
     },
     "star-memory": {
-      title: { en: "Find matching cards.", "zh-Hant": "找出相同卡片" },
+      title: { en: "Find matching cards.", "zh-Hant": "找到相同卡片" },
       steps: [
-        { icon: "▣", en: ["Flip", "Tap a card to reveal it."], "zh-Hant": ["翻牌", "點卡片把它翻開。"] },
-        { icon: "=", en: ["Match", "Find two cards with the same picture."], "zh-Hant": ["配對", "找出兩張一樣的圖案。"] },
-        { icon: "★", en: ["Clear", "Match all pairs with fewer moves for more stars."], "zh-Hant": ["過關", "用越少步數配完，星星越多。"] },
+        { icon: "1", en: ["Flip", "Tap a card to reveal it."], "zh-Hant": ["翻牌", "點一張卡片把它翻開。"] },
+        { icon: "2", en: ["Match", "Find two cards with the same picture."], "zh-Hant": ["配對", "找出兩張相同圖片的卡片。"] },
+        { icon: "3", en: ["Clear", "Match all pairs with fewer moves for more stars."], "zh-Hant": ["完成", "用越少步數完成，星星越多。"] },
       ],
     },
     "shape-train": {
-      title: { en: "Load the shape train.", "zh-Hant": "幫形狀上火車" },
+      title: { en: "Load the shape train.", "zh-Hant": "裝載形狀小火車" },
       steps: [
-        { icon: "△", en: ["Look", "Check the shape the train needs."], "zh-Hant": ["觀察", "看火車需要哪個形狀。"] },
-        { icon: "↘", en: ["Choose", "Tap or drag the matching shape."], "zh-Hant": ["選擇", "點選或拖曳相同形狀。"] },
-        { icon: "✓", en: ["Help", "Finish all shape friends to clear."], "zh-Hant": ["完成", "幫所有形狀朋友上車就過關。"] },
+        { icon: "1", en: ["Look", "Check the shape the train needs."], "zh-Hant": ["觀察", "看小火車需要哪一種形狀。"] },
+        { icon: "2", en: ["Choose", "Tap or drag the matching shape."], "zh-Hant": ["選擇", "點擊或拖曳相同形狀。"] },
+        { icon: "3", en: ["Help", "Finish all shape friends to clear."], "zh-Hant": ["完成", "把所有形狀朋友送上車就能過關。"] },
       ],
     },
     "bubble-bakery": {
       title: { en: "Fill bakery orders.", "zh-Hant": "完成烘焙訂單" },
       steps: [
-        { icon: "🫧", en: ["Find Groups", "Tap 2 or more matching bubbles that touch."], "zh-Hant": ["找群組", "點擊相連的 2 個以上相同泡泡。"] },
-        { icon: "🧁", en: ["Collect", "Clear the colors shown in the order bar."], "zh-Hant": ["收集", "消除訂單列指定的顏色。"] },
-        { icon: "👆", en: ["Plan", "Use your moves carefully before they run out."], "zh-Hant": ["規劃", "在步數用完前完成訂單。"] },
+        { icon: "1", en: ["Find Groups", "Tap 2 or more matching bubbles that touch."], "zh-Hant": ["找群組", "點擊 2 個以上連在一起的相同泡泡。"] },
+        { icon: "2", en: ["Collect", "Clear the colors shown in the order bar."], "zh-Hant": ["收集", "清掉訂單列需要的顏色。"] },
+        { icon: "3", en: ["Plan", "Use your moves carefully before they run out."], "zh-Hant": ["規劃", "步數有限，點擊前先想一下。"] },
       ],
     },
     "zoo-helper-day": {
-      title: { en: "Help zoo animals.", "zh-Hant": "照顧動物園動物" },
+      title: { en: "Help zoo animals.", "zh-Hant": "幫助動物園動物" },
       steps: [
-        { icon: "!", en: ["Need", "Look at what the animal needs."], "zh-Hant": ["需求", "看動物現在需要什麼。"] },
-        { icon: "↘", en: ["Help", "Choose the matching care item."], "zh-Hant": ["照顧", "選擇對應的照顧道具。"] },
-        { icon: "★", en: ["Clear", "Help enough animals to finish the stage."], "zh-Hant": ["過關", "完成足夠任務就能過關。"] },
+        { icon: "1", en: ["Need", "Look at what the animal needs."], "zh-Hant": ["需求", "看動物現在需要什麼。"] },
+        { icon: "2", en: ["Help", "Choose the matching care item."], "zh-Hant": ["幫忙", "選擇正確的照顧道具。"] },
+        { icon: "3", en: ["Clear", "Help enough animals to finish the stage."], "zh-Hant": ["完成", "幫助足夠的動物就能過關。"] },
       ],
     },
     "animal-guard-yard": {
-      title: { en: "Guard the yard.", "zh-Hant": "守住動物庭院" },
+      title: { en: "Guard the yard.", "zh-Hant": "守衛庭院" },
       steps: [
-        { icon: "☀", en: ["Collect Sun", "Tap sun drops to gain energy for animal guards."], "zh-Hant": ["收集太陽", "點擊掉落的太陽，取得放置動物的能量。"] },
-        { icon: "🐱", en: ["Place Guards", "Choose an animal, then tap a grass tile to place it."], "zh-Hant": ["放置守衛", "先選動物，再點草地格子放置守衛。"] },
-        { icon: "🧟", en: ["Stop Zombies", "Animals attack zombies in the same lane. Do not let zombies reach the yard."], "zh-Hant": ["擋住殭屍", "動物會攻擊同一路線的殭屍，別讓殭屍闖進庭院。"] },
+        { icon: "1", en: ["Collect Sun", "Tap sun drops to gain energy for animal guards."], "zh-Hant": ["收集陽光", "點擊陽光取得放置動物守衛的能量。"] },
+        { icon: "2", en: ["Place Guards", "Choose an animal, then tap a grass tile to place it."], "zh-Hant": ["放置守衛", "選擇動物，再點草地格子放置。"] },
+        { icon: "3", en: ["Stop Enemies", "Animals attack enemies in their lanes. Do not let enemies reach the yard."], "zh-Hant": ["阻止敵人", "動物會攻擊路線上的敵人，不要讓敵人進入庭院。"] },
+      ],
+    },
+    "animal-hidden-safari": {
+      title: { en: "Find hidden animals.", "zh-Hant": "找出藏起來的動物" },
+      steps: [
+        { icon: "1", en: ["Look", "Check the target list below the scene."], "zh-Hant": ["觀察", "先看下方清單，知道這一關要找什麼。"] },
+        { icon: "2", en: ["Find", "Tap animals or safari clues when you spot them."], "zh-Hant": ["尋找", "看到動物或探險線索時，直接點一下。"] },
+        { icon: "?", en: ["Hint", "Use a hint if one target is hard to see."], "zh-Hant": ["提示", "真的找不到時，可以使用提示幫忙。"] },
       ],
     },
   };
@@ -160,6 +168,7 @@
     const tutorial = tutorials[gameId];
     if (!tutorial || document.querySelector(".wp-tutorial-backdrop")) return;
     const lang = locale();
+    const labels = common[lang] || common.en;
     const backdrop = document.createElement("div");
     backdrop.className = "wp-tutorial-backdrop";
     backdrop.setAttribute("role", "dialog");
@@ -168,7 +177,7 @@
       <section class="wp-tutorial-card">
         <div class="wp-tutorial-head">
           <strong>${tutorial.title[lang] || tutorial.title.en}</strong>
-          <button class="wp-tutorial-close" type="button" aria-label="${common[lang].closeAria}">×</button>
+          <button class="wp-tutorial-close" type="button" aria-label="${labels.closeAria}">×</button>
         </div>
         <div class="wp-tutorial-steps">
           ${tutorial.steps.map((step) => {
@@ -184,7 +193,7 @@
             `;
           }).join("")}
         </div>
-        <button class="wp-tutorial-action" type="button">${common[lang].close}</button>
+        <button class="wp-tutorial-action" type="button">${labels.close}</button>
       </section>
     `;
     const close = () => {
@@ -219,10 +228,11 @@
 
   function applyCommonLabels() {
     const lang = locale();
+    const labels = common[lang] || common.en;
     document.querySelectorAll(".home-link").forEach((link) => {
-      link.setAttribute("aria-label", common[lang].lobbyAria);
+      link.setAttribute("aria-label", labels.lobbyAria);
     });
-    document.querySelector(".wp-tutorial-button")?.setAttribute("aria-label", common[lang].aria);
+    document.querySelector(".wp-tutorial-button")?.setAttribute("aria-label", labels.aria);
   }
 
   function install() {

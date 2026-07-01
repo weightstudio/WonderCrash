@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Animal Hidden Safari cover">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#7dd7ff"/>
+      <stop offset="0.55" stop-color="#f7e8a2"/>
+      <stop offset="1" stop-color="#77c86a"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#8ee66f"/>
+      <stop offset="1" stop-color="#2e8e47"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#24421f" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#sky)"/>
+  <circle cx="1040" cy="130" r="82" fill="#ffe36a"/>
+  <g fill="#fff" opacity="0.86">
+    <ellipse cx="190" cy="130" rx="92" ry="38"/>
+    <ellipse cx="270" cy="122" rx="72" ry="34"/>
+    <ellipse cx="935" cy="210" rx="105" ry="42"/>
+    <ellipse cx="1025" cy="204" rx="62" ry="30"/>
+  </g>
+  <path d="M0 560 C150 500 260 570 390 520 C560 450 690 610 840 520 C980 440 1090 520 1200 470 L1200 900 L0 900 Z" fill="url(#grass)"/>
+  <path d="M0 700 C150 650 260 725 420 670 C600 600 760 740 930 660 C1050 610 1130 640 1200 610 L1200 900 L0 900 Z" fill="#287c45"/>
+  <g filter="url(#shadow)">
+    <g transform="translate(115 465)">
+      <rect x="72" y="120" width="54" height="170" rx="23" fill="#9b642e"/>
+      <circle cx="98" cy="95" r="86" fill="#2f9b52"/>
+      <circle cx="42" cy="130" r="58" fill="#3dbb63"/>
+      <circle cx="153" cy="138" r="64" fill="#49c66a"/>
+    </g>
+    <g transform="translate(875 430)">
+      <rect x="82" y="130" width="58" height="185" rx="25" fill="#9b642e"/>
+      <circle cx="112" cy="92" r="92" fill="#2f9b52"/>
+      <circle cx="52" cy="145" r="65" fill="#46be62"/>
+      <circle cx="176" cy="142" r="68" fill="#58ca75"/>
+    </g>
+  </g>
+  <g filter="url(#shadow)">
+    <g transform="translate(500 360)">
+      <ellipse cx="90" cy="260" rx="118" ry="26" fill="#174326" opacity="0.24"/>
+      <circle cx="86" cy="92" r="68" fill="#f0b24c"/>
+      <path d="M28 100 C-28 138 -10 214 56 230 C112 244 178 224 198 176 C222 116 160 80 126 98 C108 112 102 136 82 138 C58 140 46 114 28 100Z" fill="#d9893f"/>
+      <circle cx="56" cy="62" r="16" fill="#6a3e20"/>
+      <circle cx="120" cy="62" r="16" fill="#6a3e20"/>
+      <circle cx="63" cy="80" r="7" fill="#fff"/>
+      <circle cx="127" cy="80" r="7" fill="#fff"/>
+      <path d="M77 108 Q90 124 105 108" fill="none" stroke="#5f351c" stroke-width="8" stroke-linecap="round"/>
+      <path d="M50 26 Q38 -18 84 6" fill="#d9893f"/>
+      <path d="M125 26 Q143 -18 92 8" fill="#d9893f"/>
+    </g>
+    <g transform="translate(215 540)">
+      <ellipse cx="95" cy="142" rx="112" ry="24" fill="#174326" opacity="0.22"/>
+      <ellipse cx="90" cy="78" rx="86" ry="54" fill="#8696a2"/>
+      <circle cx="30" cy="72" r="28" fill="#9eadb8"/>
+      <circle cx="142" cy="72" r="28" fill="#9eadb8"/>
+      <circle cx="68" cy="66" r="9" fill="#1a2a30"/>
+      <circle cx="112" cy="66" r="9" fill="#1a2a30"/>
+      <path d="M82 92 Q94 106 108 92" fill="none" stroke="#1a2a30" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(820 590)">
+      <ellipse cx="88" cy="94" rx="95" ry="22" fill="#174326" opacity="0.22"/>
+      <rect x="34" y="16" width="104" height="68" rx="34" fill="#ffd15f"/>
+      <rect x="98" y="6" width="20" height="74" rx="10" fill="#7b4f24"/>
+      <circle cx="64" cy="42" r="8" fill="#1c2d26"/>
+      <circle cx="112" cy="42" r="8" fill="#1c2d26"/>
+      <path d="M74 62 Q86 72 100 62" fill="none" stroke="#1c2d26" stroke-width="6" stroke-linecap="round"/>
+    </g>
+  </g>
+  <g transform="translate(86 78)" filter="url(#shadow)">
+    <rect x="0" y="0" width="640" height="170" rx="40" fill="#fff7d7" opacity="0.96"/>
+    <text x="42" y="72" font-family="Arial Rounded MT Bold, Arial, sans-serif" font-size="52" font-weight="900" fill="#234033">Animal Hidden Safari</text>
+    <text x="44" y="122" font-family="Arial, sans-serif" font-size="28" font-weight="800" fill="#5f784f">Find the animals in every habitat</text>
+  </g>
+</svg>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#4fae5e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="robots" content="index,follow" />
+    <meta name="description" content="Find hidden animals and safari objects across playful habitat scenes in Animal Hidden Safari, a family-friendly animal seek-and-find browser game on WeightPlay." />
+    <meta property="og:site_name" content="WeightPlay" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Animal Hidden Safari - Find the Animals Game" />
+    <meta property="og:description" content="Find hidden animals and safari objects across playful habitat scenes in a family-friendly WeightPlay browser game." />
+    <meta property="og:url" content="https://weightplay.com/games/animal-hidden-safari/" />
+    <meta property="og:image" content="https://weightplay.com/assets/animal-hidden-safari-cover.svg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Animal Hidden Safari - WeightPlay" />
+    <meta name="twitter:description" content="A calm animal seek-and-find game for kids and families." />
+    <meta name="twitter:image" content="https://weightplay.com/assets/animal-hidden-safari-cover.svg" />
+    <title>Animal Hidden Safari - WeightPlay</title>
+    <link rel="canonical" href="https://weightplay.com/games/animal-hidden-safari/" />
+    <link rel="stylesheet" href="style.css?v=20260701-safari1" />
+    <link rel="stylesheet" href="../../src/tutorial.css?v=20260701-style1" />
+    <link rel="stylesheet" href="../../src/game-page-info.css?v=20260701-hero-zh1" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Animal Hidden Safari",
+        "alternateName": "動物探險找找看",
+        "url": "https://weightplay.com/games/animal-hidden-safari/",
+        "image": "https://weightplay.com/assets/animal-hidden-safari-cover.svg",
+        "description": "Find hidden animals and safari objects across playful habitat scenes.",
+        "applicationCategory": "Game",
+        "operatingSystem": "Web browser",
+        "publisher": { "@type": "Organization", "name": "WeightStudio" },
+        "inLanguage": ["en", "zh-Hant"],
+        "isAccessibleForFree": true
+      }
+    </script>
+  </head>
+  <body>
+    <main class="safari-game">
+      <header class="topbar">
+        <a class="home-link" href="../../index.html" aria-label="Back to lobby">&larr;</a>
+        <div class="title-block">
+          <p>WeightPlay</p>
+          <h1 data-ui="gameTitle">Animal Hidden Safari</h1>
+        </div>
+        <label class="language-picker">
+          <span data-ui="language">Language</span>
+          <select id="localeSelect" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh-Hant">繁體中文</option>
+          </select>
+        </label>
+      </header>
+
+      <section id="menuPanel" class="menu-panel">
+        <img class="cover" src="../../assets/animal-hidden-safari-cover.svg" alt="" />
+        <div class="menu-copy">
+          <strong data-ui="chooseStage">Choose Habitat</strong>
+          <span data-ui="menuHint">Find every hidden animal and safari clue.</span>
+        </div>
+        <div id="stageGrid" class="stage-grid" aria-label="Stage list"></div>
+      </section>
+
+      <section id="playPanel" class="play-panel hidden">
+        <div class="play-head">
+          <button id="backToStagesBtn" class="soft-btn" type="button" data-ui="stages">Habitats</button>
+          <div class="progress-card">
+            <span id="stageText">Stage 1</span>
+            <div><i id="progressFill"></i></div>
+          </div>
+          <button id="hintBtn" class="hint-btn" type="button"><span data-ui="hint">Hint</span> <b id="hintCount">2</b></button>
+        </div>
+
+        <div id="scene" class="scene" aria-label="Hidden animal scene">
+          <div class="sun"></div>
+          <div class="cloud cloud-a"></div>
+          <div class="cloud cloud-b"></div>
+          <div class="hill hill-a"></div>
+          <div class="hill hill-b"></div>
+          <div class="pond"></div>
+          <div class="tree tree-a"><i></i></div>
+          <div class="tree tree-b"><i></i></div>
+          <div class="grass grass-a"></div>
+          <div class="grass grass-b"></div>
+          <div id="targetsLayer" class="targets-layer"></div>
+          <div id="floatLayer" class="float-layer"></div>
+        </div>
+
+        <div class="target-panel">
+          <div>
+            <strong data-ui="findList">Find These</strong>
+            <span id="timerText">0:00</span>
+          </div>
+          <div id="targetList" class="target-list"></div>
+        </div>
+      </section>
+
+      <div id="resultPanel" class="result-panel hidden">
+        <div class="result-card">
+          <strong id="resultTitle">Great find!</strong>
+          <div id="starText" class="stars">★★★</div>
+          <span id="resultText"></span>
+          <div class="skill-report">
+            <b data-ui="skillReport">Skill Report</b>
+            <p id="skillText"></p>
+          </div>
+          <button id="nextStageBtn" type="button" data-ui="nextStage">Next Habitat</button>
+          <button id="retryBtn" type="button" data-ui="retry">Try Again</button>
+          <button id="resultStagesBtn" type="button" data-ui="stages">Habitats</button>
+          <a href="../../index.html" data-ui="lobby">Lobby</a>
+        </div>
+      </div>
+
+      <div id="loadingPanel" class="loading-panel">
+        <div class="loading-card">
+          <strong data-ui="loading">Loading</strong>
+          <span id="loadingText">0%</span>
+          <div><i id="loadingFill"></i></div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../src/site-config.js?v=20260701-hidden-safari1"></script>
+    <script src="../../src/version.js?v=20260701-version2"></script>
+    <script src="../../src/analytics.js?v=20260701-analytics2"></script>
+    <script>
+      window.WonderAnalytics?.track("game_view", { game_id: "animal-hidden-safari" });
+    </script>
+    <script src="../../src/sound.js?v=20260701-labels1"></script>
+    <script src="../../src/edge-guard.js?v=20260701-edge2"></script>
+    <script src="../../src/tutorial.js?v=20260701-hidden-safari1"></script>
+    <script src="game.js?v=20260701-safari1"></script>
+    <script src="../../src/game-page-info.js?v=20260701-hidden-safari1"></script>
+  </body>
+</html>

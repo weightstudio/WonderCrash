@@ -242,6 +242,31 @@
       },
     },
     {
+      id: "animal-hidden-safari",
+      title: { en: "Animal Hidden Safari", "zh-Hant": "動物探險找找看" },
+      status: "playable",
+      statusText: { en: "Playable", "zh-Hant": "可遊玩" },
+      type: { en: "Hidden Object", "zh-Hant": "找找看" },
+      categories: ["Animal Games", "Puzzle", "Family"],
+      skills: ["Focus", "Animal Knowledge", "Problem Solving"],
+      ages: ["5", "family"],
+      ageLabel: { en: "5+", "zh-Hant": "5+" },
+      href: "games/animal-hidden-safari/index.html",
+      description: {
+        en: "Search playful safari scenes and find hidden animals, tracks, and habitat clues.",
+        "zh-Hant": "觀察熱鬧的草原場景，找出藏起來的動物、腳印與棲地線索。",
+      },
+      meta: {
+        en: ["Seek & Find", "6 Habitats", "No Pressure"],
+        "zh-Hant": ["找找看", "6 個棲地", "無壓力"],
+      },
+      art: {
+        kind: "image",
+        background: "assets/animal-hidden-safari-cover.svg",
+        hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
+      },
+    },
+    {
       id: "animal-guard-yard",
       title: { en: "Animal Guard Yard", "zh-Hant": "動物守衛庭院" },
       status: "playable",
