@@ -106,11 +106,11 @@
   ];
 
   const stages = [
-    { titleKey: "basic", energy: 120, hp: 3, rows: 3, cols: 6, total: 8, interval: 2400, zombies: [{ type: "normal", hp: 88, speed: 13, damage: 14 }] },
-    { titleKey: "fast", energy: 130, hp: 3, rows: 3, cols: 6, total: 12, interval: 2050, zombies: [{ type: "normal", hp: 100, speed: 14, damage: 16 }, { type: "fast", hp: 74, speed: 22, damage: 12 }] },
-    { titleKey: "shield", energy: 150, hp: 4, rows: 3, cols: 6, total: 15, interval: 1900, zombies: [{ type: "normal", hp: 115, speed: 15, damage: 18 }, { type: "fast", hp: 88, speed: 22, damage: 14 }, { type: "shield", hp: 180, speed: 10, damage: 24 }] },
-    { titleKey: "swarm", energy: 165, hp: 4, rows: 3, cols: 6, total: 18, interval: 1650, zombies: [{ type: "normal", hp: 125, speed: 16, damage: 18 }, { type: "fast", hp: 96, speed: 25, damage: 15 }, { type: "shield", hp: 200, speed: 11, damage: 25 }] },
-    { titleKey: "boss", energy: 185, hp: 5, rows: 3, cols: 6, total: 20, interval: 1550, zombies: [{ type: "normal", hp: 135, speed: 16, damage: 19 }, { type: "fast", hp: 104, speed: 25, damage: 16 }, { type: "shield", hp: 220, speed: 11, damage: 26 }], boss: { type: "boss", hp: 520, speed: 7, damage: 38 } },
+    { titleKey: "basic", theme: "sunny", energy: 120, hp: 3, rows: 3, cols: 6, total: 8, interval: 2400, zombies: [{ type: "normal", hp: 88, speed: 13, damage: 14 }] },
+    { titleKey: "fast", theme: "sunset", energy: 130, hp: 3, rows: 3, cols: 6, total: 12, interval: 2050, zombies: [{ type: "normal", hp: 100, speed: 14, damage: 16 }, { type: "fast", hp: 74, speed: 22, damage: 12 }] },
+    { titleKey: "shield", theme: "rain", energy: 150, hp: 4, rows: 3, cols: 6, total: 15, interval: 1900, zombies: [{ type: "normal", hp: 115, speed: 15, damage: 18 }, { type: "fast", hp: 88, speed: 22, damage: 14 }, { type: "shield", hp: 180, speed: 10, damage: 24 }] },
+    { titleKey: "swarm", theme: "swamp", energy: 165, hp: 4, rows: 3, cols: 6, total: 18, interval: 1650, zombies: [{ type: "normal", hp: 125, speed: 16, damage: 18 }, { type: "fast", hp: 96, speed: 25, damage: 15 }, { type: "shield", hp: 200, speed: 11, damage: 25 }] },
+    { titleKey: "boss", theme: "boss", energy: 185, hp: 5, rows: 3, cols: 6, total: 20, interval: 1550, zombies: [{ type: "normal", hp: 135, speed: 16, damage: 19 }, { type: "fast", hp: 104, speed: 25, damage: 16 }, { type: "shield", hp: 220, speed: 11, damage: 26 }], boss: { type: "boss", hp: 520, speed: 7, damage: 38 } },
   ];
 
   const $ = (id) => document.getElementById(id);
@@ -417,6 +417,7 @@
 
   function buildBoard(stage) {
     nodes.yardBoard.innerHTML = "";
+    nodes.yardBoard.dataset.theme = stage.theme || "sunny";
     boardRect = nodes.yardBoard.getBoundingClientRect();
     for (let row = 0; row < stage.rows; row += 1) {
       for (let col = 0; col < stage.cols; col += 1) {

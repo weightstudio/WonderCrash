@@ -443,6 +443,69 @@ select {
   box-shadow: inset 0 0 0 5px rgba(120, 76, 30, 0.42), 0 18px 34px rgba(37, 84, 51, 0.22);
 }
 
+.yard-board::before,
+.yard-board::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.yard-board::before {
+  background: var(--stage-sky, transparent);
+  mix-blend-mode: soft-light;
+  opacity: var(--stage-sky-opacity, 0.5);
+}
+
+.yard-board::after {
+  background: var(--stage-weather, transparent);
+  opacity: var(--stage-weather-opacity, 0.55);
+}
+
+.yard-board[data-theme="sunny"] {
+  --stage-sky: radial-gradient(circle at 82% 18%, rgba(255, 241, 105, 0.92), transparent 8rem);
+  --stage-sky-opacity: 0.55;
+}
+
+.yard-board[data-theme="sunset"] {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0 1px, transparent 1px) 0 0 / 16.666% 100%,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
+    radial-gradient(circle at 82% 20%, rgba(255, 138, 78, 0.5), transparent 11rem),
+    linear-gradient(180deg, #c4c95e 0%, #5ea34f 100%);
+}
+
+.yard-board[data-theme="rain"] {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.14) 0 1px, transparent 1px) 0 0 / 16.666% 100%,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
+    radial-gradient(circle at 22% 22%, rgba(115, 188, 255, 0.35), transparent 10rem),
+    linear-gradient(180deg, #4b9a8d 0%, #2f8057 100%);
+  --stage-weather: repeating-linear-gradient(105deg, transparent 0 16px, rgba(222, 244, 255, 0.36) 17px 19px, transparent 20px 34px);
+  --stage-weather-opacity: 0.5;
+}
+
+.yard-board[data-theme="swamp"] {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px) 0 0 / 16.666% 100%,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
+    radial-gradient(ellipse at 22% 78%, rgba(90, 68, 33, 0.38), transparent 8rem),
+    radial-gradient(ellipse at 75% 42%, rgba(64, 95, 40, 0.45), transparent 10rem),
+    linear-gradient(180deg, #678e42 0%, #426d39 100%);
+  --stage-weather: radial-gradient(circle at 18% 70%, rgba(95, 70, 35, 0.28), transparent 5rem), radial-gradient(circle at 64% 30%, rgba(31, 70, 39, 0.24), transparent 7rem);
+  --stage-weather-opacity: 0.72;
+}
+
+.yard-board[data-theme="boss"] {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px) 0 0 / 16.666% 100%,
+    linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0 1px, transparent 1px) 0 0 / 100% 33.333%,
+    radial-gradient(circle at 82% 20%, rgba(255, 45, 38, 0.32), transparent 10rem),
+    linear-gradient(180deg, #7e6942 0%, #334f35 100%);
+  --stage-weather: repeating-linear-gradient(45deg, transparent 0 28px, rgba(255, 82, 54, 0.16) 29px 32px, transparent 33px 58px);
+  --stage-weather-opacity: 0.75;
+}
+
 .cell {
   position: absolute;
   border: 1px solid rgba(255, 255, 255, 0.3);
