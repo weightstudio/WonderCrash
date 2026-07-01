@@ -212,8 +212,8 @@
         <div class="gate"><b>票</b><span></span></div>
         <div class="visitor-path"></div>
         <div class="visitor-line"></div>
-        <div class="animal lion ${save.happiness > 82 ? "happy" : ""}" data-name="${t("lion")}">
-          <i class="tail"></i><i class="body"></i><i class="mane"></i><i class="head"></i><i class="leg l1"></i><i class="leg l2"></i>
+        <div class="animal lion mascot-animal ${save.happiness > 82 ? "happy" : ""}" data-name="${t("lion")}">
+          <img src="../../assets/weightplay-lion-mascot.png" alt="" draggable="false" />
         </div>
         <div class="animal giraffe ${save.animals.giraffe ? "unlocked" : "locked"} ${save.happiness > 88 ? "happy" : ""}" data-name="${save.animals.giraffe ? t("giraffe") : t("lockedGiraffe")}">
           <i class="body"></i><i class="neck"></i><i class="head"></i><i class="spot s1"></i><i class="spot s2"></i><i class="leg l1"></i><i class="leg l2"></i>
@@ -406,7 +406,11 @@
     localizeStatic();
     render();
   });
-  nodes.startBtn.addEventListener("click", startGame);
+  nodes.startBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    startGame();
+  });
   nodes.reportBtn.addEventListener("click", showReport);
   nodes.closeReportBtn.addEventListener("click", () => nodes.resultPanel.classList.add("hidden"));
   window.addEventListener("beforeunload", saveGame);
