@@ -44,6 +44,10 @@ function categoryText(category) {
   return i18n.t(`category.${category}`);
 }
 
+function skillText(skill) {
+  return i18n.t(`skill.${skill}`);
+}
+
 function readFavorites() {
   try {
     const saved = JSON.parse(localStorage.getItem(favoritesKey) || "[]");
@@ -186,7 +190,7 @@ function createGameCard(game) {
 
   const meta = text(game.meta).map((item) => `<span>${item}</span>`).join("");
   const categoryBadges = (game.categories || []).map((item) => `<span>${categoryText(item)}</span>`).join("");
-  const skillBadges = (game.skills || []).slice(0, 3).map((item) => `<span>${item}</span>`).join("");
+  const skillBadges = (game.skills || []).slice(0, 3).map((item) => `<span>${skillText(item)}</span>`).join("");
   const showHero = game.art.hero && !game.art.hideHero && !game.art.hero.includes("width='1'");
   const art =
     game.art.kind === "image"
