@@ -380,7 +380,7 @@
   }
 
   function loadAssets() {
-    const assets = ["../../assets/animal-zoo-idle-cover.svg", "../../assets/weightplay-lion-mascot.png"];
+    const assets = ["../../assets/animal-zoo-idle-cover.png", "../../assets/weightplay-lion-mascot.png"];
     let done = 0;
     const finish = () => {
       done += 1;

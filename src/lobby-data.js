@@ -112,7 +112,7 @@
       },
       art: {
         kind: "image",
-        background: "assets/animal-zoo-idle-cover.svg",
+        background: "assets/animal-zoo-idle-cover.png",
         hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
       },
     },
