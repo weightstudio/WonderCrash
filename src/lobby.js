@@ -241,15 +241,11 @@ function renderLobby() {
   platformSubtitle.textContent = text(lobby.platform.subtitle);
   renderWallet();
 
-  const playableCount = lobby.games.filter((game) => game.status === "playable").length;
+  const totalGameCount = lobby.games.length;
   const topPlayCount = Number(gameStats.totals?.plays7d || 0);
-  const ageGroups = new Set(lobby.games.flatMap((game) => game.ages));
-  const animalCount = lobby.games.filter((game) => (game.categories || []).includes("Animal Games")).length;
   lobbyStats.innerHTML = `
-    <div><strong>${playableCount}</strong><span>${i18n.t("stats.playable")}</span></div>
+    <div><strong>${totalGameCount}</strong><span>${i18n.t("stats.total_games")}</span></div>
     <div><strong>${hasStatsFeed() ? formatCount(topPlayCount) : "..."}</strong><span>${i18n.t("stats.plays_7d_short")}</span></div>
-    <div><strong>${animalCount}</strong><span>${i18n.t("stats.animal_games")}</span></div>
-    <div><strong>${ageGroups.size}</strong><span>${i18n.t("stats.age_groups")}</span></div>
   `;
 
   renderDailyReward();
