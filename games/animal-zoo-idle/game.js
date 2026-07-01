@@ -243,17 +243,14 @@
         <span>${t("visitors")}: ${visitorRate()}/10s</span>
       </div>
       <div class="savanna-stage" aria-label="Safari meadow">
-        <div class="sun"></div>
-        <div class="cloud cloud-a"></div>
-        <div class="cloud cloud-b"></div>
-        <div class="gate"><b>票</b><span></span></div>
+        <div class="gate"><img src="../../assets/animal-zoo-idle-ticket-booth.png" alt="" draggable="false" /><b>${t("ticketSign")}</b></div>
         <div class="visitor-path"></div>
         <div class="visitor-line"></div>
-        <div class="animal lion mascot-animal ${save.happiness > 82 ? "happy" : ""}" data-name="${t("lion")}">
-          <img src="../../assets/weightplay-lion-mascot.png" alt="" draggable="false" />
+        <div class="animal lion image-animal ${save.happiness > 82 ? "happy" : ""}" data-name="${t("lion")}">
+          <img src="../../assets/animal-zoo-idle-lion.png" alt="" draggable="false" />
         </div>
-        <div class="animal giraffe ${save.animals.giraffe ? "unlocked" : "locked"} ${save.happiness > 88 ? "happy" : ""}" data-name="${save.animals.giraffe ? t("giraffe") : t("lockedGiraffe")}">
-          <i class="body"></i><i class="neck"></i><i class="head"></i><i class="spot s1"></i><i class="spot s2"></i><i class="leg l1"></i><i class="leg l2"></i>
+        <div class="animal giraffe image-animal ${save.animals.giraffe ? "unlocked" : "locked"} ${save.happiness > 88 ? "happy" : ""}" data-name="${save.animals.giraffe ? t("giraffe") : t("lockedGiraffe")}">
+          <img src="../../assets/animal-zoo-idle-giraffe.png" alt="" draggable="false" />
         </div>
         <div class="heart-field"></div>
       </div>
@@ -267,8 +264,6 @@
         </div>
       </div>
     `;
-    const gate = card.querySelector(".gate");
-    if (gate) gate.innerHTML = `<b>${t("ticketSign")}</b><span></span>`;
     card.querySelector('[data-action="collect"]').addEventListener("click", collectTickets);
     card.querySelector('[data-action="feed-lion"]').addEventListener("click", () => feedAnimal("lion"));
     card.querySelector('[data-action="feed-giraffe"]').addEventListener("click", () => {
@@ -419,7 +414,13 @@
   }
 
   function loadAssets() {
-    const assets = ["../../assets/animal-zoo-idle-cover.png", "../../assets/weightplay-lion-mascot.png"];
+    const assets = [
+      "../../assets/animal-zoo-idle-cover.png",
+      "../../assets/animal-zoo-idle-stage-bg.png",
+      "../../assets/animal-zoo-idle-lion.png",
+      "../../assets/animal-zoo-idle-giraffe.png",
+      "../../assets/animal-zoo-idle-ticket-booth.png",
+    ];
     let done = 0;
     const finish = () => {
       done += 1;
