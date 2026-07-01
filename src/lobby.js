@@ -150,6 +150,7 @@ function createGameCard(game) {
   card.className = `game-card ${isPlayable ? "playable" : "coming-soon"}`;
   card.dataset.age = game.ages.join(" ");
   card.dataset.topic = (game.categories || []).join("|");
+  card.dataset.skill = (game.skills || []).join("|");
   card.dataset.gameId = game.id;
   card.dataset.favorite = favorite ? "true" : "false";
 
@@ -179,6 +180,7 @@ function createGameCard(game) {
 
   const meta = text(game.meta).map((item) => `<span>${item}</span>`).join("");
   const categoryBadges = (game.categories || []).map((item) => `<span>${categoryText(item)}</span>`).join("");
+  const skillBadges = (game.skills || []).slice(0, 3).map((item) => `<span>${item}</span>`).join("");
   const showHero = game.art.hero && !game.art.hideHero && !game.art.hero.includes("width='1'");
   const art =
     game.art.kind === "image"
@@ -198,6 +200,7 @@ function createGameCard(game) {
       <h2>${title}</h2>
       <p>${text(game.description)}</p>
       <div class="game-card-categories">${categoryBadges}</div>
+      ${skillBadges ? `<div class="game-card-skills" aria-label="Skills trained">${skillBadges}</div>` : ""}
       <div class="game-card-meta">${meta}</div>
       <div class="game-card-plays">${playCountText(game)}</div>
       <div class="game-card-actions">

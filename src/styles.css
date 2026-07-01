@@ -867,11 +867,26 @@ body.lobby-page {
   gap: 6px;
 }
 
+.game-card-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
 .game-card-categories span {
   padding: 5px 7px;
   border-radius: 8px;
   background: rgba(255, 207, 99, 0.16);
   color: #ffdf8a;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.game-card-skills span {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(132, 211, 255, 0.16);
+  color: #a9dcff;
   font-size: 12px;
   font-weight: 900;
 }
