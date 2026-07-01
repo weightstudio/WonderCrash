@@ -101,6 +101,8 @@
   let moves = 0;
   let score = 0;
   let busy = false;
+  const popMs = 620;
+  const dropMs = 920;
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -235,7 +237,18 @@
     });
   }
 
+  function boardMetrics() {
+    const styles = window.getComputedStyle(nodes.board);
+    const gap = parseFloat(styles.columnGap || styles.gap || "0") || 0;
+    const padLeft = parseFloat(styles.paddingLeft || "0") || 0;
+    const padRight = parseFloat(styles.paddingRight || "0") || 0;
+    const usableWidth = Math.max(1, nodes.board.clientWidth - padLeft - padRight - gap * (cols - 1));
+    const cell = usableWidth / cols;
+    return { pitch: cell + gap };
+  }
+
   function renderBoard(dropMap = new Map()) {
+    const { pitch } = boardMetrics();
     nodes.board.innerHTML = "";
     board.forEach((row, r) => {
       row.forEach((id, c) => {
@@ -245,7 +258,10 @@
         button.type = "button";
         button.className = `bubble ${dropMap.has(key) ? "drop" : ""}`;
         button.style.setProperty("--bubble", data.css);
-        if (dropMap.has(key)) button.style.setProperty("--drop-y", String(dropMap.get(key)));
+        if (dropMap.has(key)) {
+          const rowsToFall = dropMap.get(key);
+          button.style.setProperty("--drop-distance", `${Math.max(1, rowsToFall) * pitch}px`);
+        }
         button.dataset.row = String(r);
         button.dataset.col = String(c);
         button.setAttribute("aria-label", id);
@@ -301,17 +317,23 @@
         busy = false;
         if (isComplete()) return finish(true);
         if (moves <= 0) return finish(false);
-      }, 680);
-    }, 460);
+      }, dropMs);
+    }, popMs);
   }
 
   function markPopping(group) {
+    nodes.board.classList.add("is-popping");
     group.forEach(([r, c]) => {
       const node = nodes.board.querySelector(`[data-row="${r}"][data-col="${c}"]`);
       if (!node) return;
       node.disabled = true;
+      node.style.setProperty("--pop-order", "0");
       node.classList.add("pop");
     });
+    nodes.board.querySelectorAll(".bubble:not(.pop)").forEach((node) => {
+      node.disabled = true;
+    });
+    window.setTimeout(() => nodes.board.classList.remove("is-popping"), popMs + 40);
   }
 
   function collapseBoard(palette) {
@@ -330,7 +352,7 @@
       });
       while (target >= 0) {
         next[target][c] = randomFrom(palette);
-        dropMap.set(`${target},${c}`, Math.max(2, target + 2));
+        dropMap.set(`${target},${c}`, rows + target + 1);
         target -= 1;
       }
     }

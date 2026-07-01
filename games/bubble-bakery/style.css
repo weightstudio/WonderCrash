@@ -222,6 +222,7 @@ select {
   aspect-ratio: 1;
   border-radius: 24px;
   padding: 10px;
+  overflow: hidden;
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
   gap: 7px;
@@ -270,11 +271,11 @@ select {
 
 .bubble.pop {
   pointer-events: none;
-  animation: bubble-pop .46s cubic-bezier(.14,.78,.2,1) forwards;
+  animation: bubble-pop .62s cubic-bezier(.14,.78,.2,1) both;
 }
 
 .bubble.drop {
-  animation: bubble-drop .66s cubic-bezier(.17,.9,.2,1.22);
+  animation: bubble-drop .92s cubic-bezier(.18,.72,.15,1.02) both;
 }
 
 .board-float {
@@ -338,10 +339,22 @@ select {
 }
 
 @keyframes bubble-pop {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    filter: brightness(1) saturate(1);
+  }
+
   38% {
     opacity: 1;
     transform: scale(1.16);
     filter: brightness(1.22) saturate(1.16);
+  }
+
+  72% {
+    opacity: .72;
+    transform: scale(.34) rotate(10deg);
+    filter: brightness(1.38) saturate(1.22);
   }
 
   to {
@@ -353,15 +366,19 @@ select {
 
 @keyframes bubble-drop {
   0% {
-    opacity: .86;
-    transform: translateY(calc(var(--drop-y, 1) * -118%)) scale(.96);
+    opacity: .98;
+    transform: translateY(calc(var(--drop-distance, 96px) * -1)) scale(.985);
   }
-  58% {
+  62% {
     opacity: 1;
-    transform: translateY(7%) scale(1.035, .965);
+    transform: translateY(0) scale(1);
   }
-  78% { transform: translateY(-3.5%) scale(.985, 1.018); }
-  91% { transform: translateY(1.5%) scale(1.01, .992); }
+  74% {
+    opacity: 1;
+    transform: translateY(8%) scale(1.04, .95);
+  }
+  86% { transform: translateY(-3.5%) scale(.985, 1.018); }
+  95% { transform: translateY(1.5%) scale(1.01, .992); }
   100% { transform: translateY(0) scale(1); }
 }
 
