@@ -138,10 +138,10 @@
   };
 
   const units = [
-    { id: "cat", nameKey: "unitCat", roleKey: "roleRanged", attackStyle: "ranged", cost: 45, hp: 92, damage: 20, cooldown: 880, range: 9, unlockCost: 0 },
-    { id: "dog", nameKey: "unitDog", roleKey: "roleTankMelee", attackStyle: "melee", cost: 70, hp: 235, damage: 34, cooldown: 1050, range: 1.35, unlockCost: 0 },
-    { id: "owl", nameKey: "unitOwl", roleKey: "roleFastRanged", attackStyle: "ranged", cost: 95, hp: 78, damage: 18, cooldown: 610, range: 9, unlockCost: 0 },
-    { id: "fox", nameKey: "unitFox", roleKey: "roleCrossLane", attackStyle: "cross", cost: 135, hp: 112, damage: 30, cooldown: 980, range: 9, targetRows: 1, unlockCost: 18 },
+    { id: "cat", nameKey: "unitCat", roleKey: "roleRanged", attackStyle: "ranged", cost: 45, hp: 92, damage: 18, cooldown: 930, range: 9, unlockCost: 0 },
+    { id: "dog", nameKey: "unitDog", roleKey: "roleTankMelee", attackStyle: "melee", cost: 70, hp: 235, damage: 30, cooldown: 1120, range: 1.35, unlockCost: 0 },
+    { id: "owl", nameKey: "unitOwl", roleKey: "roleFastRanged", attackStyle: "ranged", cost: 95, hp: 78, damage: 15, cooldown: 660, range: 9, unlockCost: 0 },
+    { id: "fox", nameKey: "unitFox", roleKey: "roleCrossLane", attackStyle: "cross", cost: 135, hp: 112, damage: 26, cooldown: 1040, range: 9, targetRows: 1, unlockCost: 18 },
   ];
 
   const spriteAssets = {
@@ -156,14 +156,14 @@
   };
 
   const stages = [
-    { titleKey: "basic", theme: "sunny", energy: 155, hp: 4, rows: 5, cols: 9, total: 9, interval: 2700, zombies: [{ type: "normal", hp: 82, speed: 9.5, damage: 12 }] },
-    { titleKey: "fast", theme: "sunset", energy: 170, hp: 4, rows: 5, cols: 9, total: 12, interval: 2450, zombies: [{ type: "normal", hp: 95, speed: 10.5, damage: 13 }, { type: "fast", hp: 70, speed: 16.5, damage: 10 }] },
-    { titleKey: "shield", theme: "rain", energy: 185, hp: 4, rows: 5, cols: 9, total: 15, interval: 2250, zombies: [{ type: "normal", hp: 108, speed: 11, damage: 15 }, { type: "fast", hp: 82, speed: 17, damage: 12 }, { type: "shield", hp: 170, speed: 8.2, damage: 20 }] },
-    { titleKey: "swarm", theme: "swamp", energy: 205, hp: 5, rows: 5, cols: 9, total: 18, interval: 2050, zombies: [{ type: "normal", hp: 118, speed: 12, damage: 15 }, { type: "fast", hp: 90, speed: 18.5, damage: 13 }, { type: "shield", hp: 190, speed: 8.8, damage: 21 }] },
-    { titleKey: "boss", theme: "boss", energy: 230, hp: 5, rows: 5, cols: 9, total: 21, interval: 1950, zombies: [{ type: "normal", hp: 128, speed: 12, damage: 16 }, { type: "fast", hp: 98, speed: 19, damage: 14 }, { type: "shield", hp: 210, speed: 9, damage: 22 }], boss: { type: "boss", hp: 650, speed: 5.4, damage: 34 } },
-    { titleKey: "crossfire", theme: "sunset", energy: 245, hp: 5, rows: 5, cols: 9, total: 24, interval: 1840, zombies: [{ type: "normal", hp: 142, speed: 12.5, damage: 17 }, { type: "fast", hp: 108, speed: 20, damage: 15 }, { type: "shield", hp: 228, speed: 9.4, damage: 23 }] },
-    { titleKey: "tankTrial", theme: "rain", energy: 260, hp: 6, rows: 5, cols: 9, total: 26, interval: 1760, zombies: [{ type: "normal", hp: 154, speed: 13, damage: 18 }, { type: "shield", hp: 270, speed: 9.4, damage: 26 }, { type: "shield", hp: 300, speed: 8.2, damage: 29 }] },
-    { titleKey: "grandBoss", theme: "boss", energy: 285, hp: 6, rows: 5, cols: 9, total: 28, interval: 1680, zombies: [{ type: "normal", hp: 168, speed: 13.5, damage: 19 }, { type: "fast", hp: 122, speed: 21, damage: 16 }, { type: "shield", hp: 300, speed: 9.8, damage: 30 }], boss: { type: "boss", hp: 1020, speed: 5.8, damage: 42 } },
+    { titleKey: "basic", theme: "sunny", energy: 155, hp: 4, rows: 5, cols: 9, total: 9, interval: 2850, zombies: [{ type: "normal", hp: 82, speed: 8.2, damage: 12 }] },
+    { titleKey: "fast", theme: "sunset", energy: 170, hp: 4, rows: 5, cols: 9, total: 12, interval: 2600, zombies: [{ type: "normal", hp: 95, speed: 9.2, damage: 13 }, { type: "fast", hp: 70, speed: 14.4, damage: 10 }] },
+    { titleKey: "shield", theme: "rain", energy: 185, hp: 4, rows: 5, cols: 9, total: 15, interval: 2380, zombies: [{ type: "normal", hp: 108, speed: 9.6, damage: 15 }, { type: "fast", hp: 82, speed: 14.8, damage: 12 }, { type: "shield", hp: 170, speed: 7.2, damage: 20 }] },
+    { titleKey: "swarm", theme: "swamp", energy: 205, hp: 5, rows: 5, cols: 9, total: 18, interval: 2180, zombies: [{ type: "normal", hp: 118, speed: 10.4, damage: 15 }, { type: "fast", hp: 90, speed: 16.2, damage: 13 }, { type: "shield", hp: 190, speed: 7.8, damage: 21 }] },
+    { titleKey: "boss", theme: "boss", energy: 230, hp: 5, rows: 5, cols: 9, total: 21, interval: 2080, zombies: [{ type: "normal", hp: 128, speed: 10.6, damage: 16 }, { type: "fast", hp: 98, speed: 16.8, damage: 14 }, { type: "shield", hp: 210, speed: 8, damage: 22 }], boss: { type: "boss", hp: 650, speed: 4.8, damage: 34 } },
+    { titleKey: "crossfire", theme: "sunset", energy: 245, hp: 5, rows: 5, cols: 9, total: 24, interval: 1960, zombies: [{ type: "normal", hp: 142, speed: 11, damage: 17 }, { type: "fast", hp: 108, speed: 17.4, damage: 15 }, { type: "shield", hp: 228, speed: 8.3, damage: 23 }] },
+    { titleKey: "tankTrial", theme: "rain", energy: 260, hp: 6, rows: 5, cols: 9, total: 26, interval: 1880, zombies: [{ type: "normal", hp: 154, speed: 11.4, damage: 18 }, { type: "shield", hp: 270, speed: 8.3, damage: 26 }, { type: "shield", hp: 300, speed: 7.3, damage: 29 }] },
+    { titleKey: "grandBoss", theme: "boss", energy: 285, hp: 6, rows: 5, cols: 9, total: 28, interval: 1800, zombies: [{ type: "normal", hp: 168, speed: 11.8, damage: 19 }, { type: "fast", hp: 122, speed: 18.2, damage: 16 }, { type: "shield", hp: 300, speed: 8.6, damage: 30 }], boss: { type: "boss", hp: 1020, speed: 5.1, damage: 42 } },
   ];
 
   const $ = (id) => document.getElementById(id);
@@ -368,8 +368,8 @@
       ...unit,
       level,
       hp: Math.round(unit.hp * (1 + (level - 1) * 0.18)),
-      damage: Math.round(unit.damage * (1 + (level - 1) * 0.16)),
-      cooldown: Math.max(460, Math.round(unit.cooldown * (1 - (level - 1) * 0.025))),
+      damage: Math.round(unit.damage * (1 + (level - 1) * 0.11)),
+      cooldown: Math.max(520, Math.round(unit.cooldown * (1 - (level - 1) * 0.018))),
     };
   }
 
