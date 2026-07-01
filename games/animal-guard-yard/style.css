@@ -456,6 +456,61 @@ select {
   font-weight: 900;
 }
 
+.hud-icon {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  display: inline-block;
+  filter: drop-shadow(0 2px 0 rgba(87, 55, 11, 0.18));
+}
+
+.sun-icon {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 30%, rgba(255, 255, 255, 0.9) 0 12%, transparent 13%),
+    radial-gradient(circle, #fff176 0 38%, #ffc233 39% 68%, #f08f26 69% 100%);
+}
+
+.sun-icon::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  z-index: -1;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ffca3a 0 8deg, transparent 8deg 30deg);
+  filter: drop-shadow(0 0 2px rgba(255, 206, 70, 0.55));
+}
+
+.heart-icon {
+  width: 23px;
+  height: 21px;
+  margin-top: 2px;
+  transform: rotate(-45deg);
+  border-radius: 6px 0 5px 2px;
+  background: linear-gradient(135deg, #ff7892 0%, #f02f5d 62%, #be1f4e 100%);
+}
+
+.heart-icon::before,
+.heart-icon::after {
+  content: "";
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.heart-icon::before {
+  top: -11px;
+  left: 0;
+}
+
+.heart-icon::after {
+  top: 0;
+  right: -11px;
+}
+
 .wave-text {
   justify-content: space-between;
 }
