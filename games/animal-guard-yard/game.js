@@ -4,6 +4,7 @@
   const unlockKey = "weightplay_animal_guard_unlocked";
   const bestKey = "weightplay_animal_guard_best";
   const profileKey = "weightplay_animal_guard_profile";
+  const progressKey = "weightplay_animal_guard_progress";
 
   const text = {
     en: {
@@ -21,6 +22,17 @@
       defeat: "Zombies reached the yard!",
       resultWin: "You cleared Stage {n} with {hp} home hearts left.",
       resultLose: "Try placing guards earlier and collect every sun.",
+      resultScore: "Score {score}",
+      previousBest: "Previous Best {score}",
+      newBest: "New best!",
+      improvement: "Improvement {value}%",
+      skillReport: "Skill Report",
+      planning: "Planning",
+      focusSkill: "Focus",
+      problemSolving: "Problem Solving",
+      progressNew: "Great progress! Your yard defense reached a new best.",
+      progressSteady: "Good effort. Try placing guards earlier to improve your next run.",
+      progressNote: "Scores are for fun and local progress tracking only.",
       stage: "Stage {n}",
       wave: "Stage {n} - Zombies {left}",
       select: "Choose an animal, then tap a grass tile.",
@@ -66,6 +78,17 @@
       defeat: "\u6bad\u5c4d\u95d6\u9032\u5ead\u9662\u4e86\uff01",
       resultWin: "\u4f60\u901a\u904e\u7b2c {n} \u95dc\uff0c\u5269\u4e0b {hp} \u9846\u5bb6\u5712\u611b\u5fc3\u3002",
       resultLose: "\u8a66\u8457\u65e9\u9ede\u653e\u7f6e\u5b88\u885b\uff0c\u4e26\u6536\u96c6\u6bcf\u4e00\u9846\u967d\u5149\u3002",
+      resultScore: "\u5206\u6578 {score}",
+      previousBest: "\u904e\u53bb\u6700\u4f73 {score}",
+      newBest: "\u65b0\u7684\u6700\u4f73\u7d00\u9304\uff01",
+      improvement: "\u9032\u6b65 {value}%",
+      skillReport: "\u80fd\u529b\u5c0f\u5831\u544a",
+      planning: "\u898f\u5283",
+      focusSkill: "\u5c08\u6ce8\u529b",
+      problemSolving: "\u554f\u984c\u89e3\u6c7a",
+      progressNew: "\u5f88\u68d2\u7684\u9032\u6b65\uff01\u9019\u6b21\u7684\u5ead\u9662\u9632\u885b\u9054\u5230\u65b0\u7684\u6700\u4f73\u7d00\u9304\u3002",
+      progressSteady: "\u52aa\u529b\u5f97\u5f88\u597d\u3002\u4e0b\u6b21\u53ef\u4ee5\u66f4\u65e9\u653e\u7f6e\u5b88\u885b\uff0c\u8b93\u9632\u7dda\u66f4\u7a69\u3002",
+      progressNote: "\u5206\u6578\u53ea\u7528\u65bc\u904a\u6232\u6a02\u8da3\u8207\u672c\u6a5f\u9032\u6b65\u7d00\u9304\u3002",
       stage: "\u7b2c {n} \u95dc",
       wave: "\u7b2c {n} \u95dc - \u6bad\u5c4d {left}",
       select: "\u9078\u64c7\u4e00\u96bb\u52d5\u7269\uff0c\u518d\u9ede\u8349\u5730\u683c\u5b50\u653e\u7f6e\u3002",
@@ -205,6 +228,105 @@
 
   function saveProfile() {
     localStorage.setItem(profileKey, JSON.stringify(profile));
+  }
+
+  function loadProgress() {
+    try {
+      return JSON.parse(localStorage.getItem(progressKey) || "{}");
+    } catch {
+      return {};
+    }
+  }
+
+  function saveProgress(score, skillScores) {
+    const previous = loadProgress();
+    const previousBest = Number(previous.bestScore) || 0;
+    const bestScore = Math.max(previousBest, score);
+    const improvementPercent = previousBest > 0 ? Math.round(((score - previousBest) / previousBest) * 100) : (score > 0 ? 100 : 0);
+    const record = {
+      lastScore: score,
+      bestScore,
+      playCount: (Number(previous.playCount) || 0) + 1,
+      lastPlayedAt: new Date().toISOString(),
+      improvementPercent,
+      skillScores,
+      stage: currentStage + 1,
+    };
+    try {
+      localStorage.setItem(progressKey, JSON.stringify(record));
+    } catch {
+      // Local progress is optional.
+    }
+    return { ...record, previousBest, improved: score > previousBest };
+  }
+
+  function starRating(value) {
+    const filled = clamp(Math.round(value), 1, 5);
+    return "\u2605".repeat(filled) + "\u2606".repeat(5 - filled);
+  }
+
+  function buildSkillScores(won, score) {
+    const hpRatio = clamp(Math.max(0, baseHp) / 10, 0, 1);
+    const clearRatio = won ? 1 : clamp(spawned / Math.max(1, stages[currentStage].total), 0, 1);
+    const economyRatio = clamp(coinsEarned / Math.max(20, 28 + currentStage * 8), 0, 1);
+    return {
+      planning: 1 + Math.round((won ? 2.2 : 0.8) + hpRatio * 1.4 + economyRatio * 0.4),
+      focus: 1 + Math.round(clearRatio * 3 + hpRatio),
+      problemSolving: 1 + Math.round(clamp(score / Math.max(45, (currentStage + 1) * 35), 0, 1) * 4),
+    };
+  }
+
+  function renderResultReport(message, progress) {
+    const rows = [
+      [t("planning"), progress.skillScores.planning],
+      [t("focusSkill"), progress.skillScores.focus],
+      [t("problemSolving"), progress.skillScores.problemSolving],
+    ];
+    nodes.resultText.replaceChildren();
+
+    const summary = document.createElement("p");
+    summary.className = "result-summary";
+    summary.textContent = message;
+    nodes.resultText.appendChild(summary);
+
+    const stats = document.createElement("div");
+    stats.className = "result-stats";
+    [
+      t("resultScore", { score: progress.lastScore }),
+      progress.previousBest > 0 ? t("previousBest", { score: progress.previousBest }) : t("newBest"),
+      progress.improved ? t("newBest") : t("improvement", { value: progress.improvementPercent }),
+    ].forEach((textValue) => {
+      const item = document.createElement("span");
+      item.textContent = textValue;
+      stats.appendChild(item);
+    });
+    nodes.resultText.appendChild(stats);
+
+    const report = document.createElement("section");
+    report.className = "skill-report";
+    const title = document.createElement("strong");
+    title.textContent = t("skillReport");
+    report.appendChild(title);
+    rows.forEach(([label, stars]) => {
+      const row = document.createElement("div");
+      row.className = "skill-row";
+      const name = document.createElement("span");
+      name.textContent = label;
+      const value = document.createElement("b");
+      value.textContent = starRating(stars);
+      row.append(name, value);
+      report.appendChild(row);
+    });
+    nodes.resultText.appendChild(report);
+
+    const encouragement = document.createElement("p");
+    encouragement.className = "progress-message";
+    encouragement.textContent = progress.improved ? t("progressNew") : t("progressSteady");
+    nodes.resultText.appendChild(encouragement);
+
+    const note = document.createElement("small");
+    note.textContent = t("progressNote");
+    nodes.resultText.appendChild(note);
   }
 
   function readDiamonds() {
@@ -738,7 +860,8 @@
   function finish(won) {
     running = false;
     cancelAnimationFrame(raf);
-    track(won ? "game_complete" : "game_over", { level: currentStage + 1, hp: baseHp });
+    let resultMessage = "";
+    let finalScore = 0;
     if (won) {
       const clearBonus = 18 + currentStage * 10 + Math.max(0, baseHp) * 4;
       coinsEarned += clearBonus;
@@ -747,13 +870,24 @@
       const best = Math.max(Number(localStorage.getItem(bestKey)) || 0, currentStage + 1);
       localStorage.setItem(bestKey, String(best));
       nodes.resultTitle.textContent = t("victory");
-      nodes.resultText.textContent = `${t("resultWin", { n: currentStage + 1, hp: Math.max(0, baseHp) })} ${t("reward", { coins: coinsEarned })}`;
+      resultMessage = `${t("resultWin", { n: currentStage + 1, hp: Math.max(0, baseHp) })} ${t("reward", { coins: coinsEarned })}`;
       playSound("win");
     } else {
       nodes.resultTitle.textContent = t("defeat");
-      nodes.resultText.textContent = `${t("resultLose")} ${t("reward", { coins: coinsEarned })}`;
+      resultMessage = `${t("resultLose")} ${t("reward", { coins: coinsEarned })}`;
       playSound("lose");
     }
+    finalScore = (currentStage + 1) * 60 + Math.max(0, baseHp) * 8 + coinsEarned + (won ? 80 : 0);
+    const skillScores = buildSkillScores(won, finalScore);
+    const progress = saveProgress(finalScore, skillScores);
+    renderResultReport(resultMessage, progress);
+    track(won ? "game_complete" : "game_over", {
+      level: currentStage + 1,
+      hp: baseHp,
+      score: finalScore,
+      best_score: progress.bestScore,
+      improvement_percent: progress.improvementPercent,
+    });
     if (coinsEarned > 0) {
       profile.coins += coinsEarned;
       saveProfile();
