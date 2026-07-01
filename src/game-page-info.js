@@ -692,6 +692,23 @@
     document.head.appendChild(script);
   }
 
+  window.WeightPlayGameInfo = {
+    get(gameId) {
+      const game = games[gameId];
+      if (!game) return null;
+      const localized = localizedGame(gameId);
+      return {
+        age: localized.age,
+        difficulty: localized.difficulty,
+        time: localized.time,
+        skills: localized.skills,
+      };
+    },
+    label(key) {
+      return uiLabel(key);
+    },
+  };
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", render, { once: true });
   } else {
