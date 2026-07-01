@@ -278,6 +278,9 @@
       faq: "FAQ",
       relatedGames: "Related Games",
       relatedIntro: "Because this game practices {skill}, try these next:",
+      relatedBySkill: "More {skill} Games",
+      relatedByAge: "More Games for Age {age}",
+      relatedAnimal: "More Animal Games",
       guideLabel: "{title} game information",
     },
     "zh-Hant": {
@@ -297,6 +300,9 @@
       faq: "常見問題",
       relatedGames: "相關遊戲",
       relatedIntro: "因為這款遊戲會練習 {skill}，也可以試試：",
+      relatedBySkill: "更多{skill}遊戲",
+      relatedByAge: "更多 {age} 遊戲",
+      relatedAnimal: "更多動物遊戲",
       guideLabel: "{title} 遊戲資訊",
     },
   };
@@ -422,16 +428,41 @@
   }
 
   function relatedGames(activeId, activeBaseGame) {
+    return relatedGameEntries(activeId, activeBaseGame, (game) => game.skills.some((skill) => activeBaseGame.skills.includes(skill))).slice(0, 4);
+  }
+
+  function relatedGameEntries(activeId, activeBaseGame, predicate) {
     return Object.entries(games)
       .filter(([id]) => id !== activeId)
+      .filter(([, game]) => predicate(game))
       .map(([id, game]) => ({
         id,
         game,
         score: game.skills.filter((skill) => activeBaseGame.skills.includes(skill)).length + (game.age === activeBaseGame.age ? 1 : 0),
       }))
-      .filter((item) => item.score > 0)
       .sort((a, b) => b.score - a.score || localizedGame(a.id).title.localeCompare(localizedGame(b.id).title))
-      .slice(0, 4);
+      .map(({ id }) => id);
+  }
+
+  function isAnimalGame(game) {
+    return /\b(Animal|Zoo|Safari|Pet|Guard Yard|Helper)\b/i.test(game.title);
+  }
+
+  function relatedGroups(activeId, activeBaseGame) {
+    return [
+      {
+        title: uiLabel("relatedBySkill", { skill: localizeSkill(activeBaseGame.skills[0]) }),
+        ids: relatedGameEntries(activeId, activeBaseGame, (game) => game.skills.includes(activeBaseGame.skills[0])).slice(0, 4),
+      },
+      {
+        title: uiLabel("relatedByAge", { age: localizeAge(activeBaseGame.age) }),
+        ids: relatedGameEntries(activeId, activeBaseGame, (game) => game.age === activeBaseGame.age).slice(0, 4),
+      },
+      {
+        title: uiLabel("relatedAnimal"),
+        ids: relatedGameEntries(activeId, activeBaseGame, isAnimalGame).slice(0, 4),
+      },
+    ].filter((group) => group.ids.length > 0);
   }
 
   function gameHref(gameId) {
@@ -457,6 +488,7 @@
 
     document.body.classList.add("has-game-page-info");
     const related = relatedGames(id, baseGame);
+    const groups = relatedGroups(id, baseGame);
     const scoreBands = scoreBandsFor(baseGame);
     const section = document.createElement("section");
     section.className = "game-page-info";
@@ -509,7 +541,19 @@
         <div class="game-info-section">
           <h3>${escapeHtml(uiLabel("relatedGames"))}</h3>
           <p>${escapeHtml(uiLabel("relatedIntro", { skill: localizeSkill(game.skills[0]) }))}</p>
-          <div class="game-info-related">${related.map(({ id: relatedId }) => `<a href="${escapeHtml(gameHref(relatedId))}">${escapeHtml(localizedGame(relatedId).title)}</a>`).join("")}</div>
+          <div class="game-info-related">${related.map((relatedId) => `<a href="${escapeHtml(gameHref(relatedId))}">${escapeHtml(localizedGame(relatedId).title)}</a>`).join("")}</div>
+          <div class="game-info-related-groups">
+            ${groups
+              .map(
+                (group) => `
+                  <div class="game-info-related-group">
+                    <h4>${escapeHtml(group.title)}</h4>
+                    <div class="game-info-related">${group.ids.map((relatedId) => `<a href="${escapeHtml(gameHref(relatedId))}">${escapeHtml(localizedGame(relatedId).title)}</a>`).join("")}</div>
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
         </div>
       </div>
     `;
