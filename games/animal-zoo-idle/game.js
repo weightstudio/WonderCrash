@@ -26,6 +26,7 @@
       unlock: "Invite Giraffe",
       level: "Meadow Lv.{n}",
       ticketRate: "{n}/visitor",
+      ticketSign: "Ticket",
       happiness: "Happiness",
       offline: "Welcome back! Visitors left {coins} coins in the ticket box.",
       notEnough: "Need more coins.",
@@ -74,6 +75,42 @@
       giraffe: "長頸鹿",
       lockedGiraffe: "邀請長頸鹿，讓樂園更熱鬧。",
     },
+  };
+
+  text["zh-Hant"] = {
+    title: "動物小小樂園",
+    language: "語言",
+    menuTitle: "經營熱鬧的草原動物園。",
+    menuHint: "遊客會買票進來參觀。餵獅子、照顧長頸鹿、升級草原，再收取票箱收益。",
+    start: "開園",
+    coins: "金幣",
+    tickets: "票箱",
+    visitors: "遊客",
+    report: "樂園報告",
+    reportTitle: "動物照顧報告",
+    continue: "繼續",
+    loading: "載入中",
+    collect: "收票箱",
+    feedLion: "餵獅子",
+    feedGiraffe: "餵長頸鹿",
+    upgrade: "升級草原",
+    unlock: "邀請長頸鹿",
+    level: "草原 Lv.{n}",
+    ticketRate: "每位 {n}",
+    ticketSign: "票",
+    happiness: "幸福感",
+    offline: "歡迎回來！遊客在票箱留下了 {coins} 金幣。",
+    notEnough: "金幣不足。",
+    collected: "從票箱收到了 {coins} 金幣。",
+    noTickets: "遊客還在買票，稍後再收。",
+    fed: "{name} 很開心！更多遊客正在進園。",
+    upgraded: "草原更漂亮了，遊客願意付更多票錢！",
+    unlocked: "長頸鹿加入草原了！",
+    reportGood: "照顧得很好！動物很開心，遊客也玩得很愉快。",
+    reportTry: "很棒的嘗試。多餵食動物、升級草原，樂園會更熱鬧。",
+    lion: "獅子",
+    giraffe: "長頸鹿",
+    lockedGiraffe: "邀請長頸鹿，讓樂園更熱鬧。",
   };
 
   const $ = (id) => document.getElementById(id);
@@ -230,6 +267,8 @@
         </div>
       </div>
     `;
+    const gate = card.querySelector(".gate");
+    if (gate) gate.innerHTML = `<b>${t("ticketSign")}</b><span></span>`;
     card.querySelector('[data-action="collect"]').addEventListener("click", collectTickets);
     card.querySelector('[data-action="feed-lion"]').addEventListener("click", () => feedAnimal("lion"));
     card.querySelector('[data-action="feed-giraffe"]').addEventListener("click", () => {
