@@ -465,6 +465,13 @@
     `;
   }
 
+  function costToken(token, amount) {
+    if (token === "coin") {
+      return `<span class="cost-token"><img class="cost-icon" src="../../assets/coin.png" alt="" draggable="false" /><span>${amount}</span></span>`;
+    }
+    return `<span class="cost-token diamond-token" aria-label="${t("diamondToken")} ${amount}"><i></i><span>${amount}</span></span>`;
+  }
+
   function renderKennel() {
     if (!nodes.kennelGrid) return;
     nodes.kennelGrid.innerHTML = "";
@@ -475,7 +482,7 @@
       card.className = `kennel-card ${owned ? "" : "locked"}`;
       const cost = owned ? upgradeCost(unit.id) : unit.unlockCost;
       const canBuy = owned ? profile.coins >= cost : readDiamonds() >= cost;
-      const tokenLabel = owned ? t("coinToken") : t("diamondToken");
+      const tokenType = owned ? "coin" : "diamond";
       const actionLabel = owned ? t("upgrade") : t("unlock");
       card.innerHTML = `
         <div class="kennel-animal">${animalSprite(unit.id)}</div>
@@ -485,7 +492,7 @@
         </div>
         <button type="button" data-kennel-unit="${unit.id}" ${canBuy ? "" : "disabled"}>
           <span>${actionLabel}</span>
-          <b>${cost} ${tokenLabel}</b>
+          <b>${costToken(tokenType, cost)}</b>
         </button>
       `;
       nodes.kennelGrid.appendChild(card);
@@ -507,7 +514,7 @@
           <span>${t(trained.roleKey)} / ATK ${trained.damage} / HP ${trained.hp} / ${t("sunToken").toUpperCase()} ${trained.cost}</span>
         </div>
         <button type="button" data-kennel-unit="${unit.id}" ${owned || readDiamonds() < unit.unlockCost ? "disabled" : ""}>
-          ${owned ? t("owned") : `<span>${t("unlock")}</span><b>${unit.unlockCost} ${t("diamondToken")}</b>`}
+          ${owned ? t("owned") : `<span>${t("unlock")}</span><b>${costToken("diamond", unit.unlockCost)}</b>`}
         </button>
       `;
       nodes.shopGrid.appendChild(card);
@@ -648,10 +655,15 @@
       cooldown: 0,
       data: unit,
       el: document.createElement("div"),
+      hpEl: document.createElement("span"),
+      facing: "left",
     };
     guard.el.className = "actor";
-    guard.el.innerHTML = `${animalSprite(unit.id)}<span class="hp"><i></i></span>`;
+    guard.el.innerHTML = animalSprite(unit.id);
+    guard.hpEl.className = "hp-bar guard-hp";
+    guard.hpEl.innerHTML = "<i></i>";
     nodes.yardBoard.appendChild(guard.el);
+    nodes.yardBoard.appendChild(guard.hpEl);
     cell.unit = guard;
     entities.push(guard);
     updateEntityElement(guard);
@@ -680,10 +692,14 @@
       biteCooldown: 0,
       warned: false,
       el: document.createElement("div"),
+      hpEl: document.createElement("span"),
     };
     zombie.el.className = `zombie ${data.type}`;
-    zombie.el.innerHTML = `${zombieSprite(data.type)}<span class="hp"><i></i></span>`;
+    zombie.el.innerHTML = zombieSprite(data.type);
+    zombie.hpEl.className = "hp-bar zombie-hp";
+    zombie.hpEl.innerHTML = "<i></i>";
     nodes.yardBoard.appendChild(zombie.el);
+    nodes.yardBoard.appendChild(zombie.hpEl);
     updateEntityElement(zombie);
     zombie.el.classList.add("is-entering");
     window.setTimeout(() => zombie.el.classList.remove("is-entering"), 520);
@@ -741,6 +757,7 @@
     entities.filter((item) => item.kind === "guard").forEach((guard) => {
       guard.cooldown -= dt;
       const target = findTargetForGuard(guard);
+      if (target) faceTarget(guard, target);
       if (target && guard.cooldown <= 0) {
         if (guard.data.attackStyle === "melee") {
           meleeAttack(guard, target);
@@ -756,16 +773,28 @@
   function findTargetForGuard(guard) {
     const stage = stages[currentStage];
     const guardX = cellCenterX(guard.col, stage);
-    const rangeEnd = Math.min(1.08, guardX + guard.data.range / stage.cols);
+    const range = guard.data.range / stage.cols;
+    const rangeStart = Math.max(-0.08, guardX - range);
+    const rangeEnd = Math.min(1.08, guardX + range);
     const rowReach = guard.data.attackStyle === "cross" ? guard.data.targetRows || 1 : 0;
     return entities
       .filter((item) => (
         item.kind === "zombie"
         && Math.abs(item.row - guard.row) <= rowReach
-        && item.x > guardX - 0.012
+        && item.x >= rangeStart
         && item.x <= rangeEnd
       ))
-      .sort((a, b) => Math.abs(a.row - guard.row) - Math.abs(b.row - guard.row) || a.x - b.x)[0];
+      .sort((a, b) => (
+        Math.abs(a.row - guard.row) - Math.abs(b.row - guard.row)
+        || Math.abs(a.x - guardX) - Math.abs(b.x - guardX)
+      ))[0];
+  }
+
+  function faceTarget(guard, target) {
+    const stage = stages[currentStage];
+    const guardX = cellCenterX(guard.col, stage);
+    guard.facing = target.x >= guardX ? "right" : "left";
+    guard.el.classList.toggle("facing-right", guard.facing === "right");
   }
 
   function applyDamage(target, damage, impactType, impactY) {
@@ -783,26 +812,31 @@
   }
 
   function meleeAttack(guard, target) {
+    faceTarget(guard, target);
     pulseClass(guard.el, "is-shooting");
     const y = laneProjectileY(target.row);
     applyDamage(target, guard.data.damage, guard.id, y);
   }
 
   function shoot(guard, target) {
+    faceTarget(guard, target);
     pulseClass(guard.el, "is-shooting");
     const stage = stages[currentStage];
+    const guardX = cellCenterX(guard.col, stage);
+    const direction = target.x >= guardX ? 1 : -1;
     const laneY = laneProjectileY(target.row, stage);
     const projectile = {
       row: target.row,
-      x: Math.min(1.02, cellCenterX(guard.col, stage) + 0.25 / stage.cols),
+      x: clamp(guardX + direction * 0.25 / stage.cols, -0.04, 1.04),
       y: laneY,
-      speed: 0.00095,
+      vx: 0.00095 * direction,
+      direction,
       damage: guard.data.damage,
       unitId: guard.id,
       target,
       el: document.createElement("div"),
     };
-    projectile.el.className = `projectile ${guard.id}`;
+    projectile.el.className = `projectile ${guard.id} ${direction < 0 ? "left" : "right"}`;
     nodes.yardBoard.appendChild(projectile.el);
     projectiles.push(projectile);
     playSound("shoot");
@@ -811,19 +845,22 @@
   function updateProjectiles(dt) {
     projectiles.forEach((shot) => {
       const previousX = shot.x;
-      shot.x += shot.speed * dt;
+      shot.x += shot.vx * dt;
+      const minX = Math.min(previousX, shot.x) - 0.012;
+      const maxX = Math.max(previousX, shot.x) + 0.035;
       const hit = entities.find((item) => (
         item.kind === "zombie"
         && item.row === shot.row
-        && item.x >= previousX - 0.01
-        && item.x <= shot.x + 0.035
+        && item.x >= minX
+        && item.x <= maxX
       ));
       if (hit) {
         applyDamage(hit, shot.damage, shot.unitId, shot.y);
         shot.dead = true;
       }
-      if (shot.x > 1.08) shot.dead = true;
-      shot.el.style.transform = `translate(${shot.x * boardRect.width}px, ${shot.y * boardRect.height}px) translate(-50%, -50%)`;
+      if (shot.x > 1.08 || shot.x < -0.08) shot.dead = true;
+      const flip = shot.direction < 0 ? " scaleX(-1)" : "";
+      shot.el.style.transform = `translate(${shot.x * boardRect.width}px, ${shot.y * boardRect.height}px) translate(-50%, -50%)${flip}`;
     });
     projectiles = projectiles.filter((shot) => {
       if (shot.dead) shot.el.remove();
@@ -867,6 +904,7 @@
       if (entity.hp <= 0) entity.dead = true;
       if (entity.dead) {
         entity.el.remove();
+        entity.hpEl?.remove();
         if (entity.kind === "guard") {
           const cell = cells.find((item) => item.unit === entity);
           if (cell) cell.unit = null;
@@ -884,13 +922,20 @@
       entity.el.style.setProperty("--actor-x", `${x}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
       entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
+      updateHpBar(entity, x, y + (boardRect.height / stage.rows) * 0.35);
     } else {
       const y = laneCenterY(entity.row, stage) * boardRect.height;
       entity.el.style.setProperty("--actor-x", `${entity.x * boardRect.width}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
       entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
+      updateHpBar(entity, entity.x * boardRect.width, y + (boardRect.height / stage.rows) * 0.36);
     }
-    entity.el.querySelector(".hp i").style.width = `${clamp((entity.hp / entity.maxHp) * 100, 0, 100)}%`;
+  }
+
+  function updateHpBar(entity, x, y) {
+    if (!entity.hpEl) return;
+    entity.hpEl.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+    entity.hpEl.querySelector("i").style.width = `${clamp((entity.hp / entity.maxHp) * 100, 0, 100)}%`;
   }
 
   function cellCenterX(col, stage = stages[currentStage]) {

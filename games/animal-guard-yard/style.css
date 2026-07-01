@@ -143,8 +143,9 @@ select {
   border-radius: 22px;
   object-fit: cover;
   object-position: center;
+  display: block;
   border: 4px solid rgba(74, 48, 25, 0.82);
-  box-shadow: 0 12px 0 #6f4621, 0 18px 38px rgba(28, 17, 9, 0.34);
+  box-shadow: 0 16px 34px rgba(28, 17, 9, 0.34);
 }
 
 .menu-copy {
@@ -324,6 +325,39 @@ select {
   color: #154b7e;
   font-size: 0.86rem;
   white-space: nowrap;
+}
+
+.cost-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 46px;
+}
+
+.cost-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 0 rgba(91, 61, 12, 0.18));
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.diamond-token i {
+  width: 22px;
+  height: 22px;
+  display: block;
+  transform: rotate(45deg);
+  border-radius: 6px 2px 6px 2px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0 24%, transparent 25%),
+    linear-gradient(135deg, #bff2ff 0%, #56b7ff 48%, #356cff 100%);
+  box-shadow:
+    inset -3px -4px rgba(23, 71, 172, 0.22),
+    0 2px 0 rgba(48, 74, 148, 0.22);
 }
 
 .kennel-card button span,
@@ -607,21 +641,25 @@ select {
   filter: drop-shadow(0 10px 8px rgba(22, 51, 31, 0.28));
 }
 
-.actor .hp,
-.zombie .hp {
+.hp-bar {
   position: absolute;
-  left: 18%;
-  right: 18%;
-  bottom: 2%;
+  z-index: 10;
+  width: calc(var(--cell-w) * 0.48);
   height: max(3px, calc(var(--cell-h) * 0.032));
   overflow: hidden;
   border-radius: 999px;
   background: rgba(80, 22, 22, 0.2);
-  box-shadow: 0 1px 2px rgba(45, 18, 18, 0.2);
+  box-shadow: 0 1px 2px rgba(45, 18, 18, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+  will-change: transform;
 }
 
-.actor .hp i,
-.zombie .hp i {
+.hp-bar.zombie-hp {
+  width: calc(var(--cell-w) * 0.52);
+  z-index: 11;
+}
+
+.hp-bar i {
   display: block;
   height: 100%;
   width: 100%;
@@ -746,6 +784,15 @@ select {
   position: absolute;
   inset: 0;
   display: block;
+}
+
+.animal-sprite {
+  transform-origin: center;
+  transition: transform 0.14s ease;
+}
+
+.actor.facing-right .animal-sprite {
+  transform: scaleX(-1);
 }
 
 .animal-sprite img,
