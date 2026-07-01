@@ -698,6 +698,8 @@
     drop.textContent = "\u2600";
     drop.style.left = `${12 + Math.random() * 72}%`;
     drop.style.top = `${10 + Math.random() * 58}%`;
+    const sunLife = Math.max(2600, 4600 - currentStage * 450);
+    drop.style.setProperty("--sun-life", `${sunLife}ms`);
     drop.addEventListener("click", () => {
       energy += 35;
       drop.remove();
@@ -706,7 +708,7 @@
       playSound("coin");
     }, { once: true });
     nodes.yardBoard.appendChild(drop);
-    window.setTimeout(() => drop.remove(), Math.max(2600, 4600 - currentStage * 450));
+    window.setTimeout(() => drop.remove(), sunLife);
     if (stage.total - spawned < 3) energy += 5;
   }
 

@@ -8,6 +8,12 @@
   touch-action: manipulation;
 }
 
+@property --sun-left {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
@@ -1000,6 +1006,7 @@ select {
 }
 
 .energy-drop {
+  --sun-life: 4200ms;
   width: clamp(28px, calc(var(--cell-w) * 0.46), 44px);
   aspect-ratio: 1;
   border: 0;
@@ -1010,6 +1017,22 @@ select {
   font-size: clamp(1rem, calc(var(--cell-w) * 0.26), 1.35rem);
   pointer-events: auto;
   animation: bob 1.1s ease-in-out infinite alternate;
+}
+
+.energy-drop::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  padding: 2px;
+  background: conic-gradient(#57f07b var(--sun-left, 100%), rgba(142, 150, 142, 0.72) 0);
+  filter: drop-shadow(0 0 5px rgba(88, 240, 123, 0.5));
+  pointer-events: none;
+  animation: sun-ring-countdown var(--sun-life) linear forwards;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
 }
 
 .floating {
@@ -1155,6 +1178,17 @@ select {
 @keyframes bob {
   from { transform: translate(-50%, -50%); }
   to { transform: translate(-50%, calc(-50% - 7px)); }
+}
+
+@keyframes sun-ring-countdown {
+  from {
+    --sun-left: 100%;
+    filter: drop-shadow(0 0 5px rgba(88, 240, 123, 0.5));
+  }
+  to {
+    --sun-left: 0%;
+    filter: drop-shadow(0 0 2px rgba(142, 150, 142, 0.25));
+  }
 }
 
 @keyframes float-out {
