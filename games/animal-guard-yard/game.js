@@ -595,11 +595,12 @@
   function shoot(guard, target) {
     pulseClass(guard.el, "is-shooting");
     const stage = stages[currentStage];
+    const laneY = laneProjectileY(guard.row, stage);
     const projectile = {
       row: guard.row,
       x: (guard.col + 0.76) / stage.cols,
-      y: (guard.row + 0.5) / stage.rows,
-      speed: 0.00105,
+      y: laneY,
+      speed: 0.00095,
       damage: guard.data.damage,
       unitId: guard.id,
       target,
@@ -624,13 +625,13 @@
       if (hit) {
         hit.hp -= shot.damage;
         pulseClass(hit.el, "is-hit");
-        spawnImpact(hit.x, (hit.row + 0.5) / stages[currentStage].rows, shot.unitId);
-        showBoardText(`-${shot.damage}`, hit.x, (hit.row + 0.26) / stages[currentStage].rows);
+        spawnImpact(hit.x, shot.y, shot.unitId);
+        showBoardText(`-${shot.damage}`, hit.x, Math.max(0.06, shot.y - 0.08));
         if (hit.hp <= 0 && !hit.rewarded) {
           hit.rewarded = true;
           const coinGain = hit.type === "boss" ? 30 : hit.type === "shield" ? 8 : hit.type === "fast" ? 5 : 6;
           coinsEarned += coinGain;
-          showBoardText(`+${coinGain}`, hit.x, (hit.row + 0.36) / stages[currentStage].rows);
+          showBoardText(`+${coinGain}`, hit.x, shot.y + 0.02);
         }
         shot.dead = true;
         playSound("hit");
@@ -688,17 +689,25 @@
     const stage = stages[currentStage];
     if (entity.kind === "guard") {
       const x = ((entity.col + 0.5) / stage.cols) * boardRect.width;
-      const y = ((entity.row + 0.5) / stage.rows) * boardRect.height;
+      const y = laneCenterY(entity.row, stage) * boardRect.height;
       entity.el.style.setProperty("--actor-x", `${x}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
-      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
+      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -82%)";
     } else {
-      const y = ((entity.row + 0.5) / stage.rows) * boardRect.height;
+      const y = laneCenterY(entity.row, stage) * boardRect.height;
       entity.el.style.setProperty("--actor-x", `${entity.x * boardRect.width}px`);
       entity.el.style.setProperty("--actor-y", `${y}px`);
-      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -50%)";
+      entity.el.style.transform = "translate(var(--actor-x), var(--actor-y)) translate(-50%, -82%)";
     }
     entity.el.querySelector(".hp i").style.width = `${clamp((entity.hp / entity.maxHp) * 100, 0, 100)}%`;
+  }
+
+  function laneCenterY(row, stage = stages[currentStage]) {
+    return (row + 0.62) / stage.rows;
+  }
+
+  function laneProjectileY(row, stage = stages[currentStage]) {
+    return (row + 0.5) / stage.rows;
   }
 
   function pulseClass(element, className) {
@@ -789,7 +798,7 @@
 
   function initLoading() {
     const assets = [
-      "../../assets/animal-guard-yard-cover.svg",
+      "../../assets/animal-guard-yard-poster.png",
       ...Object.values(spriteAssets),
       "../../assets/menu-battle.png",
       "../../assets/menu-character.png",

@@ -542,8 +542,8 @@ select {
 }
 
 .actor {
-  width: 12.5%;
-  height: 22.5%;
+  width: 10.5%;
+  height: 22%;
   filter: drop-shadow(0 10px 8px rgba(22, 51, 31, 0.28));
 }
 
@@ -603,13 +603,13 @@ select {
 }
 
 .zombie {
-  width: 12.5%;
-  height: 22.5%;
+  width: 10.8%;
+  height: 22%;
   filter: drop-shadow(0 10px 8px rgba(29, 50, 32, 0.32));
 }
 
 .zombie.boss {
-  width: 18%;
+  width: 15.5%;
   height: 31%;
   filter: drop-shadow(0 15px 12px rgba(29, 50, 32, 0.38));
 }
@@ -1034,14 +1034,14 @@ select {
 
 @keyframes guard-shoot {
   0% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -50%) scale(1);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) scale(1);
   }
   45% {
     filter: drop-shadow(0 12px 9px rgba(22, 51, 31, 0.3)) brightness(1.12);
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-43%, -50%) scale(1.08);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-43%, -82%) scale(1.08);
   }
   100% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -50%) scale(1);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) scale(1);
   }
 }
 
@@ -1050,27 +1050,27 @@ select {
     filter: brightness(1.35) drop-shadow(0 10px 8px rgba(29, 50, 32, 0.28));
   }
   35% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-54%, -50%) rotate(-2deg) scale(1.05);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-54%, -82%) rotate(-2deg) scale(1.05);
   }
   70% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-47%, -50%) rotate(2deg) scale(0.98);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-47%, -82%) rotate(2deg) scale(0.98);
   }
   100% {
     filter: drop-shadow(0 10px 8px rgba(29, 50, 32, 0.32));
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -50%) rotate(0deg) scale(1);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) rotate(0deg) scale(1);
   }
 }
 
 @keyframes zombie-bite {
   0% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -50%) scale(1);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) scale(1);
   }
   50% {
     filter: brightness(1.08) drop-shadow(0 12px 10px rgba(29, 50, 32, 0.34));
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-60%, -50%) scale(1.08);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-60%, -82%) scale(1.08);
   }
   100% {
-    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -50%) scale(1);
+    transform: translate(var(--actor-x, 0), var(--actor-y, 0)) translate(-50%, -82%) scale(1);
   }
 }
 
