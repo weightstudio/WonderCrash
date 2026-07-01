@@ -394,6 +394,18 @@ body.lobby-page {
   backdrop-filter: blur(10px);
 }
 
+.skill-filter {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  margin: 0 0 12px;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 220, 122, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(255, 220, 122, 0.12), rgba(255, 255, 255, 0.035));
+  backdrop-filter: blur(10px);
+}
+
 .library-tabs {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -414,6 +426,7 @@ body.lobby-page {
 
 .age-filter button,
 .topic-filter button,
+.skill-filter button,
 .library-tabs button {
   min-width: 64px;
   height: 42px;
@@ -431,8 +444,14 @@ body.lobby-page {
   padding: 0 14px;
 }
 
+.skill-filter button {
+  min-width: max-content;
+  padding: 0 14px;
+}
+
 .age-filter button.active,
 .topic-filter button.active,
+.skill-filter button.active,
 .library-tabs button.active {
   border-color: rgba(255, 220, 122, 0.86);
   background: linear-gradient(180deg, #ffeaa0, #ffbf42);

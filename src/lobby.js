@@ -1,6 +1,7 @@
 const lobby = window.WONDER_LOBBY;
 const filterButtons = document.querySelectorAll("[data-age-filter]");
 const topicButtons = document.querySelectorAll("[data-topic-filter]");
+const skillButtons = document.querySelectorAll("[data-skill-filter]");
 const libraryButtons = document.querySelectorAll("[data-library-tab]");
 const gameGrid = document.querySelector("#gameGrid");
 const heroGames = document.querySelector("#heroGames");
@@ -25,6 +26,7 @@ const walletBar = document.querySelector("#walletBar");
 const dailyRewardTrack = [5, 6, 8, 10, 12, 15, 25];
 let activeFilter = "all";
 let activeTopic = "all";
+let activeSkill = "all";
 let activeLibrary = "all";
 let toastTimer = null;
 let favoriteGameIds = readFavorites();
@@ -408,21 +410,23 @@ function applyFilter() {
   document.querySelectorAll("[data-age]").forEach((card) => {
     const ages = card.dataset.age.split(" ");
     const topics = card.dataset.topic ? card.dataset.topic.split("|") : [];
+    const skills = card.dataset.skill ? card.dataset.skill.split("|") : [];
     const matchesAge = activeFilter === "all" || ages.includes(activeFilter);
     const matchesTopic = activeTopic === "all" || topics.includes(activeTopic);
+    const matchesSkill = activeSkill === "all" || skills.includes(activeSkill);
     const matchesLibrary = activeLibrary === "all" || card.dataset.favorite === "true";
-    const isVisible = matchesAge && matchesTopic && matchesLibrary;
+    const isVisible = matchesAge && matchesTopic && matchesSkill && matchesLibrary;
     card.classList.toggle("hidden", !isVisible);
     if (isVisible) visibleCount += 1;
   });
 
-  const isFiltered = activeFilter !== "all" || activeTopic !== "all" || activeLibrary !== "all";
+  const isFiltered = activeFilter !== "all" || activeTopic !== "all" || activeSkill !== "all" || activeLibrary !== "all";
   heroGamesSection.classList.toggle("hidden", isFiltered);
   filterStatus.classList.toggle("empty", visibleCount === 0);
 
   if (visibleCount === 0) {
     filterStatus.textContent = activeLibrary === "favorites" ? i18n.t("status.no_favorites") : i18n.t("status.no_games");
-  } else if (activeLibrary === "favorites" && activeFilter === "all" && activeTopic === "all") {
+  } else if (activeLibrary === "favorites" && activeFilter === "all" && activeTopic === "all" && activeSkill === "all") {
     filterStatus.textContent = i18n.t(visibleCount > 1 ? "status.favorite_games" : "status.favorite_games_one", {
       count: visibleCount,
     });
@@ -484,6 +488,17 @@ topicButtons.forEach((button) => {
     window.WonderSound?.play("click");
     window.WonderAnalytics?.track("topic_filter", { topic_filter: activeTopic, locale: i18n.locale() });
     topicButtons.forEach((item) => item.classList.toggle("active", item === button));
+    applyFilter();
+  });
+});
+
+skillButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeSkill = button.dataset.skillFilter;
+
+    window.WonderSound?.play("click");
+    window.WonderAnalytics?.track("skill_filter", { skill_filter: activeSkill, locale: i18n.locale() });
+    skillButtons.forEach((item) => item.classList.toggle("active", item === button));
     applyFilter();
   });
 });
