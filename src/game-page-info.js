@@ -625,7 +625,7 @@
     if (!baseGame || !game || !main) return;
 
     document.querySelector(".game-page-info")?.remove();
-    document.querySelector("script[data-game-page-info-jsonld]")?.remove();
+    document.querySelectorAll("script[data-game-page-info-jsonld]").forEach((node) => node.remove());
 
     document.body.classList.add("has-game-page-info");
     const related = relatedGames(id, baseGame);
@@ -702,7 +702,7 @@
     `;
     main.insertAdjacentElement("afterend", section);
 
-    const jsonLd = {
+    const faqJsonLd = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       mainEntity: game.faq.map(([name, text]) => ({
@@ -711,11 +711,24 @@
         acceptedAnswer: { "@type": "Answer", text },
       })),
     };
-    const script = document.createElement("script");
-    script.type = "application/ld+json";
-    script.dataset.gamePageInfoJsonld = "true";
-    script.textContent = JSON.stringify(jsonLd);
-    document.head.appendChild(script);
+    const origin = location.origin || "https://weightplay.com";
+    const homeUrl = new URL(location.pathname.includes("/weightplay/") ? "/weightplay/" : "/", origin).href;
+    const gameUrl = new URL(gameHref(id), origin).href;
+    const breadcrumbJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "WeightPlay", item: homeUrl },
+        { "@type": "ListItem", position: 2, name: game.title, item: gameUrl },
+      ],
+    };
+    [faqJsonLd, breadcrumbJsonLd].forEach((jsonLd) => {
+      const script = document.createElement("script");
+      script.type = "application/ld+json";
+      script.dataset.gamePageInfoJsonld = "true";
+      script.textContent = JSON.stringify(jsonLd);
+      document.head.appendChild(script);
+    });
   }
 
   window.WeightPlayGameInfo = {
