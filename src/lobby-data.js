@@ -237,7 +237,7 @@
       },
       art: {
         kind: "image",
-        background: "assets/garden-tiles-cover.svg",
+        background: "assets/garden-tiles-cover.png",
         hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
       },
     },
@@ -287,7 +287,7 @@
       },
       art: {
         kind: "image",
-        background: "assets/animal-hidden-safari-cover.svg",
+        background: "assets/animal-hidden-safari-cover.png",
         hero: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1' height='1'></svg>",
       },
     },
